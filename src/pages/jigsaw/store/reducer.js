@@ -7,36 +7,43 @@ import {
 
 const defaultState = {
   roomId: 114512,
-  picKind: 2,
-  difficult: 4,
+  roomName: "我们是白给天团哈哈哈哈哈",  
+  picKind: 0,
+  difficult: 5,
+  endTime: Math.round(new Date() / 1000)+70,
   jigsawList: [    
-    [0, 2, 3, 0],
-    [0, 6, 0, 8],
-    [9, 10, 11, 12],
-    [13, 14, 15, 16]
+    [0,2,3,0,0],
+    [6,0,8,9,10],
+    [11,12,13,14,15],
+    [16,17,18,19,0],
+    [21,22,23,24,25]
   ],
-  pics: [1, 4, 5, 7],
+  pics: [1, 4, 5, 7, 20],
   members: [
     {
       username: "蔡徐坤",
-      color: "#07E6FF",
-      identity: "leader"
+      identity: "leader",
+      userId: 12,
+      id: 1,
     },
     {
       username: "吴亦凡",
-      color: "#fff",
-      identity: "member"
+      identity: "member",
+      userId: 13,
+      id: 2,
     },
     {
       username: "王源",
-      color: "#fff",
-      identity: "member"
+      identity: "member",
+      userId: 14,
+      id: 3,
     },
     {
       username: "赵子琦",
-      color: "#fff",
-      identity: "member"
-    }
+      identity: "member",
+      userId: 15,
+      id: 4,
+    },
   ]
 };
 

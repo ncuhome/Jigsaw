@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from "react"
 import {connect} from 'react-redux'
 import {
-  MainContent,
-  Header,
   JigArea,
   Slice,
   Row,
   SelectArea,
   Pics,
-  OverButton
+  Content
 } from './style'
-import Members from "./components/Members"
+import Members from "./components/Members.jsx"
+import Header from "./components/Header.jsx"
+import Countdown from "./components/Countdown.jsx"
 import {actionCreator} from "./store"
 import {listenList, sendListChange} from "../../lib/ws"
+import colorMap from "../../lib/colorMap"
 
 const pictures = [
   "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562336127688&di=8b3b64da7ea88ddb1a14b95b9ba2e7cc&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F29%2F20170529020618_QMZXK.jpeg",
@@ -25,7 +26,13 @@ function JigsawPage(props) {
   const [handleRow, setHandleRow] = useState(null);
   const [handleColumn, setHandleColumn] = useState(null);
   const [handleNumber, sethandleNumber] = useState(0);
-  const {picKind, jigsawList, pics, membersList, difficult} = props;
+
+  const [otherSelectRow, setOtherSelectRow] = useState(null);
+  const [otherSelectColum, setOtherSelectColum] = useState(null);
+  const [otherSelectValue, setOtherSelectValue] = useState(null);
+  const [otherSelectUserId, setOtherSelectUserId] = useState(null);
+
+  const {picKind, jigsawList, pics, membersList, difficult, roomName, endTime} = props;
 
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
@@ -33,7 +40,8 @@ function JigsawPage(props) {
         list: jigsawList,
         handleRow,
         handleColumn,
-        user: "蔡徐坤"
+        handleValue,
+        id: 2
       }
     ))
   }, [handleNumber]);
@@ -42,6 +50,10 @@ function JigsawPage(props) {
     listenList(data => {
       const res = JSON.parse(data)
       props.changeList(res.list)
+      setOtherSelectRow(res.handleRow)
+      setOtherSelectColum(res.handleColum)
+      setOtherSelectUserId(res.id)
+      setOtherSelectValue(res.handleValue)
       console.log(res)
     })
   }, []);
@@ -71,9 +83,13 @@ function JigsawPage(props) {
   };
 
   const MyColor = () => {
-    let result
-    membersList.map(item => item.username === "蔡徐坤" && (result = item.color))
-    return result
+    let id
+    membersList.map(item => item.username === "蔡徐坤" && (id = item.id))
+    return colorMap[id]
+  }
+
+  const otherColor = () => {
+    return colorMap[otherSelectUserId]
   }
 
   const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {
@@ -122,57 +138,72 @@ function JigsawPage(props) {
     setHandleColumn(null);
   };
 
-  const otherAction = item => {
-    
+  const otherActionSlice = (rowIndex, columnIndex) => {
+    if(otherSelectRow === rowIndex && otherSelectColum === columnIndex){
+      return otherColor()
+    }else{
+      return '#CDCDCD'
+    }
   }
 
-  const handleClickButton = () => {
-    console.log(jigsawList)
+  const otherActionPics = (value) => {
+    if(otherSelectValue === value){
+      return otherColor()
+    }
   }
 
   return (
-    <MainContent>
-      <Header>那咋办啊</Header>
-      <JigArea>
-        {jigsawList.map((rowItem, rowIndex) => (
-          <Row key={rowIndex}>
-            {rowItem.map((item, columnIndex) => (
-              <Slice key={columnIndex}
-                     ifZero={item === 0}
-                     bgUrl={pictures[picKind]}
-                     same={ListHavePics(item)}
-                     positionX={cutSliceX(item)}
-                     positionY={cutSliceY(item)}
-                     len={length()}
-                     MyColor={MyColor()}
-                     active={handleValue !== 0 && handleValue === item}
-                     onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
-              />
-            ))}
-          </Row>
-        ))}
-      </JigArea>
-      <SelectArea>
-        {pics.map(item => (
-          <Pics key={item}
-                bgUrl={pictures[picKind]}
-                positionX={cutSliceX(item)}
-                positionY={cutSliceY(item)}
-                active={handleValue === item}
-                MyColor={MyColor()}
-                len={length()}
-                finish={selectAlready(item)}
-                onClick={() => handlePic(item)}
-          />
-        ))}
-      </SelectArea>
-      <OverButton onClick={()=>handleClickButton()}>完成并提交</OverButton>
-    </MainContent>
+    <div>
+      <Header roomName={roomName}/>
+      <Content>
+        <JigArea>
+          {jigsawList.map((rowItem, rowIndex) => (
+            <Row key={rowIndex}>
+              {rowItem.map((item, columnIndex) => (
+                <Slice key={`slice(${rowIndex},${columnIndex})`}
+                      ifZero={item === 0}
+                      bgUrl={pictures[picKind]}
+                      same={ListHavePics(item)}
+                      positionX={cutSliceX(item)}
+                      positionY={cutSliceY(item)}
+                      len={length()}
+                      MyColor={MyColor()}
+                      otherColor={otherActionSlice(rowIndex, columnIndex)}
+                      active={handleValue !== 0 && handleValue === item}
+                      onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                />
+              ))}
+            </Row>
+          ))}
+        </JigArea>
+        <Countdown endTime={endTime}/>
+        <Members membersList={membersList}
+                 difficult={difficult}
+        />
+        <SelectArea>
+          {pics.map(item => (
+            <Pics key={`pics(${item})`}
+                  bgUrl={pictures[picKind]}
+                  positionX={cutSliceX(item)}
+                  positionY={cutSliceY(item)}
+                  active={handleValue === item}
+                  MyColor={MyColor()}
+                  otherColor={otherActionPics(item)}
+                  len={length()}
+                  finish={selectAlready(item)}
+                  onClick={() => handlePic(item)}
+            />
+          ))}
+        </SelectArea>
+      </Content>
+    </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
+    endTime: state.jigsaw.endTime,
+    roomName: state.jigsaw.roomName,
     difficult: state.jigsaw.difficult,
     membersList: state.jigsaw.members,
     picKind: state.jigsaw.picKind,
