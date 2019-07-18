@@ -1,7 +1,24 @@
 import styled from 'styled-components'
-import input from './img/input.svg'
-import whitebtn from './img/whitebtn.svg'
-import angel from './img/angel_shadow.png'
+import Picture1 from './img/loginImg1.svg'
+import LittleImge from './img/loginImg2.svg'
+
+export const MainPicture = styled.div`
+  position: absolute;
+  right: 0;
+  top: 15vh;
+  width: 255px;
+  height: 464px;
+  background: url(${Picture1});
+`
+
+export const SecondPicture = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 219px;
+  height: 222px;
+  background: url(${LittleImge});
+`
 
 export const LoginWrapper = styled.div`
   position: absolute;
@@ -11,62 +28,65 @@ export const LoginWrapper = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow: hidden;
   background: #fff;
-  filter: drop-shadow(0 0 10px rgba(58,58,58,.27));
 `
 
 export const Content = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 8vh;
+  z-index: 1;
 `
 
 export const Title = styled.div`
-  height: 66px;
-  width: 228px;
-  margin-bottom: 10px;
-  background: url('https://ncustatic.ncuos.com/index/1558266589924.rsafcaasdsa.png') no-repeat;
-  background-size: 100%;
+  height: 98px;
+  width: 324px;
+  font-size: 35px;
+  font-weight: 800;
+  color: #535353;
+  line-height: 49px;
+  letter-spacing: 1px;
+  margin-bottom: 41px;
 `
 
 export const InputBox = styled.div`
-  height: 61px;
-  width: 299px;
-  margin-top: 20px;
-  background: url(${input});
+  display: flex;
+  align-items: center;
+  height: 45px;
+  width: 319px;
+  margin-top: 31px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #F2F2F2;
   position: relative;
+  color: #696969;
+  font-size: 18px;
+  box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
   input {
-    position: absolute;
-    left: 94px;
-    top: 22px;
+    height: 30px;
+    line-height: 30px;
     letter-spacing: .8px;
-    background: none;
-    color: #fff;
-    width: 160px;
-    font-size: 16px;
+    font-size: 18px;
+    color: #696969;
   }
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0;
+  input::-webkit-input-placeholder {
+    height: 30px;
+    color: #BCBCBC;
   }
 `
 
 export const InputName = styled.div`
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  height: 18px;
+  display: flex;
+  align-items: center;
+  height: 25px;
   width: 40px;
   text-align: center;
-  line-height: 18px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
+  font-weight: 500;
+  margin: 0 14px;
 `
 
 export const Prompt = styled.div`
@@ -76,46 +96,24 @@ export const Prompt = styled.div`
   line-height: 20px;
   font-size: 15px;
   text-align: center;
-  color: #ff3c79;
+  color: #2e2e2e;
   letter-spacing: 1.2px;
 `
 
 export const LoginBtn = styled.div`
-  height: 60px;
-  width: 200px;
-  margin-top: 20px;
-  line-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  width: 109px;
+  margin-top: 30px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
-  background: url(${whitebtn});
-`
-
-export const TotemBox = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`
-
-export const Totem = styled.div`
-  height: 110px;
-  background: url(${angel}) repeat-x;
-  background-size: 120px;
-  background-position-x: ${props=>(props.position==="right" && "55px")}; 
-`
-
-export const Filter = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: 
-    linear-gradient(
-      rgba(255, 255, 255, 1) 30%,
-      rgba(255, 255, 255, 0) 100%
-    );
+  background: #494C4F;
+  color: #fff;
+  border-radius: 22.5px;
+  box-shadow: 0 13px 16px 0 rgba(0,0,0,.19);
 `
 
 export const BottomText = styled.div`

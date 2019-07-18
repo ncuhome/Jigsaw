@@ -2,13 +2,14 @@ import React from 'react';
 import {
   BottomText,
   Content,
-  Filter,
   InputBox,
   InputName,
   LoginBtn,
   LoginWrapper,
   Prompt,
   Title,
+  MainPicture,
+  SecondPicture
 } from './style'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -18,9 +19,12 @@ function LoginPage(props) {
   const { userId, password, token, message } = props
   return (
     <LoginWrapper>
-      <Filter />
+      <MainPicture />
+      <SecondPicture />
       <Content>
-        <Title />
+        <Title>
+          许多人可以一起玩的拼图游戏
+        </Title>
         <InputBox>
           <InputName>学号</InputName>
           <input

@@ -205,6 +205,7 @@ function JigsawPage(props) {
 const mapStateToProps = state => {
   return {
     token: state.login.token,
+    
     endTime: state.jigsaw.endTime,
     roomName: state.jigsaw.roomName,
     difficult: state.jigsaw.difficult,

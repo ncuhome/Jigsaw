@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import btnred from './img/btn-red.svg'
 import btnblack from './img/btn-black.svg'
 
 export const HomeWarpper = styled.div`
@@ -10,46 +9,68 @@ export const HomeWarpper = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  filter: drop-shadow(0 0 10px rgba(58,58,58,.27));
 `
 
-
-export const Btnred = styled.div`
-  height: 76px;
-  width: 206px;
-  background: url(${btnred});
-  font-size: 23px;
+export const Text = styled.div`
+  font-size: 30px;
+  width: 124px;
+  height: 42px;
+  line-height: 42px;
   font-weight: 500;
-  line-height: 76px;
-  text-align: center;
-  color: #fff;
-  letter-spacing: 2px;
-`
-
-export const Btnblack = styled.div`
-  height: 58px;
-  width: 193px;
-  margin-top: 5px;
-  background: url(${btnblack});
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 58px;
-  text-align: center;
-  color: #fff;
+  color: #535353;
   letter-spacing: 1px;
+  text-align: center;
+  margin: auto;
+  color: #535353;
+`
+
+export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 228px;
+  margin-left: auto;
+  margin-right: 36px;
 `
 
 export const Name = styled.div`
-  width: 200px;
-  height: 30px;
-  font-size: 23px;
+  width: 162px;
+  height: 75px;
+  line-height: 75px;
+  font-size: 54px;
   font-weight: 500;
-  top: 40px;
-  text-align: center;
-  color: #464646;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+  color: #404040;
+`
+
+export const Title = styled.div`
+  width: 86vw;
+  margin-top: 8vh;
+`
+
+export const Welcome = styled.div`
+  width: 99px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #7F7F7F;
+  letter-spacing: 1px;
+`
+
+export const Item = styled.div`
+  position: relative;
+  width: 140px;
+  height: 42px;
+`
+
+export const ColorBar = styled.div`
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  width: 140px;
+  height: 17px;
+  border-radius: 8.5px;
+  background: ${props => props.color}
 `
