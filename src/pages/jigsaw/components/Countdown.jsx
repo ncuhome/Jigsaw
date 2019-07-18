@@ -11,7 +11,8 @@ function Countdowm({endTime}) {
 	const [time, setTime] = useState(Math.round(new Date() / 1000))
 
 	useEffect(() => {
-		setInterval(()=>setTime(Math.round(new Date() / 1000)), 1000)
+    const ca = setInterval(()=>setTime(Math.round(new Date() / 1000)), 1000)
+    time <= 0 && clearInterval(ca)
 	})
 
   const showTime = () => {

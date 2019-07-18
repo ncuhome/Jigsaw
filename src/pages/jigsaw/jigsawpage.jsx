@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react"
-import {connect} from 'react-redux'
+import React, { useState, useEffect } from "react"
+import { connect } from 'react-redux'
 import {
   JigArea,
   Slice,
@@ -11,8 +11,9 @@ import {
 import Members from "./components/Members.jsx"
 import Header from "./components/Header.jsx"
 import Countdown from "./components/Countdown.jsx"
-import {actionCreator} from "./store"
-import {listenList, sendListChange} from "../../lib/ws"
+import { actionCreator } from "./store"
+import { Redirect } from 'react-router-dom'
+import { listenList, sendListChange } from "../../lib/ws"
 import colorMap from "../../lib/colorMap"
 
 const pictures = [
@@ -32,7 +33,7 @@ function JigsawPage(props) {
   const [otherSelectValue, setOtherSelectValue] = useState(null);
   const [otherSelectUserId, setOtherSelectUserId] = useState(null);
 
-  const {picKind, jigsawList, pics, membersList, difficult, roomName, endTime} = props;
+  const { token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime } = props;
 
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
@@ -129,7 +130,7 @@ function JigsawPage(props) {
   };
 
   const handlePic = item => {
-    if(handleRow !== null && handleValue !== 0 && handleValue === item){
+    if (handleRow !== null && handleValue !== 0 && handleValue === item) {
       props.changeSliceJTP(handleRow, handleColumn);
       sethandleNumber(handleNumber + 1)
     }
@@ -139,69 +140,71 @@ function JigsawPage(props) {
   };
 
   const otherActionSlice = (rowIndex, columnIndex) => {
-    if(otherSelectRow === rowIndex && otherSelectColum === columnIndex){
+    if (otherSelectRow === rowIndex && otherSelectColum === columnIndex) {
       return otherColor()
-    }else{
+    } else {
       return '#CDCDCD'
     }
   }
 
   const otherActionPics = (value) => {
-    if(otherSelectValue === value){
+    if (otherSelectValue === value) {
       return otherColor()
     }
   }
 
   return (
     <div>
-      <Header roomName={roomName}/>
+      <Header roomName={roomName} />
       <Content>
         <JigArea>
           {jigsawList.map((rowItem, rowIndex) => (
             <Row key={rowIndex}>
               {rowItem.map((item, columnIndex) => (
                 <Slice key={`slice(${rowIndex},${columnIndex})`}
-                      ifZero={item === 0}
-                      bgUrl={pictures[picKind]}
-                      same={ListHavePics(item)}
-                      positionX={cutSliceX(item)}
-                      positionY={cutSliceY(item)}
-                      len={length()}
-                      MyColor={MyColor()}
-                      otherColor={otherActionSlice(rowIndex, columnIndex)}
-                      active={handleValue !== 0 && handleValue === item}
-                      onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                  ifZero={item === 0}
+                  bgUrl={pictures[picKind]}
+                  same={ListHavePics(item)}
+                  positionX={cutSliceX(item)}
+                  positionY={cutSliceY(item)}
+                  len={length()}
+                  MyColor={MyColor()}
+                  otherColor={otherActionSlice(rowIndex, columnIndex)}
+                  active={handleValue !== 0 && handleValue === item}
+                  onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
                 />
               ))}
             </Row>
           ))}
         </JigArea>
-        <Countdown endTime={endTime}/>
+        <Countdown endTime={endTime} />
         <Members membersList={membersList}
-                 difficult={difficult}
+          difficult={difficult}
         />
         <SelectArea>
           {pics.map(item => (
             <Pics key={`pics(${item})`}
-                  bgUrl={pictures[picKind]}
-                  positionX={cutSliceX(item)}
-                  positionY={cutSliceY(item)}
-                  active={handleValue === item}
-                  MyColor={MyColor()}
-                  otherColor={otherActionPics(item)}
-                  len={length()}
-                  finish={selectAlready(item)}
-                  onClick={() => handlePic(item)}
+              bgUrl={pictures[picKind]}
+              positionX={cutSliceX(item)}
+              positionY={cutSliceY(item)}
+              active={handleValue === item}
+              MyColor={MyColor()}
+              otherColor={otherActionPics(item)}
+              len={length()}
+              finish={selectAlready(item)}
+              onClick={() => handlePic(item)}
             />
           ))}
         </SelectArea>
       </Content>
+      {token === '' ? <Redirect to="/login/" /> : null}
     </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
+    token: state.login.token,
     endTime: state.jigsaw.endTime,
     roomName: state.jigsaw.roomName,
     difficult: state.jigsaw.difficult,
@@ -215,13 +218,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeSlicePTJ(PTJRowIndex, PTJColumnIndex, PTJHandleValue) {
-      dispatch(actionCreator.picToJig({PTJRowIndex, PTJColumnIndex, PTJHandleValue}))
+      dispatch(actionCreator.picToJig({ PTJRowIndex, PTJColumnIndex, PTJHandleValue }))
     },
     changeSliceJTJ(JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn) {
-      dispatch(actionCreator.jigToJig({JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn}))
+      dispatch(actionCreator.jigToJig({ JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn }))
     },
     changeSliceJTP(JTPRowIndex, JTPColumnIndex) {
-      dispatch(actionCreator.jigToPic({JTPRowIndex, JTPColumnIndex}))
+      dispatch(actionCreator.jigToPic({ JTPRowIndex, JTPColumnIndex }))
     },
     changeList(data) {
       dispatch(actionCreator.setChange(data))

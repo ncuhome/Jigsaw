@@ -10,7 +10,7 @@ const defaultState = {
   roomName: "我们是白给天团哈哈哈哈哈",  
   picKind: 0,
   difficult: 5,
-  endTime: Math.round(new Date() / 1000)+70,
+  endTime: Math.round(new Date() / 1000)+300,
   jigsawList: [    
     [0,2,3,0,0],
     [6,0,8,9,10],

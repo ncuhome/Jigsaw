@@ -1,18 +1,14 @@
 import {
-  ON_CHANGE_USERNAME,
+  ON_CHANGE_USERID,
   ON_CHANGE_PASSWORD,
   SET_TOKEN,
   SET_NAME,
-  SET_ID,
-  UPDATE_MSG,
-  SET_SEX,
-  GET_MY_SETIDS
+  UPDATE_MSG
 } from './constants'
 import post from '../../../lib/post'
-import get from '../../../lib/get'
 
-export const onUsernameChangeAction = (value) => ({
-  type: ON_CHANGE_USERNAME,
+export const onUserIdChangeAction = (value) => ({
+  type: ON_CHANGE_USERID,
   value
 })
 
@@ -21,48 +17,34 @@ export const onPasswordChangeAction = (value) => ({
   value
 })
 
-export const setNameAction = value => ({
-  type: SET_NAME,
-  value
-})
-// const loginAction = (token) => {
-//   type: LOGIN
-// }
-
-export const loginAsyncAction = (username, password) => {
+export const loginAsyncAction = (userId, password) => {
   return dispatch => {
     let data = {
-      username,
+      userId,
       password
     }
     new Promise(resolve => {
       let ret = post('/api/user/login', data, '')
       resolve(ret)
     })
-    .then(ret => {
-      dispatch(setTokenAction(ret.token))
-      dispatch(setNameAction(ret.name))
-      dispatch(updateStatusMessage(ret.message))
-      dispatch(setSexAction(ret.sex))
-    })
-    .catch(err => {
-      throw new Error(err)
-    })
+      .then(ret => {
+        dispatch(setTokenAction(ret.token))
+        dispatch(setUserNameAction(ret.username))
+        dispatch(updateStatusMessage(ret.message))
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
   }
 }
 
+export const setUserNameAction = value => ({
+  type: SET_NAME,
+  value
+})
+
 export const setTokenAction = (value) => ({
   type: SET_TOKEN,
-  value
-})
-
-export const setIdAction = value => ({
-  type: SET_ID,
-  value
-})
-
-export const setSexAction = value => ({
-  type: SET_SEX,
   value
 })
 
@@ -70,30 +52,3 @@ export const updateStatusMessage = value => ({
   type: UPDATE_MSG,
   value
 })
-
-export const getMySetidsAction = value => ({
-  type: GET_MY_SETIDS,
-  value
-})
-
-export const getMySetidsAsyncAction = token => {
-  return dispatch => {
-    new Promise(resolve => {
-      let ret = get('/api/question/my', token)
-      resolve(ret)
-    })
-    .then(ret => {
-      let { data } = ret
-      let mySetids = []
-      data.map(item => {
-        mySetids.push(item.set_id)
-        return null
-      })
-      console.log(mySetids)
-      dispatch(getMySetidsAction(mySetids))
-    })
-    .catch(err => {
-      throw new Error(err)
-    })
-  }
-}
