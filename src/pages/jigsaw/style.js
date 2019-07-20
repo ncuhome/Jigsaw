@@ -13,6 +13,15 @@ const Focus = keyframes`
   }
 `;
 
+const sliceShow = keyframes` 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const HeaderContainer = styled.div`
   position: absolute;
   top: 0;
@@ -63,7 +72,7 @@ export const Slice = styled.div.attrs(({bgUrl, positionX, positionY, ifZero}) =>
   width: ${props => props.len}px;
   height: ${props => props.len}px;
   margin: 1.5px;
-  animation: ${props => props.active && Focus} 2s ease infinite;
+  animation: ${props => props.show ? sliceShow: null} 1s ease, ${props => props.active ? Focus : null} 2s ease infinite;
   border: 3px solid ${props => props.same ? props.MyColor : props.otherColor};
   border-radius: 9px;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
@@ -73,6 +82,9 @@ export const Row = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  animation: ${sliceShow} 1s ease;
+  animation-delay: ${props=>props.show}s;
+  animation-fill-mode: backwards;
 `;
 
 export const SelectArea = styled.div`

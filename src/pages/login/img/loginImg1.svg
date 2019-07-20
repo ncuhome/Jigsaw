@@ -7,7 +7,7 @@
         <g id="login" transform="translate(-159.000000, -126.000000)">
             <g id="loginImg1" transform="translate(149.943539, 106.000000)">
                 <rect id="矩形" fill="#757575" transform="translate(246.500000, 246.721574) rotate(-16.000000) translate(-246.500000, -246.721574) " x="69" y="69.2215741" width="355" height="355" rx="23"></rect>
-                <rect id="矩形" fill="#4DCEFF" opacity="0.86498039" transform="translate(246.556461, 246.500000) rotate(-34.000000) translate(-246.556461, -246.500000) " x="69.056461" y="69" width="355" height="355" rx="23"></rect>
+                <rect id="矩形" fill="#21BFFF" opacity="0.86498039" transform="translate(246.556461, 246.500000) rotate(-34.000000) translate(-246.556461, -246.500000) " x="69.056461" y="69" width="355" height="355" rx="23"></rect>
             </g>
         </g>
     </g>

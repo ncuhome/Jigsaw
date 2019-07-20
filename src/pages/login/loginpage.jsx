@@ -2,7 +2,8 @@ import React from 'react';
 import {
   BottomText,
   Content,
-  InputBox,
+  UserIdInputBox,
+  PwdInputBox,
   InputName,
   LoginBtn,
   LoginWrapper,
@@ -25,7 +26,7 @@ function LoginPage(props) {
         <Title>
           许多人可以一起玩的拼图游戏
         </Title>
-        <InputBox>
+        <UserIdInputBox>
           <InputName>学号</InputName>
           <input
             type="number"
@@ -33,8 +34,8 @@ function LoginPage(props) {
             value={userId}
             onChange={e => props.onChangeUserId(e)}
           />
-        </InputBox>
-        <InputBox>
+        </UserIdInputBox>
+        <PwdInputBox>
           <InputName>密码</InputName>
           <input
             type="password"
@@ -42,9 +43,9 @@ function LoginPage(props) {
             value={password}
             onChange={e => props.onChangePassword(e)}
           />
-        </InputBox>
-        <Prompt>{message}</Prompt>
-        <LoginBtn onClick={() => (props.login(userId, password))}>登录</LoginBtn>
+        </PwdInputBox>
+        <Prompt active={message}>{message}</Prompt>
+        <LoginBtn onClick={() => props.login(userId, password)}>登录</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
       {token === '' ? null : <Redirect to="/home/" />}

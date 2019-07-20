@@ -153,13 +153,17 @@ function JigsawPage(props) {
     }
   }
 
+  const Rowshow = x => ((x+1)/difficult);
+
   return (
     <div>
       <Header roomName={roomName} />
       <Content>
         <JigArea>
           {jigsawList.map((rowItem, rowIndex) => (
-            <Row key={rowIndex}>
+            <Row key={rowIndex}
+                 show={Rowshow(rowIndex)}
+            >
               {rowItem.map((item, columnIndex) => (
                 <Slice key={`slice(${rowIndex},${columnIndex})`}
                   ifZero={item === 0}
