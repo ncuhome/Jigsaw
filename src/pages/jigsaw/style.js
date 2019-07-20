@@ -62,9 +62,10 @@ export const Slice = styled.div.attrs(({bgUrl, positionX, positionY, ifZero}) =>
   align-items: center;
   width: ${props => props.len}px;
   height: ${props => props.len}px;
-  margin: 2px;
+  margin: 1.5px;
   animation: ${props => props.active && Focus} 2s ease infinite;
   border: 3px solid ${props => props.same ? props.MyColor : props.otherColor};
+  border-radius: 9px;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
 `;
 
@@ -94,8 +95,9 @@ export const Pics = styled.div.attrs(({bgUrl, positionX, positionY, finish}) => 
   width: ${props=>props.len}px;
   height: ${props=>props.len}px;
   animation: ${props => props.active && !props.finish && Focus} 2s ease infinite;
-  border: 3px solid ${props => props.otherColor || props.MyColor};
-  filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
+  border: 3px solid ${props => props.otherColor || '#D2D9DE'};
+  border-radius: 9px;
+  filter: ${props => props.active ? 'drop-shadow(0 0 10px rgba(58,58,58,.63))' : 'drop-shadow(0 0 10px rgba(58,58,58,.2))'};
 `;
 
 export const MembersContainer = styled.div`
@@ -177,10 +179,59 @@ export const TimerContent = styled.div`
 `
 
 export const TimerTextContent = styled.div`
-  display: flex;
-  align-items: center;
+  line-height: 24px;
+  height: 24px;
   font-weight: 500;
   margin-right: 12px;
   font-size: 22px;
   color: ${props => props.timecolor};
+`
+
+export const TimerCircleLeft = styled.div`
+  margin: 0;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 4px solid ${props => props.timecolor};
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  left: 0;
+`
+
+export const TimerCircleRight = styled.div`
+  margin: 0;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 4px solid ${props => props.timecolor};
+  border-top: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  right: 0;
+`
+
+export const Left = styled.div`
+  position: absolute;
+  overflow: hidden;
+  width: 12px;
+  height: 24px;
+  left: 0;
+`
+
+export const Right = styled.div`
+  position: absolute;
+  width: 12px;
+  height: 24px;
+  overflow: hidden;
+  right: 0;
+`
+
+export const TimerCircleContainer = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
 `

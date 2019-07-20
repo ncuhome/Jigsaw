@@ -188,7 +188,6 @@ function JigsawPage(props) {
               positionX={cutSliceX(item)}
               positionY={cutSliceY(item)}
               active={handleValue === item}
-              MyColor={MyColor()}
               otherColor={otherActionPics(item)}
               len={length()}
               finish={selectAlready(item)}

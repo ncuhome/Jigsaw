@@ -8,13 +8,18 @@ import {
   Title,
   Welcome,
   ColorBar,
-  Item
+  Item,
+  GreyImg,
+  MainImg,
+  HelpButton
 } from './style'
 import { connect } from 'react-redux'
 
 function Homepage(props) {
   return (
     <HomeWarpper>
+      <MainImg />
+      <GreyImg />
       <Title>
         <Welcome>你好，</Welcome>
         <Name>{props.name}</Name>
@@ -39,6 +44,7 @@ function Homepage(props) {
           </Item>
         </Link>
       </TextContainer>
+      <HelpButton>帮助</HelpButton>
       {props.token === '' ? <Redirect to="/login/" /> : null}
     </HomeWarpper>
   );
