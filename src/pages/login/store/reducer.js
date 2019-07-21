@@ -7,13 +7,12 @@ import {
 } from './constants'
 
 const defaultState = {
-  token: '321',
+  token: '123',
   userId: '',
   password: '',
   message: '',
   username: '蔡徐坤',
 }
-
 
 export default (state = defaultState, action) => {
   let newState = JSON.parse(JSON.stringify(state))
@@ -28,7 +27,7 @@ export default (state = defaultState, action) => {
       newState.token = action.value
       return newState
     case SET_NAME:
-      newState.name = action.value
+      newState.username = action.value
       return newState
     case UPDATE_MSG:
       newState.message = action.value

@@ -9,7 +9,8 @@ import {
   TimerCircleRight,
   Left,
   Right,
-  TimerCircleContainer
+  TimerCircleContainer,
+  CountdownContent
 } from '../style'
 
 function timeShow(end) {
@@ -57,17 +58,19 @@ function Countdowm({ endTime }) {
 
   return (
     <CountdownContainer>
-      <TimerCircleContainer>
-        <Left><TimerCircleLeft timecolor={redDegree()} style={{ transform: leftRoute, display: time <= 150 && 'none'}} /></Left>
-        <Right><TimerCircleRight timecolor={redDegree()} style={{ transform: rightRoute }} /></Right>
-      </TimerCircleContainer>
-      <TimerTextContent timecolor={redDegree()}>
-        倒计时
-			</TimerTextContent>
-      <TimerContent timecolor={redDegree()}>
-        <TimerText>{time}</TimerText>
-        <SText>s</SText>
-      </TimerContent>
+      <CountdownContent>
+        <TimerCircleContainer>
+          <Left><TimerCircleLeft timecolor={redDegree()} style={{ transform: leftRoute, display: time <= 150 && 'none'}} /></Left>
+          <Right><TimerCircleRight timecolor={redDegree()} style={{ transform: rightRoute }} /></Right>
+        </TimerCircleContainer>
+        <TimerTextContent timecolor={redDegree()}>
+          倒计时
+        </TimerTextContent>
+        <TimerContent timecolor={redDegree()}>
+          <TimerText>{time}</TimerText>
+          <SText>s</SText>
+        </TimerContent>
+      </CountdownContent>
     </CountdownContainer>
   )
 }

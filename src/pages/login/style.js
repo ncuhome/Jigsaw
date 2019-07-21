@@ -223,9 +223,10 @@ export const Prompt = styled.div`
   line-height: 20px;
   font-size: 15px;
   text-align: center;
-  color: #2e2e2e;
+  color: #5B5B5B;
   letter-spacing: 1.2px;
   font-weight: 500;
+  filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
   animation: ${props => props.active ? messageShow : null} 1s ease;
 `
 

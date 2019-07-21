@@ -9,6 +9,9 @@ import {
 import colorMap from "../../../lib/colorMap"
 
 function Members({membersList, myuserId, difficult}) {
+
+  const delayShow = x => ((x+1)/difficult)/1.3;
+
   const list = () => {
     const long = membersList.length;
     if(long === difficult){
@@ -32,7 +35,10 @@ function Members({membersList, myuserId, difficult}) {
     <MembersContainer>
       {
         list().map((item, index) => (
-            <MemberContent key={index}>
+            <MemberContent 
+              key={index}
+              show={delayShow(index)}
+            >
               <MemeberIdentity leaderColor={item.identity}>{item.identity==="leader" ? '队长' : '队员'}</MemeberIdentity>
               <MemberAvatar color={item.username === "待加入..." ? '#D8D8D8' : colorMap[item.id]}>
                 {item.username === "待加入..." ? '空' :item.username.split('').reverse().join('')[0]}

@@ -13,7 +13,34 @@ const Focus = keyframes`
   }
 `;
 
-const sliceShow = keyframes` 
+const scale = keyframes` 
+  0% {
+    transform: scale(.88,.88);
+  }
+  100% {
+    transform: scale(1,1);
+  }
+`;
+
+const left = keyframes` 
+  0% {
+    transform: translateX(-22px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+const down = keyframes` 
+  0% {
+    transform: translateY(-35px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+const fadeIn = keyframes` 
   0% {
     opacity: 0;
   }
@@ -21,6 +48,10 @@ const sliceShow = keyframes`
     opacity: 1;
   }
 `;
+
+export const Warpper = styled.div`
+  background: #ECECEC;
+`
 
 export const HeaderContainer = styled.div`
   position: absolute;
@@ -43,6 +74,7 @@ export const HeaderTitle = styled.div`
   font-weight: 500;
   text-align: center;
   color: #494949;
+  animation: ${fadeIn} .4s ease;
 `;
 
 export const JigArea = styled.div`
@@ -61,9 +93,17 @@ export const Content = styled.div`
   height: 100vh;
 `;
 
-export const Slice = styled.div.attrs(({bgUrl, positionX, positionY, ifZero}) => ({
+export const SliceContainer = styled.div`
+  width: 69px;
+  height: 69px;
+  margin: 1.5px;
+  transition: transform .27s;
+  &:active{transform : scale(.88,.88);}
+`
+
+export const Slice = styled.div.attrs(({ifZero}) => ({
   style: {
-    background: ifZero ? `#EEEEEE` :`url(${bgUrl}) no-repeat -${positionX}px -${positionY}px / 300px`
+    opacity: ifZero && .4
   }
 }))`
   display: flex;
@@ -71,18 +111,23 @@ export const Slice = styled.div.attrs(({bgUrl, positionX, positionY, ifZero}) =>
   align-items: center;
   width: ${props => props.len}px;
   height: ${props => props.len}px;
-  margin: 1.5px;
-  animation: ${props => props.show ? sliceShow: null} 1s ease, ${props => props.active ? Focus : null} 2s ease infinite;
+  animation: ${props => props.active ? Focus : null} 2s ease infinite;
   border: 3px solid ${props => props.same ? props.MyColor : props.otherColor};
   border-radius: 9px;
+  background: url(${props=>props.bgUrl}) no-repeat -${props=>props.positionX}px -${props=>props.positionY}px / 300px;
+  background-color: #EEE;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
+  transition: opacity .55s;
+  &:active{
+    opacity: ${props => props.active ? .3 : 1};
+  }
 `;
 
 export const Row = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  animation: ${sliceShow} 1s ease;
+  animation: ${fadeIn} .7s ease, ${scale} .7s ease;
   animation-delay: ${props=>props.show}s;
   animation-fill-mode: backwards;
 `;
@@ -92,7 +137,6 @@ export const SelectArea = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 12px 10px 12px 10px;
-  background: #999;
 `;
 
 export const Pics = styled.div.attrs(({bgUrl, positionX, positionY, finish}) => ({
@@ -110,14 +154,27 @@ export const Pics = styled.div.attrs(({bgUrl, positionX, positionY, finish}) => 
   border: 3px solid ${props => props.otherColor || '#D2D9DE'};
   border-radius: 9px;
   filter: ${props => props.active ? 'drop-shadow(0 0 10px rgba(58,58,58,.63))' : 'drop-shadow(0 0 10px rgba(58,58,58,.2))'};
+  transition: opacity .38s;
+  &:active{
+    opacity: ${props => props.active ? .3 : 1};
+  }
 `;
+
+export const PicsContainer = styled.div`
+  animation: ${fadeIn} .8s ease, ${scale} .8s ease, ${left} .7s ease;;
+  animation-delay: ${props=>props.show}s;
+  animation-fill-mode: backwards;
+  transition: transform .27s;
+  &:active{transform : scale(.88,.88);}
+`
 
 export const MembersContainer = styled.div`
   display: flex;
   justify-content: space-around;
   background: #ECECEC;
-  padding: 3px;
+  padding: 6px;
   margin-top: -1px;
+  
 `;
 
 export const MemberContent = styled.div`
@@ -127,6 +184,11 @@ export const MemberContent = styled.div`
   align-items: center;
   width: 70px;
   height: 100px;
+  transition: transform .27s;
+  &:active{transform : scale(.88,.88);}
+  animation: ${fadeIn} .8s ease, ${down} .8s ease;
+  animation-delay: ${props=>props.show}s;
+  animation-fill-mode: backwards;
 `;
 
 export const MemberAvatar = styled.div`
@@ -172,6 +234,15 @@ export const CountdownContainer = styled.div`
   background: #ECECEC;
 `;
 
+export const CountdownContent = styled.div`
+  display: flex;
+  animation: ${fadeIn} .9s ease;
+  animation-delay: 1s;
+  animation-fill-mode: backwards;
+  transition: transform .27s;
+  &:active{transform : scale(.88,.88);}
+`;
+
 export const TimerText = styled.div`
   font-size: 25px;
 `;
@@ -188,15 +259,17 @@ export const TimerContent = styled.div`
   width: 54px;
   font-weight: 500;
   color: ${props => props.timecolor};
+  transition: color 1s;
 `
 
 export const TimerTextContent = styled.div`
-  line-height: 24px;
-  height: 24px;
+  line-height: 25px;
+  height: 25px;
   font-weight: 500;
   margin-right: 12px;
   font-size: 22px;
   color: ${props => props.timecolor};
+  transition: color 1s;
 `
 
 export const TimerCircleLeft = styled.div`
@@ -246,4 +319,13 @@ export const TimerCircleContainer = styled.div`
   width: 24px;
   height: 24px;
   margin-right: 12px;
+`
+
+export const Line = styled.div`
+  width: 90vw;
+  height: 1px;
+  line-height: 1px;
+  margin: 0 auto 0 auto;
+  background: #C7C7C7;
+  animation: ${fadeIn} 3s ease;
 `

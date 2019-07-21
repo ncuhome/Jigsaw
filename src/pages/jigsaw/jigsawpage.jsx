@@ -6,7 +6,11 @@ import {
   Row,
   SelectArea,
   Pics,
-  Content
+  Content,
+  PicsContainer,
+  SliceContainer,
+  Warpper,
+  Line
 } from './style'
 import Members from "./components/Members.jsx"
 import Header from "./components/Header.jsx"
@@ -55,7 +59,7 @@ function JigsawPage(props) {
       setOtherSelectColum(res.handleColum)
       setOtherSelectUserId(res.id)
       setOtherSelectValue(res.handleValue)
-      console.log(res)
+      console.log(res)                                //记得删
     })
   }, []);
 
@@ -153,30 +157,35 @@ function JigsawPage(props) {
     }
   }
 
-  const Rowshow = x => ((x+1)/difficult);
+  const delayShow = x => ((x+1)/difficult)/1.3;
 
   return (
-    <div>
+    <Warpper>
       <Header roomName={roomName} />
       <Content>
         <JigArea>
           {jigsawList.map((rowItem, rowIndex) => (
             <Row key={rowIndex}
-                 show={Rowshow(rowIndex)}
+                 show={delayShow(rowIndex)}
             >
               {rowItem.map((item, columnIndex) => (
-                <Slice key={`slice(${rowIndex},${columnIndex})`}
+                <SliceContainer 
+                  key={`slice(${rowIndex},${columnIndex})`}
                   ifZero={item === 0}
-                  bgUrl={pictures[picKind]}
-                  same={ListHavePics(item)}
-                  positionX={cutSliceX(item)}
-                  positionY={cutSliceY(item)}
-                  len={length()}
-                  MyColor={MyColor()}
-                  otherColor={otherActionSlice(rowIndex, columnIndex)}
-                  active={handleValue !== 0 && handleValue === item}
-                  onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
-                />
+                >
+                  <Slice
+                    ifZero={item === 0}
+                    bgUrl={pictures[picKind]}
+                    same={ListHavePics(item)}
+                    positionX={cutSliceX(item)}
+                    positionY={cutSliceY(item)}
+                    len={length()}
+                    MyColor={MyColor()}
+                    otherColor={otherActionSlice(rowIndex, columnIndex)}
+                    active={handleValue !== 0 && handleValue === item}
+                    onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                  />
+                </SliceContainer>
               ))}
             </Row>
           ))}
@@ -185,9 +194,14 @@ function JigsawPage(props) {
         <Members membersList={membersList}
           difficult={difficult}
         />
+        <Line/>
         <SelectArea>
-          {pics.map(item => (
-            <Pics key={`pics(${item})`}
+          {pics.map((item, index) => (
+            <PicsContainer 
+              key={`pics(${item})`}
+              show={delayShow(index)}
+            >
+              <Pics
               bgUrl={pictures[picKind]}
               positionX={cutSliceX(item)}
               positionY={cutSliceY(item)}
@@ -196,12 +210,13 @@ function JigsawPage(props) {
               len={length()}
               finish={selectAlready(item)}
               onClick={() => handlePic(item)}
-            />
+              />
+            </PicsContainer> 
           ))}
         </SelectArea>
       </Content>
       {token === '' ? <Redirect to="/login/" /> : null}
-    </div>
+    </Warpper>
   )
 }
 
