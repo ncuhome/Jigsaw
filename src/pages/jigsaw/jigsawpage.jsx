@@ -37,7 +37,7 @@ function JigsawPage(props) {
   const [otherSelectValue, setOtherSelectValue] = useState(null);
   const [otherSelectUserId, setOtherSelectUserId] = useState(null);
 
-  const { token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime } = props;
+  const { token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime, username} = props;
 
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
@@ -59,7 +59,7 @@ function JigsawPage(props) {
       setOtherSelectColum(res.handleColum)
       setOtherSelectUserId(res.id)
       setOtherSelectValue(res.handleValue)
-      console.log(res)                                //记得删
+      console.log(res)                         //TODO:记得删
     })
   }, []);
 
@@ -89,7 +89,7 @@ function JigsawPage(props) {
 
   const MyColor = () => {
     let id
-    membersList.map(item => item.username === "蔡徐坤" && (id = item.id))
+    membersList.map(item => item.username === username && (id = item.id))
     return colorMap[id]
   }
 
@@ -191,7 +191,8 @@ function JigsawPage(props) {
           ))}
         </JigArea>
         <Countdown endTime={endTime} />
-        <Members membersList={membersList}
+        <Members 
+          membersList={membersList}
           difficult={difficult}
         />
         <Line/>
@@ -202,14 +203,14 @@ function JigsawPage(props) {
               show={delayShow(index)}
             >
               <Pics
-              bgUrl={pictures[picKind]}
-              positionX={cutSliceX(item)}
-              positionY={cutSliceY(item)}
-              active={handleValue === item}
-              otherColor={otherActionPics(item)}
-              len={length()}
-              finish={selectAlready(item)}
-              onClick={() => handlePic(item)}
+                bgUrl={pictures[picKind]}
+                positionX={cutSliceX(item)}
+                positionY={cutSliceY(item)}
+                active={handleValue === item}
+                otherColor={otherActionPics(item)}
+                len={length()}
+                finish={selectAlready(item)}
+                onClick={() => handlePic(item)}
               />
             </PicsContainer> 
           ))}
@@ -222,6 +223,7 @@ function JigsawPage(props) {
 
 const mapStateToProps = state => {
   return {
+    username: state.login.username,
     token: state.login.token,
     
     endTime: state.jigsaw.endTime,

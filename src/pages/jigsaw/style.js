@@ -165,7 +165,9 @@ export const PicsContainer = styled.div`
   animation-delay: ${props=>props.show}s;
   animation-fill-mode: backwards;
   transition: transform .27s;
-  &:active{transform : scale(.88,.88);}
+  &:active{
+    transform : scale(.88,.88);
+  }
 `
 
 export const MembersContainer = styled.div`
@@ -174,7 +176,6 @@ export const MembersContainer = styled.div`
   background: #ECECEC;
   padding: 6px;
   margin-top: -1px;
-  
 `;
 
 export const MemberContent = styled.div`
@@ -185,10 +186,12 @@ export const MemberContent = styled.div`
   width: 70px;
   height: 100px;
   transition: transform .27s;
-  &:active{transform : scale(.88,.88);}
   animation: ${fadeIn} .8s ease, ${down} .8s ease;
   animation-delay: ${props=>props.show}s;
   animation-fill-mode: backwards;
+  &:active{
+    transform : scale(.88,.88);
+  }
 `;
 
 export const MemberAvatar = styled.div`
