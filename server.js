@@ -39,6 +39,44 @@ app.post('/api/user/login', function (req, res) {
     }
 });
 
+app.post('/api/room/new', function (req, res) {
+    const data = req.body;
+    const groupName = data.groupName;
+    switch (true) {
+        case (groupName === "321"):
+            res.json({
+                message: "队伍名已存在",
+                status: 0
+            })
+            break;
+        default:
+            res.json({
+                message: "",
+                status: 1
+            })
+    }
+});
+
+app.post('/api/room/select', function (req, res) {
+    const data = req.body;
+    const groupName = data.groupName;
+    const difficult = data.difficult;
+    switch (true) {
+        case (groupName === "321"):
+            res.json({
+                message: "队伍名已存在",
+                status: 0
+            })
+            break;
+        default:
+            res.json({
+                message: "",
+                status: 1
+            })
+    }
+});
+
+
 const server = require('http').Server(app)
     .listen(8081, () => { console.log('open server!') })
 

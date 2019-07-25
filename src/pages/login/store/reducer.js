@@ -7,11 +7,11 @@ import {
 } from './constants'
 
 const defaultState = {
-  token: '123',
+  token: '111',
   userId: '',
   password: '',
   message: '',
-  username: '蔡徐坤',
+  username: '赵子琦',
 }
 
 export default (state = defaultState, action) => {
