@@ -9,17 +9,19 @@ import {
   Button,
   InputContainer
 } from './style'
-import { actionCreator } from './store'
 import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 
 function SelectPage(props) {
-  const { groupName, message, status, difficult, token } = props;
-  const { setDifficult, create, updateStatus } = props;
+  const { difficult } = props.params;
+  const { setDifficult, updatePage } = props.funcs;
   const [showCancel, setShowCancel] = useState(false);
 
   const handleCancel = () => {
     setShowCancel(true)
+  }
+
+  const next = () => {
+    updatePage(1)
   }
 
   return (
@@ -43,40 +45,15 @@ function SelectPage(props) {
             onClick={() => setDifficult(5)}
           >5人</InputBox>
         </InputContainer>
-        <Message active={message}>{message}</Message>
+        <Message>生成一个 {difficult}x{difficult} 拼图</Message>
         <ButtonsContainer>
           <Button onClick={() => handleCancel()}>取消</Button>
-          <Button onClick={() => create(groupName, difficult, token)}>创建</Button>
+          <Button onClick={() => next()}>下一步</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {status ? (updateStatus(0), <Redirect to="/select/" />) : null}
       {showCancel ? <Redirect to="/home/" /> : null}
     </NewPageWrapper>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    token: state.login.token,
-    groupName: state.new.groupName,
-    message: state.select.message,
-    status: state.select.status,
-    difficult: state.select.difficult
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setDifficult(e) {
-      dispatch(actionCreator.setDifficultAction(e))
-    },
-    updateStatus(status) {
-      dispatch(actionCreator.updateSelectStatusAction(status))
-    },
-    create(groupName, difficult, token) {
-      dispatch(actionCreator.createAsyncAction(groupName, difficult, token))
-    }
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectPage);
+export default SelectPage;

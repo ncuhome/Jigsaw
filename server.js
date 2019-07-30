@@ -41,28 +41,12 @@ app.post('/api/user/login', function (req, res) {
 
 app.post('/api/room/new', function (req, res) {
     const data = req.body;
-    const groupName = data.groupName;
-    switch (true) {
-        case (groupName === "321"):
-            res.json({
-                message: "队伍名已存在",
-                status: 0
-            })
-            break;
-        default:
-            res.json({
-                message: "",
-                status: 1
-            })
-    }
-});
-
-app.post('/api/room/select', function (req, res) {
-    const data = req.body;
-    const groupName = data.groupName;
+    const roomName = data.roomName;
     const difficult = data.difficult;
+    const userId = data.userId;
+    const username = data.username;
     switch (true) {
-        case (groupName === "321"):
+        case (roomName === "321"):
             res.json({
                 message: "队伍名已存在",
                 status: 0
@@ -73,9 +57,48 @@ app.post('/api/room/select', function (req, res) {
                 message: "",
                 status: 1
             })
+            database.rooms.concat({
+                roomName,
+                difficult,
+                members: [
+                    {
+                        username,
+                        identity: "leader",
+                        userId,
+                        id: 1,
+                    },
+                ]
+            })
     }
 });
 
+const database = {
+    rooms: [
+        {
+            roomName: "wsc",  
+            difficult: 5,
+            members: []
+        }
+    ],
+    users: [
+        {
+            userId: 321, 
+            password: 321, 
+            username: "蔡徐坤"
+        }, 
+        {
+            userId: 4321, 
+            password: 4321, 
+            username: "赵子琦"
+        }, 
+    ],
+    cache: [
+        {
+            userId: 321,
+            token: 123
+        }
+    ]
+}
 
 const server = require('http').Server(app)
     .listen(8081, () => { console.log('open server!') })
@@ -88,4 +111,20 @@ io.on('connection', socket => {
     socket.on('sendChange', message => {
         socket.broadcast.emit('sendChange', message)
     })
+
+    socket.on('addRoom', data => {
+        // data : {userId,userName,identity,roomName}
+        let member = data;
+        database.rooms.forEach(item=>{
+            if(item.roomName === data.roomName){
+                member.id = item.members.length + 1
+                item.members.concat(member)
+            }
+        })
+        socket.join(member.roomName)
+        io.sockets.in(member.roomName).emit('addRoom', database.rooms.some(item => (
+            item.roomName === member.roomName
+        )))
+    })
 })
+

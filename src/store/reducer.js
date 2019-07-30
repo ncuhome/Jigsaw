@@ -4,7 +4,7 @@ import { reducer as detailReducer } from '../pages/detail/store'
 import { reducer as loginReducer } from '../pages/login/store'
 import { reducer as jigsawReducer } from '../pages/jigsaw/store'
 import { reducer as newReducer } from '../pages/new/store'
-import { reducer as selectReducer } from '../pages/select/store'
+import { reducer as roomReducer } from '../pages/room/store'
 
 const reducer = combineReducers({
   archive: archiveReducer,
@@ -12,7 +12,7 @@ const reducer = combineReducers({
   login: loginReducer,
   jigsaw: jigsawReducer,
   new: newReducer,
-  select: selectReducer
+  room: roomReducer
 })
 
 export default reducer

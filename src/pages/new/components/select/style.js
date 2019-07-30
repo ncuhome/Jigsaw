@@ -70,11 +70,12 @@ export const Message = styled.div`
   font-size: 13px;
   font-weight: 600;
   color: #777777;
-  width: 83px;
   height: 18px;
   line-height: 18px;
   letter-spacing: .81px;
-  animation: ${props => props.active ? fadeIn : null} 1s ease;
+  animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
+  animation-delay: .65s;
+  animation-fill-mode: backwards;
 `
 
 export const ButtonsContainer = styled.div`
@@ -83,7 +84,7 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   margin-top: 6px;
   animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
-  animation-delay: .85s;
+  animation-delay: .95s;
   animation-fill-mode: backwards;
 `
 

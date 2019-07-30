@@ -1,72 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import {
-  NewPageWrapper,
-  NewPageContainer,
-  InputBox,
-  Title,
-  Message,
-  ButtonsContainer,
-  Button
-} from './style'
+import React from 'react';
 import { actionCreator } from './store'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import SelectPage from './components/select'
+import CreatePage from './components/create'
 
 function NewPage(props) {
-  const { groupName, message, status, token } = props;
-  const { OnChangeGroupName, next, updateNewStatus } = props;
-  const [showCancel, setShowCancel] = useState(false);
-
-  useEffect(() => {
-    OnChangeGroupName('')
-  }, [])
-
-  const handleCancel = () => {
-    setShowCancel(true)
-  }
-
   return (
-    <NewPageWrapper>
-      <NewPageContainer>
-        <Title>队伍名称</Title>
-        <InputBox>
-          <input
-            placeholder="请输入队伍名称"
-            value={groupName}
-            onChange={e => OnChangeGroupName(e.target.value)}
-          />
-        </InputBox>
-        <Message active={message}>{message}</Message>
-        <ButtonsContainer>
-          <Button onClick={() => handleCancel()}>取消</Button>
-          <Button onClick={() => next(groupName)}>下一步</Button>
-        </ButtonsContainer>
-      </NewPageContainer>
-      {status ? (updateNewStatus(0), <Redirect to="/select/" />) : null}
-      {showCancel ? <Redirect to="/home/" /> : null}
-    </NewPageWrapper>
+    <div>
+      {props.page ? <CreatePage params={props} funcs={props} /> : <SelectPage params={props} funcs={props} />}
+    </div>
   );
 }
 
 const mapStateToProps = state => {
   return {
+    username: state.login.username,
     token: state.login.token,
-    groupName: state.new.groupName,
+    page: state.new.page,
+    roomName: state.new.roomName,
     message: state.new.message,
-    status: state.new.status
+    status: state.new.status,
+    difficult: state.new.difficult
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    OnChangeGroupName(e) {
-      dispatch(actionCreator.OnChangeGroupNameAction(e))
+    updatePage(page) {
+      dispatch(actionCreator.updatePageAction(page))
+    },
+    OnChangeGroupName(roomName) {
+      dispatch(actionCreator.OnChangeGroupNameAction(roomName))
+    },
+    setDifficult(difficult) {
+      dispatch(actionCreator.setDifficultAction(difficult))
     },
     updateNewStatus(status) {
       dispatch(actionCreator.updateNewStatusAction(status))
     },
-    next(groupName, token) {
-      dispatch(actionCreator.nextAsyncAction(groupName, token))
+    create(username, roomName, difficult, token) {
+      dispatch(actionCreator.createAsyncAction(username, roomName, difficult, token))
     }
   }
 };

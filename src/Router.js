@@ -4,7 +4,7 @@ import Jigsaw from './pages/jigsaw'
 import Login from './pages/login'
 import Home from './pages/home'
 import NewPage from './pages/new'
-import SelectPage from './pages/select'
+import RoomPage from './pages/room'
 
 function Routers() {
   return (
@@ -15,7 +15,7 @@ function Routers() {
         <Route path="/login/" component={Login} />
         <Route path="/home/" component={Home} />
         <Route path="/new/" component={NewPage} />
-        <Route path="/select/" component={SelectPage} />
+        <Route path="/room/" component={RoomPage} />
         <Route component={Home} />
       </Switch>
     </Router>

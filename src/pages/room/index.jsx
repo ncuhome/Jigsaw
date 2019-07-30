@@ -3,14 +3,14 @@ import Loadable from 'react-loadable'
 import Loading from '../common/Loading/index'
 
 const LoadableComponent = Loadable({
-  loader: () => import('./selectpage'),
+  loader: () => import('./roompage'),
   loading: Loading
 })
 
-class SelectLoadable extends Component {
+class RoompageLoadable extends Component {
   render() {
     return <LoadableComponent />
   }
 }
 
-export default SelectLoadable
+export default RoompageLoadable

@@ -32,11 +32,11 @@ export const setDifficultAction = value => ({
   value
 })
 
-export const createAsyncAction = (username, roomName, difficult, token) => {
+export const createAsyncAction = (username, groupName, difficult, token) => {
   return dispatch => {
     let data = {
       username,
-      roomName,
+      groupName,
       difficult
     }
     new Promise(resolve => {

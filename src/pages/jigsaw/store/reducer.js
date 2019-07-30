@@ -6,7 +6,6 @@ import {
 } from './constants'
 
 const defaultState = {
-  roomId: 114512,
   roomName: "我们是白给天团哈哈哈哈哈",  
   picKind: 0,
   difficult: 5,
