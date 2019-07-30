@@ -1,143 +1,6 @@
 import styled, { keyframes } from 'styled-components'
-import Picture1 from './img/loginImg1.svg'
-import LittleImge from './img/loginImg2.svg'
 
-const mainShake = keyframes` 
-  0% {
-    top: 10vh;
-  }
-  50% {
-    top: 18vh;
-  }
-  100% {
-    top: 10vh;
-  }
-`
-
-const mainShow = keyframes` 
-  0% {
-    transform: translateY(-255px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`
-
-const otherShake = keyframes` 
-  0% {
-    left: -8vw;
-  }
-  50% {
-    left: 0;
-  }
-  100% {
-    left: -8vw;
-  }
-`
-
-const otherShow = keyframes` 
-  0% {
-    transform: translateX(-222px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`
-
-const titleShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const messageShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const userIdInputShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  38% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const pwdInputShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  53% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const buttonShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  65% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const bottomTextShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-export const MainPicture = styled.div`
-  position: absolute;
-  right: 0;
-  top: 15vh;
-  width: 255px;
-  height: 464px;
-  animation: ${mainShow} 1s ease, ${mainShake} 4s ease infinite;
-  background: url(${Picture1});
-`
-
-export const SecondPicture = styled.div`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 219px;
-  height: 222px;
-  animation: ${otherShow} 1.4s ease, ${otherShake} 4s ease infinite;
-  background: url(${LittleImge});
-`
-
-export const LoginWrapper = styled.div`
+export const RoomWarpper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -147,117 +10,211 @@ export const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
   background: #fff;
 `
 
-export const Content = styled.div`
+export const TitleContainer = styled.div`
+  margin-top: 40px;
+  width: 85vw;
+  height: 94px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const GroupNameTitle = styled.div`
+  font-size: 20px;
+  letter-spacing: 1.25px;
+  font-weight: 800;
+  color: #AFAFAF;
+  line-height: 22px;
+  height: 22px;
+`
+
+export const GroupNameContent = styled.div`
+  line-height: 66px;
+  height: 66px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  overflow: hidden;
+`
+
+export const GroupName = styled.div`
+  font-size: 47px;
+  letter-spacing: 2.94px;
+  font-weight: 800;
+  color: #4B4B4B;
+  height: 66px;
+  margin-right: 16px;
+`
+
+export const HelloTitle = styled.div`
+  font-size: 27px;
+  letter-spacing: 0;
+  color: #C5C5C5;
+  height: 43px;
+  line-height: 43px;
+`
+
+export const MessageContainer = styled.div`
+  height: 31px;
+  line-height: 31px;
+  text-align: center;
+  width: 86vw;
+  margin: 13px 0;
+  border-radius: 30px;
+  background: #F5F5F5;
+  color: #7E7E7E;
+  font-size: 16px;
+  letter-spacing: 1px;
+`
+
+export const MembersContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 8vh;
-  z-index: 1;
 `
 
-export const Title = styled.div`
-  height: 98px;
-  width: 324px;
-  font-size: 35px;
-  font-weight: 800;
-  color: #535353;
-  line-height: 49px;
-  letter-spacing: 1px;
-  margin-bottom: 41px;
-  animation: ${titleShow} 2s ease;
-`
-
-const InputBox = styled.div`
-  display: flex;
-  align-items: center;
-  height: 45px;
-  width: 319px;
-  margin-top: 31px;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #F2F2F2;
-  position: relative;
-  color: #696969;
-  font-size: 18px;
-  box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
-  input {
-    width: 240px;
-    height: 30px;
-    line-height: 30px;
-    letter-spacing: .8px;
-    font-size: 18px;
-    color: #696969;
-  }
-  input::-webkit-input-placeholder {
-    height: 30px;
-    color: #BCBCBC;
-  }
-`
-
-export const UserIdInputBox = styled(InputBox)`
-  animation: ${userIdInputShow} 2s ease;
-`
-
-export const PwdInputBox = styled(InputBox)`
-  animation: ${pwdInputShow} 2s ease;
-`
-
-export const InputName = styled.div`
-  display: flex;
-  align-items: center;
-  height: 25px;
-  width: 40px;
-  text-align: center;
-  font-weight: 500;
-  margin: 0 14px;
-`
-
-export const Prompt = styled.div`
-  width: 240px;
+export const MembersTitleContainer = styled.div`
+  width: 86vw;
   height: 40px;
-  margin-top: 20px;
-  line-height: 20px;
-  font-size: 15px;
-  text-align: center;
-  color: #5B5B5B;
-  letter-spacing: 1.2px;
-  font-weight: 500;
-  filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
-  animation: ${props => props.active ? messageShow : null} 1s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
-export const LoginBtn = styled.div`
+export const MembersTitle = styled.div`
+  height: 28px;
+  line-height: 28px;
+  font-size: 20px;
+  letter-spacing: 1.25px;
+  color: #AFAFAF;
+  font-weight: 600;
+`
+
+export const MemberContentContainer = styled.div`
+  width: 100vw;
+  height: 72px;
+  border-top: 1px solid #F4F4F4;
+  display: flex;
+  justify-content: center;
+`
+
+export const MemberContent = styled.div`
+  width: 86vw;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45px;
-  width: 109px;
-  margin-top: 30px;
-  font-size: 18px;
-  font-weight: 500;
-  text-align: center;
-  background: #494C4F;
   color: #fff;
-  border-radius: 22.5px;
-  animation: ${buttonShow} 2s ease;
-  box-shadow: 0 13px 16px 0 rgba(0,0,0,.19);
-  transition: opacity .38s;
-  &:active{
-    opacity: 0;
-  }
+  font-weight: 800;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: ${props => props.color};
 `
 
-export const BottomText = styled.div`
-  position: absolute;
-  width: 123px;
-  height: 13px;
-  bottom: 18px;
-  font-size: 12px;
+export const MemberMessageContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 72px;
+`
+
+export const MemberMessageContent = styled.div`
+  margin-left: 21px;
+  height: 49px;
+  display: flex;
+  flex-direction: column;
+`
+
+export const MemberNameContent = styled.div`
+  height: 29px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+`
+
+export const MemberName = styled.div`
+  height: 29px;
+  line-height: 29px;
+  color: ${props => props.color};
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: 1.31px;
+  margin-right: 8px;
+`
+
+export const Identity = styled.div`
+  height: 25px;
+  line-height: 25px;
+  font-size: 15px;
   color: #858585;
-  letter-spacing: 1.6px;
-  animation: ${bottomTextShow} 2.3s ease;
+  font-weight: 800;
+  letter-spacing: .84px;
+`
+
+export const ClassMessage = styled.div`
+  font-size: 14px;
+  letter-spacing: .88px;
+  font-weight: 500;
+  color: #CBCBCB;
+  height: 20px;
+  line-height: 20px;
+`
+
+export const ReadyContainer = styled.div`
+  font-size: 20px;
+  letter-spacing: 1.25px;
+  font-weight: 500;
+  color: #4B4B4B;
+  line-height: 28px;
+  height: 28px;
+  width: 64px;
+`
+
+export const BottomElements = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 86vw;
+  height: 71px;
+  margin: 25px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+
+export const ExitTitle = styled.div`
+  color: #9E9E9E;
+  font-size: 23px;
+  letter-spacing: 1.44px;
+  font-weight: 600;
+`
+
+export const MainButton = styled.div`
+  background: #F7F7F7;
+  border-radius: 13px;
+  width: 166px;
+  height: 71px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 37px;
+  font-weight: 600;
+  color: #4B4B4B;
+  letter-spacing: 2.31px;
+`
+export const Slider = styled.div`
+  position: absolute;
+  right: 0;
+  width: 12px;
+  height: 74px;
+  background: ${props => props.color};
 `

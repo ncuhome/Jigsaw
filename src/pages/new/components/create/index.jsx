@@ -20,8 +20,8 @@ function CreatePage(props) {
   }, [])
 
   const handleCancel = () => {
-    setShowCancel(true)
     updatePage(0)
+    setShowCancel(true)
   }
 
   const delectNewState = () => {

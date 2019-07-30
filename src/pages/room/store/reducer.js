@@ -7,10 +7,32 @@ import {
 } from './constants'
 
 const defaultState = {
-  groupName: '',
-  difficult: 3,
+  roomName: "白色相簿",
+  username: "孙翔宇",
+  userId: 123,
+  members: [
+    {
+      username: "孙翔宇",
+      userId: 123,
+      identity: "leader",
+      class: "物理学类 183班",
+      ready: true,
+      readyTime: 123,
+      id: 1
+    },
+    {
+      username: "赵子琦",
+      userId: 111,
+      identity: "member",
+      class: "数学与应用数学 193班",
+      ready: false,
+      readyTime: 123,
+      id: 2
+    }
+  ],
+  message: '胡昊江加入本房间',
+  difficult: 4,
   message: '',
-  page: 0,
   status: 0,
 }
 
