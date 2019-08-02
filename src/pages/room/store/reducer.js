@@ -22,17 +22,16 @@ const defaultState = {
     },
     {
       username: "赵子琦",
-      userId: 111,
+      userId: 11,
       identity: "member",
       class: "数学与应用数学 193班",
-      ready: false,
+      ready: true,
       readyTime: 123,
       id: 2
     }
   ],
-  message: '胡昊江加入本房间',
+  message: "胡昊江加入本房间",
   difficult: 4,
-  message: '',
   status: 0,
 }
 

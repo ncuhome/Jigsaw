@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   RoomWarpper,
   TitleContainer,
@@ -10,60 +10,35 @@ import {
   MembersContainer,
   MembersTitleContainer,
   MembersTitle,
-  MemberContentContainer,
-  MemberContent,
-  MemberMessageContainer,
-  Avatar,
-  MemberMessageContent,
-  MemberNameContent,
-  MemberName,
-  Identity,
-  ClassMessage,
-  ReadyContainer,
   BottomElements,
   ExitTitle,
-  MainButton,
-  Slider
+  MainButton
 } from './style'
 import { connect } from 'react-redux'
 import { actionCreator } from './store'
-import colorMap from "../../lib/colorMap"
+import Members from './components/Members/'
 
 function RoomPage(props) {
   const { roomName, members, difficult, userId, message } = props;
-
+  const [activeReady, setActiveReady] = useState(false)
   const long = members.length
 
-  const list = () => {
-    if(long === difficult){
-      return members;
-    }else{
-      const newList = members;
-      const emptyElement = {
-        username: "待加入...",
-        identity: "member",
-        class: "未知",
-        userId: null,
-        id: null,
-        ready: false,
-      };
-      for(let i = long+1;i<=difficult;i++){
-        emptyElement.id = i;
-        newList.push(emptyElement);
-      };
-      return newList;
+  const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader")
+
+  const startShow = () => {
+    let num = 0;
+    members.map(item => item.ready && num++)
+    if (num === difficult && ifLeader()) {
+      return true
+    } else {
+      return false
     }
-  };
+  }
 
-  const avatarColor = ({username, id}) => username === "待加入..." ? '#D8D8D8' : colorMap[id]
+  const toReady = () => {
+    setActiveReady(!activeReady)
+  }
 
-  const usernameColor = ({username}) => username === "待加入..." ? '#CDCDCD' : '#595959'
-
-  const usernameFormat = ({username}) => username === "待加入..." ? '空' : username.split('').reverse().join('')[0]
-
-  const identityFormat = ({identity}) => identity === "leader" ? '队长' : null
-
-  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMap[id] : '#fff'
   return (
     <RoomWarpper>
       <TitleContainer>
@@ -83,45 +58,23 @@ function RoomPage(props) {
           <MembersTitle>
             队伍成员
           </MembersTitle>
-          <MembersTitle style={{fontWeight: 500}}>
+          <MembersTitle style={{ fontWeight: 500 }}>
             {long} / {difficult}
           </MembersTitle>
         </MembersTitleContainer>
-        {list().map((item, index) => (
-          <MemberContentContainer key={index}>
-            <MemberContent>
-              <MemberMessageContainer>
-                <Avatar color={avatarColor(item)}>
-                  {usernameFormat(item)}
-                </Avatar>
-                <MemberMessageContent>
-                  <MemberNameContent>
-                    <MemberName color={usernameColor(item)}>
-                      {item.username}
-                    </MemberName>
-                    <Identity>
-                      {identityFormat(item)}
-                    </Identity>
-                  </MemberNameContent>
-                  <ClassMessage>
-                    {item.class}
-                  </ClassMessage>
-                </MemberMessageContent>
-              </MemberMessageContainer>
-              <ReadyContainer>
-                {item.ready && "已准备"}
-              </ReadyContainer>
-              <Slider color={sliderColor(item.userId, item.id)}/>
-            </MemberContent>
-          </MemberContentContainer>
-        ))}
+        <Members
+          userId={userId}
+          members={members}
+          difficult={difficult}
+          long={long}
+        />
       </MembersContainer>
       <BottomElements>
         <ExitTitle>
-          退出
+          {activeReady || '退出'}
         </ExitTitle>
-        <MainButton>
-          准备
+        <MainButton onClick={() => toReady()}>
+          {startShow() ? "开始游戏" : "准备"}
         </MainButton>
       </BottomElements>
     </RoomWarpper>
