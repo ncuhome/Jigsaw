@@ -20,11 +20,11 @@ import {connect} from 'react-redux'
 import {actionCreator} from './store'
 import Members from './components/Members/'
 import PureCountdown from './components/PureCountDown/'
-import QuitAlert from './components/QuitAlert/'
 
-function RoomPage(props) {
+function AddPage(props) {
   const {roomName, members, difficult, userId, message, endTime, status} = props;
   const {updateReady, updateStatus} = props;
+  const [quit, setQuit] = useState(false)
   const [showAlert, setshowAlert] = useState(false)
   const [already, setAlready] = useState(false)
   const long = members.length
@@ -36,21 +36,6 @@ function RoomPage(props) {
   }
   const cancelReady = () => {
     setAlready(false)
-  }
-
-  const toQuit = () => {
-    updateStatus(-1)
-  }
-
-  const quit = () => {
-    updateStatus(0)
-    return console.log('退出')
-    // TODO change
-    /*return <Redirect to="/home/"/>*/
-  }
-
-  const back = () => {
-    setshowAlert(false)
   }
 
   return (
@@ -84,7 +69,7 @@ function RoomPage(props) {
         />
       </MembersContainer>
       <BottomElements>
-        {already ? <div/> : <ExitTitle onClick={() => setshowAlert(true)}>退出</ExitTitle>}
+        {already ? <div/> : <ExitTitle onClick={() => setQuit(true)}>退出</ExitTitle>}
         {startShow() ? <MainButton onClick={() => console.log("开始")}>开始</MainButton> :
           already ?
             <MainButton style={{color: '#747474'}}>已准备</MainButton> :
@@ -94,14 +79,12 @@ function RoomPage(props) {
                 <PureCountdown
                   endTime={endTime}
                   status={status}
-                  toQuit={toQuit}
                 />
               </ButtonNumber>
             </MainButton>
         }
       </BottomElements>
-      {showAlert ? <QuitAlert back={back} toQuit={toQuit}/> : null}
-      {status === -1 ? quit() : null}
+      {quit ? <Redirect to="/home/"/> : null}
     </RoomWrapper>
   );
 }
@@ -126,4 +109,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddPage);

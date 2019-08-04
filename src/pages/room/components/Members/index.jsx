@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {
   MemberContentContainer,
   MemberContent,
@@ -21,17 +21,17 @@ function AwaitMember() {
         <MemberMessageContainer>
           <Avatar color={'#D8D8D8'}>
             空
-            </Avatar>
+          </Avatar>
           <MemberMessageContent>
             <MemberNameContent>
               <MemberName color={'#CDCDCD'}>
                 待加入...
-                </MemberName>
+              </MemberName>
               <Identity> </Identity>
             </MemberNameContent>
             <ClassMessage>
               未知
-              </ClassMessage>
+            </ClassMessage>
           </MemberMessageContent>
         </MemberMessageContainer>
         <ReadyContainer> </ReadyContainer>
@@ -41,21 +41,21 @@ function AwaitMember() {
 }
 
 function Members(props) {
-  const { members, userId, difficult,long } = props;
+  const {members, userId, difficult, long} = props;
 
-  const emptyMemeber = () => {
+  const emptyMember = () => {
     let arr = []
-    for (let i = long + 1;i<=difficult;i++){
+    for (let i = long + 1; i <= difficult; i++) {
       arr.push(1)
     }
     return arr
   }
 
-  const avatarColor = ({ id }) => colorMap[id]
+  const avatarColor = ({id}) => colorMap[id]
 
-  const usernameFormat = ({ username }) => username.split('').reverse().join('')[0]
+  const usernameFormat = ({username}) => username.split('').reverse().join('')[0]
 
-  const identityFormat = ({ identity }) => identity === "leader" ? '队长' : null
+  const identityFormat = ({identity}) => identity === "leader" ? '队长' : null
 
   const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMap[id] : '#fff'
   return (
@@ -63,7 +63,7 @@ function Members(props) {
       {
         members.map((item, index) => (
           <MemberContentContainer key={`user ${index}`}>
-            <MemberContent>
+            <MemberContent myself={item.userId === userId}>
               <MemberMessageContainer>
                 <Avatar color={avatarColor(item)}>
                   {usernameFormat(item)}
@@ -85,11 +85,11 @@ function Members(props) {
               <ReadyContainer>
                 {item.ready && "已准备"}
               </ReadyContainer>
-              <Slider color={sliderColor(item.userId, item.id)} />
+              <Slider color={sliderColor(item.userId, item.id)}/>
             </MemberContent>
           </MemberContentContainer>))
       }
-      {emptyMemeber().map((item, index) => <AwaitMember key={`empty ${index}`}/>)}
+      {emptyMember().map((item, index) => <AwaitMember key={`empty ${index}`}/>)}
     </div>
   );
 }

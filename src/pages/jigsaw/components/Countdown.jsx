@@ -18,7 +18,7 @@ function timeShow(end) {
   return end - start
 }
 
-function Countdowm({ endTime }) {
+function Countdown({ endTime }) {
   const [time, setTime] = useState(timeShow(endTime))
   const [rightRoute, setRightRoute] = useState('rotate(-135deg)')
   const [leftRoute, setLeftRoute] = useState('rotate(-135deg)')
@@ -75,4 +75,4 @@ function Countdowm({ endTime }) {
   )
 }
 
-export default Countdowm;
+export default Countdown;

@@ -1,28 +1,5 @@
 import styled from 'styled-components'
 
-export const MembersContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-export const MembersTitleContainer = styled.div`
-  width: 86vw;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-export const MembersTitle = styled.div`
-  height: 28px;
-  line-height: 28px;
-  font-size: 20px;
-  letter-spacing: 1.25px;
-  color: #AFAFAF;
-  font-weight: 600;
-`
-
 export const MemberContentContainer = styled.div`
   width: 100vw;
   height: 72px;
@@ -37,6 +14,7 @@ export const MemberContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: ${props => props.myself && '#FCFCFC'};
 `
 
 export const Avatar = styled.div`
