@@ -11,7 +11,7 @@ import {
   Right,
   TimerCircleContainer,
   CountdownContent
-} from '../style'
+} from './style'
 
 function timeShow(end) {
   const start = Math.round(new Date() / 1000)

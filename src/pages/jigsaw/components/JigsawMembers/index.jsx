@@ -5,10 +5,10 @@ import {
   MemberName,
   MemberAvatar,
   MemeberIdentity
- } from '../style'
-import colorMap from "../../../lib/colorMap"
+ } from './style'
+import colorMap from "../../../../lib/colorMap"
 
-function Members({membersList, myuserId, difficult}) {
+function JigsawMembers({membersList, difficult}) {
 
   const delayShow = x => ((x+1)/difficult)/1.3;
 
@@ -51,4 +51,4 @@ function Members({membersList, myuserId, difficult}) {
   )
 }
 
-export default Members;
+export default JigsawMembers;

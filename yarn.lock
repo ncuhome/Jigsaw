@@ -5432,6 +5432,11 @@ immer@1.10.0:
   resolved "https://registry.npm.taobao.org/immer/download/immer-1.10.0.tgz#bad67605ba9c810275d91e1c2a47d4582e98286d"
   integrity sha1-utZ2BbqcgQJ12R4cKkfUWC6YKG0=
 
+immutable@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.npm.taobao.org/immutable/download/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+  integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
+
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -7089,6 +7094,11 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+mobile-drag-drop@^2.3.0-rc.2:
+  version "2.3.0-rc.2"
+  resolved "https://registry.npm.taobao.org/mobile-drag-drop/download/mobile-drag-drop-2.3.0-rc.2.tgz#00d6e85e04512a620fd5357366e8786bd29aa7aa"
+  integrity sha1-ANboXgRRKmIP1TVzZuh4a9Kap6o=
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -9043,6 +9053,13 @@ react-dom@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.6"
+
+react-draggable-tags@^0.4.0-beta.2:
+  version "0.4.0-beta.2"
+  resolved "https://registry.npm.taobao.org/react-draggable-tags/download/react-draggable-tags-0.4.0-beta.2.tgz#804ffb3b493f3c0e6441d36b1ed24df171e501e0"
+  integrity sha1-gE/7O0k/PA5kQdNrHtJN8XHlAeA=
+  dependencies:
+    immutable "^3.8.2"
 
 react-error-overlay@^5.1.5:
   version "5.1.5"

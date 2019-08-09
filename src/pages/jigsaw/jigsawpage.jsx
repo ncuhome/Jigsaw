@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { connect } from 'react-redux'
+import React, {useState, useEffect} from "react"
+import {connect} from 'react-redux'
 import {
   JigArea,
   Slice,
@@ -10,15 +10,19 @@ import {
   PicsContainer,
   SliceContainer,
   Warpper,
-  Line
+  Line,
+  Drag
 } from './style'
-import Members from "./components/Members.jsx"
-import Header from "./components/Header.jsx"
-import Countdown from "./components/Countdown.jsx"
-import { actionCreator } from "./store"
-import { Redirect } from 'react-router-dom'
-import { listenList, sendListChange } from "../../lib/ws"
+import {actionCreator} from "./store"
+import {Redirect} from 'react-router-dom'
+import {listenList, sendListChange} from "../../lib/ws"
 import colorMap from "../../lib/colorMap"
+import { polyfill } from "mobile-drag-drop"
+import {scrollBehaviourDragImageTranslateOverride} from "mobile-drag-drop/scroll-behaviour"
+
+import JigsawMembers from "./components/JigsawMembers/"
+import Header from "./components/Header/"
+import Countdown from "./components/Countdown/"
 
 const pictures = [
   "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562336127688&di=8b3b64da7ea88ddb1a14b95b9ba2e7cc&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F29%2F20170529020618_QMZXK.jpeg",
@@ -27,17 +31,40 @@ const pictures = [
 ]
 
 function JigsawPage(props) {
-  const [handleValue, setHandleValue] = useState(0);
-  const [handleRow, setHandleRow] = useState(null);
-  const [handleColumn, setHandleColumn] = useState(null);
-  const [handleNumber, sethandleNumber] = useState(0);
+  const [handleNumber, setHandleNumber] = useState(0);
+  const [handleObject, setHandleObject] = useState({
+    row: null,
+    column: null,
+    value: 0
+  });
 
-  const [otherSelectRow, setOtherSelectRow] = useState(null);
-  const [otherSelectColum, setOtherSelectColum] = useState(null);
-  const [otherSelectValue, setOtherSelectValue] = useState(null);
-  const [otherSelectUserId, setOtherSelectUserId] = useState(null);
+  const {
+    row: handleRow,
+    column: handleColumn,
+    value: handleValue
+  } = handleObject
 
-  const { token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime, username} = props;
+  const [otherhandleObject, setOtherhandleObject] = useState({
+    row: null,
+    column: null,
+    value: null,
+    userId: null
+  })
+
+  const {
+    row: otherSelectRow,
+    column: otherSelectColum,
+    value: otherSelectValue,
+    userId: otherSelectUserId
+  } = otherhandleObject
+
+  const {token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime, username} = props;
+
+  useEffect(()=>{
+    polyfill({
+      dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+    })
+  })
 
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
@@ -55,10 +82,12 @@ function JigsawPage(props) {
     listenList(data => {
       const res = JSON.parse(data)
       props.changeList(res.list)
-      setOtherSelectRow(res.handleRow)
-      setOtherSelectColum(res.handleColum)
-      setOtherSelectUserId(res.id)
-      setOtherSelectValue(res.handleValue)
+      setOtherhandleObject({
+        row: res.handleRow,
+        column: res.handleColumn,
+        value: res.handleValue,
+        userId: res.id
+      })
       console.log(res)                         //TODO:记得删
     })
   }, []);
@@ -82,9 +111,11 @@ function JigsawPage(props) {
   };
 
   const getHandle = (rowIndex, columnIndex, targetItem) => {
-    setHandleValue(targetItem);
-    setHandleRow(rowIndex);
-    setHandleColumn(columnIndex);
+    setHandleObject({
+      row: rowIndex,
+      column: columnIndex,
+      value: targetItem
+    })
   };
 
   const MyColor = () => {
@@ -101,7 +132,7 @@ function JigsawPage(props) {
     switch (true) {
       case (handleValue !== 0 && targetItem === 0 && handleRow === null):
         props.changeSlicePTJ(rowIndex, columnIndex, handleValue);
-        sethandleNumber(handleNumber + 1)
+        setHandleNumber(handleNumber + 1)
         getHandle(rowIndex, columnIndex, 0);
         break;
       case (handleValue === 0 && sameElement(targetItem)):
@@ -109,11 +140,13 @@ function JigsawPage(props) {
         break;
       case (handleValue !== 0 && targetItem === 0):
         props.changeSliceJTJ(rowIndex, columnIndex, handleValue, handleRow, handleColumn);
-        sethandleNumber(handleNumber + 1)
+        setHandleNumber(handleNumber + 1)
         getHandle(rowIndex, columnIndex, targetItem);
         break;
       default:
-        setHandleValue(0);
+        setHandleObject({
+          value: 0
+        })
     }
   };
 
@@ -136,11 +169,18 @@ function JigsawPage(props) {
   const handlePic = item => {
     if (handleRow !== null && handleValue !== 0 && handleValue === item) {
       props.changeSliceJTP(handleRow, handleColumn);
-      sethandleNumber(handleNumber + 1)
+      setHandleNumber(handleNumber + 1)
     }
-    selectAlready(item) ? setHandleValue(0) : setHandleValue(item);
-    setHandleRow(null);
-    setHandleColumn(null);
+
+    selectAlready(item) ? setHandleObject({
+      row: null,
+      column: null,
+      value: 0
+    }) : setHandleObject({
+      row: null,
+      column: null,
+      value: item
+    });
   };
 
   const otherActionSlice = (rowIndex, columnIndex) => {
@@ -157,11 +197,12 @@ function JigsawPage(props) {
     }
   }
 
-  const delayShow = x => ((x+1)/difficult)/1.3;
+  const delayShow = x => ((x + 1) / difficult) / 1.3;
 
   return (
     <Warpper>
-      <Header roomName={roomName} />
+      {console.log(handleObject)}
+      <Header roomName={roomName}/>
       <Content>
         <JigArea>
           {jigsawList.map((rowItem, rowIndex) => (
@@ -169,54 +210,69 @@ function JigsawPage(props) {
                  show={delayShow(rowIndex)}
             >
               {rowItem.map((item, columnIndex) => (
-                <SliceContainer 
+                <SliceContainer
                   key={`slice(${rowIndex},${columnIndex})`}
                   ifZero={item === 0}
                 >
-                  <Slice
-                    ifZero={item === 0}
-                    bgUrl={pictures[picKind]}
-                    same={ListHavePics(item)}
-                    positionX={cutSliceX(item)}
-                    positionY={cutSliceY(item)}
-                    len={length()}
-                    MyColor={MyColor()}
-                    otherColor={otherActionSlice(rowIndex, columnIndex)}
-                    active={handleValue !== 0 && handleValue === item}
-                    onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
-                  />
+                  <Drag
+                    draggable={ListHavePics(item)}
+                    onDragEnter={e => e.preventDefault()}
+                    onDragOver={e => e.preventDefault()}
+                    onDrop={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                    onDragStart={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                  >
+                    <Slice
+                      ifZero={item === 0}
+                      bgUrl={pictures[picKind]}
+                      same={ListHavePics(item)}
+                      positionX={cutSliceX(item)}
+                      positionY={cutSliceY(item)}
+                      size={length()}
+                      MyColor={MyColor()}
+                      otherColor={otherActionSlice(rowIndex, columnIndex)}
+                      active={handleValue !== 0 && handleValue === item}
+                      onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
+                    />
+                  </Drag>
                 </SliceContainer>
               ))}
             </Row>
           ))}
         </JigArea>
-        <Countdown endTime={endTime} />
-        <Members 
+        <Countdown endTime={endTime}/>
+        <JigsawMembers
           membersList={membersList}
           difficult={difficult}
         />
         <Line/>
         <SelectArea>
           {pics.map((item, index) => (
-            <PicsContainer 
+            <PicsContainer
               key={`pics(${item})`}
               show={delayShow(index)}
             >
-              <Pics
-                bgUrl={pictures[picKind]}
-                positionX={cutSliceX(item)}
-                positionY={cutSliceY(item)}
-                active={handleValue === item}
-                otherColor={otherActionPics(item)}
-                len={length()}
-                finish={selectAlready(item)}
-                onClick={() => handlePic(item)}
-              />
-            </PicsContainer> 
+              <Drag
+                draggable="true"
+                onDragEnter={e => e.preventDefault()}
+                onDragOver={e => e.preventDefault()}
+                onDrop={() => handlePic(item)}
+                onDragStart={() => handlePic(item)}
+              >
+                <Pics
+                  bgUrl={pictures[picKind]}
+                  positionX={cutSliceX(item)}
+                  positionY={cutSliceY(item)}
+                  active={handleValue === item}
+                  size={length()}
+                  finish={selectAlready(item)}
+                  onClick={() => handlePic(item)}
+                />
+              </Drag>
+            </PicsContainer>
           ))}
         </SelectArea>
       </Content>
-      {token === '' ? <Redirect to="/login/" /> : null}
+      {token === '' ? <Redirect to="/login/"/> : null}
     </Warpper>
   )
 }
@@ -225,7 +281,7 @@ const mapStateToProps = state => {
   return {
     username: state.login.username,
     token: state.login.token,
-    
+
     endTime: state.jigsaw.endTime,
     roomName: state.jigsaw.roomName,
     difficult: state.jigsaw.difficult,
@@ -239,13 +295,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeSlicePTJ(PTJRowIndex, PTJColumnIndex, PTJHandleValue) {
-      dispatch(actionCreator.picToJig({ PTJRowIndex, PTJColumnIndex, PTJHandleValue }))
+      dispatch(actionCreator.picToJig({PTJRowIndex, PTJColumnIndex, PTJHandleValue}))
     },
     changeSliceJTJ(JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn) {
-      dispatch(actionCreator.jigToJig({ JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn }))
+      dispatch(actionCreator.jigToJig({JTJRowIndex, JTJColumnIndex, JTJHandleValue, JTJHandleRow, JTJHandleColumn}))
     },
     changeSliceJTP(JTPRowIndex, JTPColumnIndex) {
-      dispatch(actionCreator.jigToPic({ JTPRowIndex, JTPColumnIndex }))
+      dispatch(actionCreator.jigToPic({JTPRowIndex, JTPColumnIndex}))
     },
     changeList(data) {
       dispatch(actionCreator.setChange(data))

@@ -2,7 +2,6 @@ import {
   UPDATE_ROOM_STATUS,
   UPDATE_MEMBERS_LIST
 } from './constants'
-import post from '../../../lib/post'
 
 export const updateStatusAction = value => ({
   type: UPDATE_ROOM_STATUS,

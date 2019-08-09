@@ -28,13 +28,13 @@ export const AlertContainer = styled.div`
   background: #DDD;
   border-radius: 17px;
   width: 274px;
-  height: 146px;
+  height: 106px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  animation: ${fadeIn} .4s ease;
-  animation-delay: .1s;
+  animation: ${fadeIn} .3s ease;
+  animation-delay: .13s;
   animation-fill-mode: backwards;
 `
 
@@ -51,35 +51,11 @@ export const TitleContainer = styled.div`
 export const Title = styled.div`
   font-size: 21px;
   font-weight: 600;
-  color: #000;
-  margin-bottom: 7px;
-`
-
-export const DivideLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background: #C5C5C5;
-`
-
-export const ButtonContainer = styled.div`
-  width: 100%;
-  height: 51px;
+  color: #343434;
+  margin-bottom: 9px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-`
-
-const Button = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 1.13px;
-  padding: 0 38px;
-`
-
-export const RedButton = styled(Button)`
-  color: #FF2E19;
-`
-
-export const BlueButton = styled(Button)`
-  color: #0097FF;
+  line-height: 25px;
 `

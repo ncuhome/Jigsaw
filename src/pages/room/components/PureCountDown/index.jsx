@@ -6,7 +6,7 @@ function timeShow(end) {
 }
 
 function PureCountdown(props) {
-  const {endTime, toQuit} = props;
+  const {endTime, toQuit, setShowTimeAlert} = props;
   const [time, setTime] = useState(timeShow(endTime));
 
   useEffect(() => {
@@ -15,7 +15,8 @@ function PureCountdown(props) {
       timer = setTimeout(() => setTime(t => t - 1), 1000)
     } else {
       setTime(0)
-      toQuit(-1)
+      setShowTimeAlert(true)
+      setTimeout(() => toQuit(-1), 3000)
     }
     return () => clearTimeout(timer)
   }, [time])

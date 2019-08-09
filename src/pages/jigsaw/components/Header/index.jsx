@@ -3,7 +3,7 @@ import {
   HeaderContainer,
   HeaderTitle,
   Arrow
-} from '../style'
+} from './style'
 
 function Header({roomName}) {
   return (
