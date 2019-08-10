@@ -32,6 +32,8 @@ const pictures = [
 ]
 
 function JigsawPage(props) {
+  const {token, userId, picKind, jigsawList, pics, membersList, difficult, roomName, endTime, username} = props;
+
   const [handleSideMenu, setHandleSideMenu] = useState(false)
   const [handleNumber, setHandleNumber] = useState(0);
   const [handleObject, setHandleObject] = useState({
@@ -59,8 +61,6 @@ function JigsawPage(props) {
     value: otherSelectValue,
     userId: otherSelectUserId
   } = otherhandleObject
-
-  const {token, picKind, jigsawList, pics, membersList, difficult, roomName, endTime, username} = props;
 
   useEffect(()=>{
     polyfill({
@@ -283,6 +283,8 @@ function JigsawPage(props) {
             hiddenMenu={hiddenMenu}
             membersList={membersList}
             difficult={difficult}
+            roomName={roomName}
+            userId={userId}
       />
       {token === '' ? <Redirect to="/login/"/> : null}
     </Wrapper>
@@ -292,6 +294,7 @@ function JigsawPage(props) {
 const mapStateToProps = state => {
   return {
     username: state.login.username,
+    userId: state.login.userId,
     token: state.login.token,
 
     endTime: state.jigsaw.endTime,

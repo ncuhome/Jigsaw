@@ -88,8 +88,8 @@ export const HelpButton = styled.div`
   height: 41px;
   border: 2px solid #D4D4D4;
   border-radius: 22px;
-  background: #fff;
-  color: #5C5C5C;
+  background: #373737;
+  color: #DBDBDB;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: .83px;
@@ -127,7 +127,7 @@ export const Text = styled.div`
   letter-spacing: 1px;
   text-align: center;
   margin: auto;
-  color: #535353;
+  color: #E5E5E5;
 `
 
 export const TextContainer = styled.div`
@@ -147,7 +147,7 @@ export const Name = styled.div`
   line-height: 75px;
   font-size: 54px;
   font-weight: 500;
-  color: #404040;
+  color: #FBFBFB;
   animation: ${scale} .5s ease, ${fadeIn} .7s ease;
   animation-delay: .65s;
   animation-fill-mode: backwards;
@@ -175,14 +175,4 @@ export const Item = styled.div`
   position: relative;
   width: 140px;
   height: 42px;
-`
-
-export const ColorBar = styled.div`
-  position: absolute;
-  z-index: -1;
-  bottom: 0;
-  width: 140px;
-  height: 17px;
-  border-radius: 8.5px;
-  background: ${props => props.color};
 `

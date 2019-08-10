@@ -6,7 +6,7 @@ import {
 } from './constants'
 
 const defaultState = {
-  roomName: "我们是白给天团哈哈哈哈哈",  
+  roomName: "我们是白给",
   picKind: 0,
   difficult: 5,
   endTime: Math.round(new Date() / 1000)+300,

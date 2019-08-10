@@ -148,7 +148,6 @@ export const LoginWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  background: #fff;
 `
 
 export const Content = styled.div`
@@ -164,7 +163,7 @@ export const Title = styled.div`
   width: 324px;
   font-size: 35px;
   font-weight: 800;
-  color: #535353;
+  color: #FBFBFB;
   line-height: 49px;
   letter-spacing: 1px;
   margin-bottom: 41px;
@@ -177,11 +176,11 @@ const InputBox = styled.div`
   height: 45px;
   width: 319px;
   margin-top: 31px;
-  background: #fff;
+  background: #464646;
   border-radius: 8px;
-  border: 1px solid #F2F2F2;
+  border: 1px solid #4D4D4D;
   position: relative;
-  color: #696969;
+  color: #D6D6D6;
   font-size: 18px;
   box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
   input {
@@ -190,11 +189,12 @@ const InputBox = styled.div`
     line-height: 30px;
     letter-spacing: .8px;
     font-size: 18px;
-    color: #696969;
+    color: #D6D6D6;
+    background: #464646;
   }
   input::-webkit-input-placeholder {
     height: 30px;
-    color: #BCBCBC;
+    color: #939393;
   }
 `
 
@@ -257,7 +257,7 @@ export const BottomText = styled.div`
   height: 13px;
   bottom: 18px;
   font-size: 12px;
-  color: #858585;
+  color: #d7d7d7;
   letter-spacing: 1.6px;
   animation: ${bottomTextShow} 2.3s ease;
 `

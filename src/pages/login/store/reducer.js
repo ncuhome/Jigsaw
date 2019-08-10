@@ -7,8 +7,8 @@ import {
 } from './constants'
 
 const defaultState = {
-  token: '111',
-  userId: '',
+  token: '123',
+  userId: '15',
   password: '',
   message: '',
   username: '赵子琦',

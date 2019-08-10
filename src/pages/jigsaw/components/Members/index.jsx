@@ -7,9 +7,9 @@ import {
  } from './style'
 import colorMap from "../../../../lib/colorMap"
 
-function Members({membersList, difficult}) {
+function Members({membersList, difficult, userId}) {
 
-  const delayShow = x => ((x+1)/difficult)/1.3;
+  const delayShow = x => ((x+1)/difficult)/.75;
 
   const list = () => {
     const long = membersList.length;
@@ -37,6 +37,7 @@ function Members({membersList, difficult}) {
             <MemberContent 
               key={index}
               show={delayShow(index)}
+              ifMine={userId === item.userId}
             >
               <MemberAvatar
                 color={item.username === "待加入..." ? '#D8D8D8' : colorMap[item.id]}

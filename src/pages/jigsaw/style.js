@@ -40,19 +40,11 @@ const fadeIn = keyframes`
 `;
 
 export const Wrapper = styled.div`
-  background: #2a2a2a;
   position: absolute;
   top: 0;left: 0;bottom: 0;right: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
-
-export const BackArea = styled.div`
-  position: absolute;
-  top: 0;left: 0;bottom: 0;right: 0;
-  display: flex;
-  background: #fff;
 `
 
 export const JigArea = styled.div`
@@ -61,7 +53,6 @@ export const JigArea = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 40px 10px;
 `;
 
 export const Content = styled.div`

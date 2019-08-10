@@ -7,7 +7,6 @@ import {
   Name,
   Title,
   Welcome,
-  ColorBar,
   Item,
   GreyImg,
   MainImg,
@@ -28,19 +27,16 @@ function Homepage(props) {
         <Link to="/new/">
           <Item>
             <Text>创建队伍</Text>
-            <ColorBar color={'#FFB2B2'}/>
           </Item>
         </Link>
         <Link to="/add/">
           <Item>
             <Text>加入队伍</Text>
-            <ColorBar color={'#B5F9FF'}/>
           </Item>
         </Link>
         <Link to="/archive/">
           <Item>
             <Text>查看排名</Text>
-            <ColorBar color={'#FFECB7'}/>
           </Item>
         </Link>
       </TextContainer>

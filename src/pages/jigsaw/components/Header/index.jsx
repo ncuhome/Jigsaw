@@ -29,7 +29,7 @@ function Header({endTime, showMenu}) {
     <HeaderContainer>
       <Meau onClick={() => showMenu()}/>
       <HeaderTitle>
-        倒计时 {time} s
+        {time} s
       </HeaderTitle>
       <Meau style={{opacity: 0}}/>
     </HeaderContainer>
