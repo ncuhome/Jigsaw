@@ -19,17 +19,14 @@
     gtag('config', 'UA-144857642-1');
   </script>
   <script type='application/javascript'>
-    document.addEventListener("touchstart", function () { }, false);
+    document.addEventListener('gesturestart', function (event) {
+      event.preventDefault();
+    });
+    window.addEventListener('touchmove', function() {})
   </script>
   <title>江西省志愿者服务平台</title>
   <style>
     * {
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
     }
   </style>

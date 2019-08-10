@@ -4,11 +4,10 @@ import {
   MemberContent,
   MemberName,
   MemberAvatar,
-  MemeberIdentity
  } from './style'
 import colorMap from "../../../../lib/colorMap"
 
-function JigsawMembers({membersList, difficult}) {
+function Members({membersList, difficult}) {
 
   const delayShow = x => ((x+1)/difficult)/1.3;
 
@@ -39,8 +38,10 @@ function JigsawMembers({membersList, difficult}) {
               key={index}
               show={delayShow(index)}
             >
-              <MemeberIdentity leaderColor={item.identity}>{item.identity==="leader" ? '队长' : '队员'}</MemeberIdentity>
-              <MemberAvatar color={item.username === "待加入..." ? '#D8D8D8' : colorMap[item.id]}>
+              <MemberAvatar
+                color={item.username === "待加入..." ? '#D8D8D8' : colorMap[item.id]}
+                ifLeader={item.identity==="leader"}
+              >
                 {item.username === "待加入..." ? '空' :item.username.split('').reverse().join('')[0]}
               </MemberAvatar>
               <MemberName>{item.username}</MemberName>
@@ -51,4 +52,4 @@ function JigsawMembers({membersList, difficult}) {
   )
 }
 
-export default JigsawMembers;
+export default Members;

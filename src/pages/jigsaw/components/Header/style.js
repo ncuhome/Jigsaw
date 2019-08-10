@@ -1,5 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import arrow from '../../img/arrow.svg'
+import meau from '../../img/meau.svg'
 
 const fadeIn = keyframes` 
   0% {
@@ -11,13 +11,13 @@ const fadeIn = keyframes`
 `;
 
 export const HeaderContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
-  background: #F7F7F7;
-  box-shadow: 0 2px 20px 0 rgba(173,173,173,.5);
+  height: 56px;
+  animation: ${fadeIn} 2s ease;
 `;
 
 export const HeaderTitle = styled.div`
@@ -25,16 +25,15 @@ export const HeaderTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 500;
   text-align: center;
-  color: #494949;
-  animation: ${fadeIn} .4s ease;
+  color: #c9ced2;
 `;
 
-export const Arrow = styled.div`
-  width: 13px;
-  height: 24px;
-  background: url(${arrow});
+export const Meau = styled.div`
+  width: 23px;
+  height: 19px;
+  background: url(${meau});
   margin: 0 15px 0 15px;
 `;

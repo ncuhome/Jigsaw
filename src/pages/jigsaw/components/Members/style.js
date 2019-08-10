@@ -21,7 +21,6 @@ const fadeIn = keyframes`
 export const MembersContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  background: #ECECEC;
   padding: 6px;
   margin-top: -1px;
 `;
@@ -32,7 +31,6 @@ export const MemberContent = styled.div`
   justify-content: center;
   align-items: center;
   width: 70px;
-  height: 100px;
   transition: transform .27s;
   animation: ${fadeIn} .8s ease, ${down} .8s ease;
   animation-delay: ${props=>props.show}s;
@@ -48,23 +46,17 @@ export const MemberAvatar = styled.div`
   align-items: center;
   color: #fff;
   font-weight: 800;
+  font-size: 14px;
   background: ${props => props.color};
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   margin-bottom: 10px;
-  border: 2px solid #CDCDCD;
+  border: 2px solid ${props => props.ifLeader ? '#22c6e9' : '#dedede'};
   border-radius: 40px;
 `;
 
 export const MemberName = styled.div`
   font-size: 14px;
   font-weight: 500;
-  color: #2e2e2e;
-`;
-
-export const MemeberIdentity = styled.div`
-  font-size: 12px;
-  margin-bottom: 7px;
-  font-weight: 500;
-  color: ${props => props.leaderColor === 'leader' ? '#838383' : '#B9B9B9'};
+  color: #bfbfbf;
 `;

@@ -2,13 +2,13 @@ import styled, {keyframes} from 'styled-components'
 
 const Focus = keyframes` 
   0% {
-    border: 3px solid #fff
+    border: 3px solid #b8b8b8
   }
   50% {
-    border: 3px solid #D8D8D8
+    border: 3px solid #333537
   }
   100% {
-    border: 3px solid #fff
+    border: 3px solid #b8b8b8
   }
 `;
 
@@ -39,8 +39,8 @@ const fadeIn = keyframes`
   }
 `;
 
-export const Warpper = styled.div`
-  background: #ECECEC;
+export const Wrapper = styled.div`
+  background: #2a2a2a;
   position: absolute;
   top: 0;left: 0;bottom: 0;right: 0;
   display: flex;
@@ -48,13 +48,20 @@ export const Warpper = styled.div`
   justify-content: space-between;
 `
 
+export const BackArea = styled.div`
+  position: absolute;
+  top: 0;left: 0;bottom: 0;right: 0;
+  display: flex;
+  background: #fff;
+`
+
 export const JigArea = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 10px;
-  background: #ECECEC;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 10px;
 `;
 
 export const Content = styled.div`
@@ -84,8 +91,8 @@ export const Slice = styled.div.attrs(({ifZero}) => ({
   animation: ${props => props.active ? Focus : null} 2s ease infinite;
   border: 3px solid ${props => props.same ? props.MyColor : props.otherColor};
   border-radius: 9px;
-  background: url(${props=>props.bgUrl}) no-repeat -${props=>props.positionX}px -${props=>props.positionY}px / 300px;
-  background-color: #EEE;
+  background: url(${props => props.bgUrl}) no-repeat -${props => props.positionX}px -${props => props.positionY}px / 300px;
+  background-color: #7b7b7b;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
   transition: opacity .55s;
   &:active{
@@ -96,7 +103,6 @@ export const Slice = styled.div.attrs(({ifZero}) => ({
 export const Row = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
   animation: ${fadeIn} .7s ease, ${scale} .7s ease;
   animation-delay: ${props=>props.show}s;
   animation-fill-mode: backwards;
@@ -106,7 +112,7 @@ export const SelectArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 12px 10px 12px 10px;
+  padding: 20px 10px;
 `;
 
 export const Pics = styled.div.attrs(({bgUrl,positionX,positionY,finish}) => ({
@@ -118,10 +124,10 @@ export const Pics = styled.div.attrs(({bgUrl,positionX,positionY,finish}) => ({
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${props=>props.size}px;
-  height: ${props=>props.size}px;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
   animation: ${props => props.active && !props.finish && Focus} 2s ease infinite;
-  border: 3px solid #D2D9DE;
+  border: 3px solid #333537;
   border-radius: 9px;
   filter: ${props => props.active ? 'drop-shadow(0 0 10px rgba(58,58,58,.63))' : 'drop-shadow(0 0 10px rgba(58,58,58,.2))'};
   transition: opacity .38s;
@@ -150,5 +156,12 @@ export const Line = styled.div`
 `
 
 export const Drag = styled.div`
+`
 
+export const JigContainer = styled.div`
+  padding: 4px;
+  border-radius: 12px;
+  background: #212121;
+  transform: scale(.94);
+  animation: ${fadeIn} 2.4s ease;
 `
