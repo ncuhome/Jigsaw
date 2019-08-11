@@ -10,7 +10,10 @@ import {
   Item,
   GreyImg,
   MainImg,
-  HelpButton
+  HelpButton,
+  AddIcon,
+  JoinIcon,
+  RankIcon
 } from './style'
 import { connect } from 'react-redux'
 
@@ -26,16 +29,19 @@ function Homepage(props) {
       <TextContainer>
         <Link to="/new/">
           <Item>
+            <AddIcon/>
             <Text>创建队伍</Text>
           </Item>
         </Link>
         <Link to="/add/">
           <Item>
+            <JoinIcon/>
             <Text>加入队伍</Text>
           </Item>
         </Link>
         <Link to="/archive/">
           <Item>
+            <RankIcon/>
             <Text>查看排名</Text>
           </Item>
         </Link>

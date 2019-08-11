@@ -26,10 +26,19 @@ const defaultState = {
       ready: true,
       readyTime: 123,
       id: 2
+    },
+    {
+      username: "田承涵",
+      userId: 13,
+      identity: "member",
+      class: "信息与计算科学 181班",
+      ready: false,
+      readyTime: 123,
+      id: 3
     }
   ],
   message: "胡昊江加入本房间",
-  difficult: 3,
+  difficult: 4,
   status: 0,
 }
 

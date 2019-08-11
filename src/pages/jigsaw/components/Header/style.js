@@ -1,5 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import meau from '../../img/meau.svg'
+import menu from '../../img/meau.svg'
 
 const fadeIn = keyframes` 
   0% {
@@ -31,9 +31,9 @@ export const HeaderTitle = styled.div`
   color: #c9ced2;
 `;
 
-export const Meau = styled.div`
+export const Menu = styled.div`
   width: 23px;
   height: 19px;
-  background: url(${meau});
+  background: url(${menu});
   margin: 0 15px 0 15px;
 `;

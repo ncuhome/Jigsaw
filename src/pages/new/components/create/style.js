@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 const fadeIn = keyframes` 
   0% {
@@ -28,7 +28,6 @@ export const NewPageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: #fff;
 `
 
 export const NewPageContainer = styled.div`
@@ -40,7 +39,7 @@ export const NewPageContainer = styled.div`
 export const Title = styled.div`
   font-size: 27px;
   font-weight: 800;
-  color: #4B4B4B;
+  color: #DEDEDE;
   letter-spacing: 1.69px;
   animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
 `
@@ -50,10 +49,10 @@ export const InputBox = styled.div`
   align-items: center;
   height: 45px;
   width: 319px;
-  background: #fff;
+  background: #474747;
   border-radius: 8px;
-  border: 1px solid #F2F2F2;
-  color: #696969;
+  border: 1px solid #424242;
+  color: #DEDEDE;
   font-size: 18px;
   margin: 32px 0 16px 0;
   box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
@@ -63,8 +62,9 @@ export const InputBox = styled.div`
     line-height: 30px;
     letter-spacing: .8px;
     font-size: 18px;
-    color: #696969;
+    color: #DEDEDE;
     margin: 0 15px 0 15px;
+    background: #474747;
   }
   input::-webkit-input-placeholder {
     height: 30px;
@@ -78,7 +78,7 @@ export const InputBox = styled.div`
 export const Message = styled.div`
   font-size: 13px;
   font-weight: 600;
-  color: #777777;
+  color: #B7B7B7;
   width: 83px;
   height: 18px;
   line-height: 18px;
@@ -98,7 +98,7 @@ export const ButtonsContainer = styled.div`
 
 export const Button = styled.div`
   font-size: 27px;
-  color: #4B4B4B;
+  color: #DEDEDE;
   font-weight: 800;
   letter-spacing: 1.69px;
   transition: opacity .38s;

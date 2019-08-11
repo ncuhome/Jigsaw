@@ -37,7 +37,6 @@ export const RoomWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: #fff;
 `
 
 export const TitleContainer = styled.div`
@@ -72,7 +71,7 @@ export const GroupName = styled.div`
   font-size: 47px;
   letter-spacing: 2.94px;
   font-weight: 800;
-  color: #4B4B4B;
+  color: #DEDEDE;
   height: 66px;
   width: 54vw;
   margin-right: 16px;
@@ -94,8 +93,8 @@ export const MessageContainer = styled.div`
   width: 86vw;
   margin: 13px 0;
   border-radius: 30px;
-  background: #F5F5F5;
-  color: #7E7E7E;
+  background: #343434;
+  color: #9C9C9C;
   font-size: 16px;
   letter-spacing: 1px;
   animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
@@ -125,7 +124,7 @@ export const MembersTitle = styled.div`
   line-height: 28px;
   font-size: 20px;
   letter-spacing: 1.25px;
-  color: #AFAFAF;
+  color: #B4B4B4;
   font-weight: 600;
 `
 
@@ -151,7 +150,7 @@ export const ExitTitle = styled.div`
 `
 
 export const MainButton = styled.div`
-  background: #F7F7F7;
+  background: #3A3A3A;
   border-radius: 13px;
   width: 166px;
   height: 71px;
@@ -160,14 +159,14 @@ export const MainButton = styled.div`
   align-items: center;
   font-size: 37px;
   font-weight: 600;
-  color: #4B4B4B;
+  color: #CDCDCD;
   letter-spacing: 2.31px;
   transition: color 1s easy;
 `
 
 export const ButtonNumber = styled.div`
   letter-spacing: 1.25px;
-  color: #B2B2B2;
+  color: #CDCDCD;
   font-size: 20px;
   font-weight: 500;
   height: 38px;

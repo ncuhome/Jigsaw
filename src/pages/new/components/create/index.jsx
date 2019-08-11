@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -8,11 +8,11 @@ import {
   ButtonsContainer,
   Button
 } from './style'
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 function CreatePage(props) {
-  const { username, roomName, message, status, difficult, token } = props.params;
-  const { OnChangeGroupName, create, updateNewStatus, updatePage } = props.funcs;
+  const {username, roomName, message, status, difficult, token} = props.params;
+  const {OnChangeGroupName, create, updateNewStatus, updatePage} = props.funcs;
   const [showCancel, setShowCancel] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function CreatePage(props) {
     setShowCancel(true)
   }
 
-  const delectNewState = () => {
+  const clearNewState = () => {
     updateNewStatus(0);
     updatePage(0)
   }
@@ -46,8 +46,8 @@ function CreatePage(props) {
           <Button onClick={() => create(username, roomName, difficult, token)}>创建</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {status ? (delectNewState(), <Redirect to="/room/" />) : null}
-      {showCancel ? <Redirect to="/home/" /> : null}
+      {status ? (clearNewState(), <Redirect to="/room/"/>) : null}
+      {showCancel ? <Redirect to="/home/"/> : null}
     </NewPageWrapper>
   );
 }

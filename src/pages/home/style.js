@@ -1,6 +1,9 @@
 import styled,{keyframes} from 'styled-components'
 import mainImg from './img/mainImg.svg'
 import rightTop from './img/rightTop.svg'
+import add from './img/add.svg'
+import join from './img/join.svg'
+import rank from './img/rank.svg'
 
 const down = keyframes` 
   0% {
@@ -119,12 +122,12 @@ export const MainImg = styled.div`
 `
 
 export const Text = styled.div`
-  font-size: 30px;
+  font-size: 28px;
   width: 124px;
   height: 42px;
   line-height: 42px;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 1.3px;
   text-align: center;
   margin: auto;
   color: #E5E5E5;
@@ -135,7 +138,7 @@ export const TextContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 228px;
-  margin: 15vh 4vw 0 auto;
+  margin: 15vh 5vw 0 auto;
   animation: ${right} .7s ease, ${fadeIn} .7s ease;
   animation-delay: 1s;
   animation-fill-mode: backwards;
@@ -172,7 +175,27 @@ export const Welcome = styled.div`
 `
 
 export const Item = styled.div`
-  position: relative;
-  width: 140px;
   height: 42px;
+  width: 163px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const AddIcon = styled.div`
+  width: 24px;
+  height: 25px;
+  background: url(${add});
+`
+
+export const JoinIcon = styled.div`
+  width: 22px;
+  height: 22px;
+  background: url(${join});
+`
+
+export const RankIcon = styled.div`
+  width: 21px;
+  height: 22px;
+  background: url(${rank});
 `

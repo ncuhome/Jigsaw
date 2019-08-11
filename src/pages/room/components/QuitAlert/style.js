@@ -25,7 +25,7 @@ export const AlertWrapper = styled.div`
 `
 
 export const AlertContainer = styled.div`
-  background: #DDD;
+  background: #2A2A2A;
   border-radius: 17px;
   width: 274px;
   height: 146px;
@@ -45,20 +45,20 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  color: #2F2F2F;
+  color: #898989;
 `
 
 export const Title = styled.div`
   font-size: 21px;
   font-weight: 600;
-  color: #000;
+  color: #E4E4E4;
   margin-bottom: 7px;
 `
 
 export const DivideLine = styled.div`
   width: 100%;
   height: 1px;
-  background: #C5C5C5;
+  background: #474747;
 `
 
 export const ButtonContainer = styled.div`
@@ -77,9 +77,9 @@ const Button = styled.div`
 `
 
 export const RedButton = styled(Button)`
-  color: #FF2E19;
+  color: #FF5555;
 `
 
 export const BlueButton = styled(Button)`
-  color: #0097FF;
+  color: #3AB1FF;
 `

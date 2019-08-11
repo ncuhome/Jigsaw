@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -9,11 +9,11 @@ import {
   Button,
   InputContainer
 } from './style'
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 function SelectPage(props) {
-  const { difficult } = props.params;
-  const { setDifficult, updatePage } = props.funcs;
+  const {difficult} = props.params;
+  const {setDifficult, updatePage} = props.funcs;
   const [showCancel, setShowCancel] = useState(false);
 
   const handleCancel = () => {
@@ -30,17 +30,17 @@ function SelectPage(props) {
         <Title>队伍人数</Title>
         <InputContainer>
           <InputBox
-            borderColor={difficult === 3 ? '#FF8D6E' : '#F2F2F2'}
+            borderColor={difficult === 3 ? '#FF8D6E' : '#424242'}
             textColor={'#FF8D6E'}
             onClick={() => setDifficult(3)}
           >3人</InputBox>
           <InputBox
-            borderColor={difficult === 4 ? '#FFC516' : '#F2F2F2'}
+            borderColor={difficult === 4 ? '#FFC516' : '#424242'}
             textColor={'#FFC516'}
             onClick={() => setDifficult(4)}
           >4人</InputBox>
           <InputBox
-            borderColor={difficult === 5 ? '#60D8FF' : '#F2F2F2'}
+            borderColor={difficult === 5 ? '#60D8FF' : '#424242'}
             textColor={'#60D8FF'}
             onClick={() => setDifficult(5)}
           >5人</InputBox>
@@ -51,7 +51,7 @@ function SelectPage(props) {
           <Button onClick={() => next()}>下一步</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {showCancel ? <Redirect to="/home/" /> : null}
+      {showCancel ? <Redirect to="/home/"/> : null}
     </NewPageWrapper>
   );
 }

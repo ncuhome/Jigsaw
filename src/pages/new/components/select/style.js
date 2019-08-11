@@ -28,7 +28,6 @@ export const NewPageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: #fff;
 `
 
 export const NewPageContainer = styled.div`
@@ -40,7 +39,7 @@ export const NewPageContainer = styled.div`
 export const Title = styled.div`
   font-size: 27px;
   font-weight: 800;
-  color: #4B4B4B;
+  color: #DEDEDE;
   letter-spacing: 1.69px;
   animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
 `
@@ -51,7 +50,7 @@ export const InputBox = styled.div`
   align-items: center;
   height: 45px;
   width: 86px;
-  background: #fff;
+  background: #474747;
   border-radius: 8px;
   border: 2px solid ${props => props.borderColor};
   color: ${props => props.textColor};
@@ -69,7 +68,7 @@ export const InputBox = styled.div`
 export const Message = styled.div`
   font-size: 13px;
   font-weight: 600;
-  color: #777777;
+  color: #B7B7B7;
   height: 18px;
   line-height: 18px;
   letter-spacing: .81px;
@@ -90,7 +89,7 @@ export const ButtonsContainer = styled.div`
 
 export const Button = styled.div`
   font-size: 27px;
-  color: #4B4B4B;
+  color: #DEDEDE;
   font-weight: 800;
   letter-spacing: 1.69px;
 `

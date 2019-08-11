@@ -3,9 +3,10 @@ import styled from 'styled-components'
 export const MemberContentContainer = styled.div`
   width: 100vw;
   height: 72px;
-  border-top: 1px solid #F4F4F4;
+  border-top: 1px solid #3A3A3A;
   display: flex;
   justify-content: center;
+  background: ${props => props.myself ? '#313131' : null};
 `
 
 export const MemberContent = styled.div`
@@ -14,7 +15,6 @@ export const MemberContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${props => props.myself && '#FCFCFC'};
 `
 
 export const Avatar = styled.div`
@@ -53,7 +53,7 @@ export const MemberNameContent = styled.div`
 export const MemberName = styled.div`
   height: 29px;
   line-height: 29px;
-  color: ${props => props.color};
+  color: #DBDBDB;
   font-weight: 800;
   font-size: 21px;
   letter-spacing: 1.31px;
@@ -73,7 +73,7 @@ export const ClassMessage = styled.div`
   font-size: 14px;
   letter-spacing: .88px;
   font-weight: 500;
-  color: #CBCBCB;
+  color: #777777;
   height: 20px;
   line-height: 20px;
 `
@@ -82,7 +82,7 @@ export const ReadyContainer = styled.div`
   font-size: 20px;
   letter-spacing: 1.25px;
   font-weight: 500;
-  color: #4B4B4B;
+  color: ${props => props.ifReady ? '#AEAEAE' : '#5D5D5D'};
   line-height: 28px;
   height: 28px;
   width: 64px;

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import {
   HeaderContainer,
   HeaderTitle,
-  Meau,
+  Menu,
 } from './style'
 
 function timeShow(end) {
@@ -27,11 +27,11 @@ function Header({endTime, showMenu}) {
 
   return (
     <HeaderContainer>
-      <Meau onClick={() => showMenu()}/>
+      <Menu onClick={() => showMenu()}/>
       <HeaderTitle>
         {time} s
       </HeaderTitle>
-      <Meau style={{opacity: 0}}/>
+      <Menu style={{opacity: 0}}/>
     </HeaderContainer>
     )
   }

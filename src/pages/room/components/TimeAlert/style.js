@@ -25,7 +25,7 @@ export const AlertWrapper = styled.div`
 `
 
 export const AlertContainer = styled.div`
-  background: #DDD;
+  background: #2A2A2A;
   border-radius: 17px;
   width: 274px;
   height: 106px;
@@ -45,13 +45,13 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  color: #2F2F2F;
+  color: #898989;
 `
 
 export const Title = styled.div`
   font-size: 21px;
   font-weight: 600;
-  color: #343434;
+  color: #E4E4E4;
   margin-bottom: 9px;
   display: flex;
   flex-direction: column;

@@ -24,12 +24,12 @@ function AwaitMember() {
           </Avatar>
           <MemberMessageContent>
             <MemberNameContent>
-              <MemberName color={'#CDCDCD'}>
+              <MemberName style={{color: '#5F5F5F'}}>
                 待加入...
               </MemberName>
               <Identity> </Identity>
             </MemberNameContent>
-            <ClassMessage>
+            <ClassMessage style={{color: '#424242'}}>
               未知
             </ClassMessage>
           </MemberMessageContent>
@@ -57,20 +57,23 @@ function Members(props) {
 
   const identityFormat = ({identity}) => identity === "leader" ? '队长' : null
 
-  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMap[id] : '#fff'
+  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMap[id] : null
   return (
     <div>
       {
         members.map((item, index) => (
-          <MemberContentContainer key={`user ${index}`}>
-            <MemberContent myself={item.userId === userId}>
+          <MemberContentContainer
+            key={`user ${index}`}
+            myself={item.userId === userId}
+          >
+            <MemberContent>
               <MemberMessageContainer>
                 <Avatar color={avatarColor(item)}>
                   {usernameFormat(item)}
                 </Avatar>
                 <MemberMessageContent>
                   <MemberNameContent>
-                    <MemberName color={'#595959'}>
+                    <MemberName>
                       {item.username}
                     </MemberName>
                     <Identity>
@@ -82,7 +85,7 @@ function Members(props) {
                   </ClassMessage>
                 </MemberMessageContent>
               </MemberMessageContainer>
-              <ReadyContainer>
+              <ReadyContainer ifReady={item.ready}>
                 {item.ready && "已准备"}
               </ReadyContainer>
               <Slider color={sliderColor(item.userId, item.id)}/>
