@@ -2,9 +2,10 @@
 
 ## Pages
 
-<img src="./img/jigsaw.jpg" alt="jigsaw"/>
-<img src="./img/home.jpg" alt="home"/>
-<img src="./img/room.jpg" alt="room"/>
+<img src="./img/jigsaw.jpg" width="240px" alt="jigsaw"/>
+<img src="./img/jigsaw-side.jpg" width="240px" alt="jigsaw-side"/>
+<img src="./img/home.jpg" width="240px" alt="home"/>
+<img src="./img/room.jpg" width="240px" alt="room"/>
 
 ## 项目地址
 
