@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
 
 export const MenuWrapper = styled.div`
   background: rgba(46,46,46,.92);
@@ -17,6 +17,7 @@ export const BackArea = styled.div`
   position: absolute;
   top: 0;left: 0;bottom: 0;right: 0;
   display: flex;
+  background: rgba(0,0,0,.4);
 `
 
 export const TitleContainer = styled.div`
@@ -45,4 +46,9 @@ export const Quit = styled.div`
   color: #C3C3C3;
   font-weight: 600;
   letter-spacing: 1.44px;
+  transition: transform .18s ease, opacity .2s ease;
+  &:active{
+    transform : scale(.9);
+    opacity: 0;
+  }
 `

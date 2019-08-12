@@ -4,51 +4,60 @@ import {
   MemberContent,
   MemberName,
   MemberAvatar,
+  Identity,
+  MemberHead
  } from './style'
-import colorMap from "../../../../lib/colorMap"
+import { colorMapGradient } from "../../../../lib/colorMap"
+
+function EmptyMember() {
+  return (
+    <MemberContent>
+      <MemberHead>
+        <MemberAvatar color={'#6c6c6c'}>
+          空
+        </MemberAvatar>
+        <MemberName style={{color:'#707070'}}>
+          待加入...
+        </MemberName>
+      </MemberHead>
+    </MemberContent>
+  )
+}
 
 function Members({membersList, difficult, userId}) {
-
-  const delayShow = x => ((x+1)/difficult)/.75;
-
-  const list = () => {
-    const long = membersList.length;
-    if(long === difficult){
-      return membersList;
-    }else{
-      const newList = membersList;
-      const emptyElement = {
-        username: "待加入...",
-        identity: "member",
-        userId: null,
-        id: null,
-      };
-      for(let i = long+1;i<=difficult;i++){
-        emptyElement.id = i;
-        newList.push(emptyElement);
-      };
-      return newList;
+  const emptyMember = () => {
+    let arr = [];
+    for (let i = membersList.length + 1; i <= difficult; i++) {
+      arr.push(1)
     }
-  }
+    return arr
+  };
+
   return (
     <MembersContainer>
       {
-        list().map((item, index) => (
+        membersList.map((item, index) => (
             <MemberContent 
               key={index}
-              show={delayShow(index)}
               ifMine={userId === item.userId}
             >
-              <MemberAvatar
-                color={item.username === "待加入..." ? '#D8D8D8' : colorMap[item.id]}
-                ifLeader={item.identity==="leader"}
-              >
-                {item.username === "待加入..." ? '空' :item.username.split('').reverse().join('')[0]}
-              </MemberAvatar>
-              <MemberName>{item.username}</MemberName>
+              <MemberHead>
+                <MemberAvatar
+                  color={colorMapGradient[item.id]}
+                >
+                  {item.username.split('').reverse().join('')[0]}
+                </MemberAvatar>
+                <MemberName>
+                  {item.username}
+                </MemberName>
+              </MemberHead>
+              <Identity>
+                {item.identity === "leader" ? "队长" : null}
+              </Identity>
             </MemberContent>
         ))
       }
+      {emptyMember().map((item, index) => <EmptyMember key={index}/>)}
     </MembersContainer>
   )
 }

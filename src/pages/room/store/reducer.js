@@ -7,7 +7,7 @@ const defaultState = {
   roomName: "白色相簿",
   username: "孙翔宇",
   userId: 123,
-  endTime: Math.round(new Date() / 1000)+20,
+  endTime: Math.round(new Date() / 1000)+40,
   members: [
     {
       username: "胡昊江",

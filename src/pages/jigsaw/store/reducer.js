@@ -22,25 +22,25 @@ const defaultState = {
     {
       username: "蔡徐坤",
       identity: "leader",
-      userId: 12,
+      userId: '12',
       id: 1,
     },
     {
       username: "吴亦凡",
       identity: "member",
-      userId: 13,
+      userId: '13',
       id: 2,
     },
     {
       username: "王源",
       identity: "member",
-      userId: 14,
+      userId: '14',
       id: 3,
     },
     {
       username: "赵子琦",
       identity: "member",
-      userId: 15,
+      userId: '15',
       id: 4,
     },
   ]

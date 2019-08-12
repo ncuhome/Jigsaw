@@ -1,14 +1,28 @@
-# 拼图游戏
+# 许多人可以一起玩的拼图游戏
+
+## Pages
+
+<img src="./img/jigsaw.jpg" alt="jigsaw"/>
+<img src="./img/home.jpg" alt="home"/>
+<img src="./img/room.jpg" alt="room"/>
 
 ## 项目地址
 
-https://jigsaw.icecee.com
+[Home](https://jigsaw.icecee.com/home)
+
+[Room](https://jigsaw.icecee.com/room)
+
+[游戏进行时页面](https://jigsaw.icecee.com/jigsaw)
 
 ## 目前进度
 
-<img src="./img/2019718.png" alt="进度"/>
-
-`设计`
++ [x] 基本页面&样式
++ [x] 拼图逻辑
++ [x] 登陆状态的储存
++ [ ] 完善 UI Design
++ [ ] add more animation
++ [ ] newPage's socket通信
++ [ ] roomPage's socket通信
 
 ## 开发环境调试
 
@@ -299,13 +313,13 @@ leader开始游戏时
 ### 结束游戏
 
 #### 中途退出
-向所有人发送此人退出信息, 游戏继续进行
+向所有人广播此人退出信息, 游戏继续进行
 
 #### 因5分钟倒计时已到而结束
 强行上交矩阵/队伍与房间信息 并计算出分数（time=300）
 
 #### 未到5分钟 因为拼完而结束
-队长提交矩阵/完成时间/队伍与房间信息 并计算出分数 
+队长提交矩阵/完成时间/队伍与房间信息 并计算出分数
 
 ### TODO 房间前后端通信
 

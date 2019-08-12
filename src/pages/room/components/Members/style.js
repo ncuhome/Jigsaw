@@ -21,8 +21,9 @@ export const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #2e2e2e;
   font-weight: 800;
+  font-size: 18px;
   width: 44px;
   height: 44px;
   border-radius: 50%;

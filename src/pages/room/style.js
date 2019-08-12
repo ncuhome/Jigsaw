@@ -152,12 +152,12 @@ export const ExitTitle = styled.div`
 export const MainButton = styled.div`
   background: #3A3A3A;
   border-radius: 13px;
-  width: 166px;
-  height: 71px;
+  width: 138px;
+  height: 59px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 37px;
+  font-size: 29px;
   font-weight: 600;
   color: #CDCDCD;
   letter-spacing: 2.31px;
@@ -169,7 +169,7 @@ export const ButtonNumber = styled.div`
   color: #CDCDCD;
   font-size: 20px;
   font-weight: 500;
-  height: 38px;
+  height: 29px;
   margin-left: 9px;
   display: flex;
   flex-direction: column;

@@ -3,6 +3,8 @@ import {
   HeaderContainer,
   HeaderTitle,
   Menu,
+  Help,
+  Text
 } from './style'
 
 function timeShow(end) {
@@ -29,9 +31,10 @@ function Header({endTime, showMenu}) {
     <HeaderContainer>
       <Menu onClick={() => showMenu()}/>
       <HeaderTitle>
-        {time} s
+        <Text>倒计时</Text>
+        <p>{time}</p>
       </HeaderTitle>
-      <Menu style={{opacity: 0}}/>
+      <Help/>
     </HeaderContainer>
     )
   }

@@ -12,14 +12,14 @@ import {
   ReadyContainer,
   Slider
 } from './style'
-import colorMap from "../../../../lib/colorMap"
+import { colorMapGradient } from "../../../../lib/colorMap"
 
 function AwaitMember() {
   return (
     <MemberContentContainer>
       <MemberContent>
         <MemberMessageContainer>
-          <Avatar color={'#D8D8D8'}>
+          <Avatar color={'#6c6c6c'}>
             空
           </Avatar>
           <MemberMessageContent>
@@ -51,13 +51,13 @@ function Members(props) {
     return arr
   }
 
-  const avatarColor = ({id}) => colorMap[id]
+  const avatarColor = ({id}) => colorMapGradient[id]
 
   const usernameFormat = ({username}) => username.split('').reverse().join('')[0]
 
   const identityFormat = ({identity}) => identity === "leader" ? '队长' : null
 
-  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMap[id] : null
+  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMapGradient[id] : null
   return (
     <div>
       {

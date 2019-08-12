@@ -49,13 +49,14 @@ export const TitleContainer = styled.div`
 `
 
 export const Title = styled.div`
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 600;
-  color: #E4E4E4;
+  color: #d7d7d7;
   margin-bottom: 9px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  line-height: 25px;
+  line-height: 29px;
+  letter-spacing: 1px;
 `

@@ -23,7 +23,7 @@ function TimeAlert() {
         <TitleContainer>
           <Title>
             <p>因您长时间未进行准备</p>
-            <p>{time}s后将离开该房间</p>
+            <p>{time}秒 后将离开该房间</p>
           </Title>
             准备跳回至主页…
         </TitleContainer>

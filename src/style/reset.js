@@ -27,7 +27,7 @@ const GlobalReset = createGlobalStyle`
   footer, header, hgroup, menu, nav, section {
     display: block;
   }
-  body {
+  html, body {
     line-height: 1;
     background: #2a2a2a;
   }

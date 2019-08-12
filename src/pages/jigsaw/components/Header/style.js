@@ -1,5 +1,6 @@
 import styled, {keyframes} from "styled-components";
-import menu from '../../img/meau.svg'
+import menu from '../../img/menu.svg'
+import help from '../../img/help.svg'
 
 const fadeIn = keyframes` 
   0% {
@@ -16,12 +17,11 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 56px;
+  height: 70px;
   animation: ${fadeIn} 2s ease;
 `;
 
 export const HeaderTitle = styled.div`
-  width: 50vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -29,6 +29,11 @@ export const HeaderTitle = styled.div`
   font-weight: 500;
   text-align: center;
   color: #c9ced2;
+  letter-spacing: 1px;
+  transition: transform .27s ease;
+  &:active{
+    transform : scale(.93,.93);
+  }
 `;
 
 export const Menu = styled.div`
@@ -36,4 +41,27 @@ export const Menu = styled.div`
   height: 19px;
   background: url(${menu});
   margin: 0 15px 0 15px;
+  transition: transform .21s ease, opacity .21s ease;
+  &:active{
+    transform : scale(.93,.93);
+    opacity: 0;
+  }
 `;
+
+export const Help = styled.div`
+  width: 22px;
+  height: 22px;
+  background: url(${help});
+  margin: 0 16px 0 16px;
+  transition: transform .21s ease, opacity .21s ease;
+  &:active{
+    transform : scale(.93);
+    opacity: 0;
+  }
+`;
+
+export const Text = styled.div`
+  font-size: 14px;
+  color: #7b7b7b;
+  margin-bottom: 4px;
+`

@@ -10,20 +10,18 @@ import {
   PicsContainer,
   SliceContainer,
   Wrapper,
-  Line,
   Drag,
   JigContainer,
 } from './style'
 import {actionCreator} from "./store"
 import {Redirect} from 'react-router-dom'
 import {listenList, sendListChange} from "../../lib/ws"
-import colorMap from "../../lib/colorMap"
+import { colorMapPure } from "../../lib/colorMap"
 import { polyfill } from "mobile-drag-drop"
 import {scrollBehaviourDragImageTranslateOverride} from "mobile-drag-drop/scroll-behaviour"
 
 import Header from "./components/Header/"
 import Menu from "./components/Menu/"
-import Members from "./components/Members";
 
 const pictures = [
   "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562336127688&di=8b3b64da7ea88ddb1a14b95b9ba2e7cc&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F29%2F20170529020618_QMZXK.jpeg",
@@ -131,11 +129,11 @@ function JigsawPage(props) {
   const MyColor = () => {
     let id
     membersList.map(item => item.username === username && (id = item.id))
-    return colorMap[id]
+    return colorMapPure[id]
   }
 
   const otherColor = () => {
-    return colorMap[otherSelectUserId]
+    return colorMapPure[otherSelectUserId]
   }
 
   const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {
