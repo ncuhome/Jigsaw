@@ -5,6 +5,7 @@ import { reducer as loginReducer } from '../pages/login/store'
 import { reducer as jigsawReducer } from '../pages/jigsaw/store'
 import { reducer as newReducer } from '../pages/new/store'
 import { reducer as roomReducer } from '../pages/room/store'
+import { reducer as joinReducer } from '../pages/join/store'
 
 const reducer = combineReducers({
   archive: archiveReducer,
@@ -12,7 +13,8 @@ const reducer = combineReducers({
   login: loginReducer,
   jigsaw: jigsawReducer,
   new: newReducer,
-  room: roomReducer
+  room: roomReducer,
+  join: joinReducer,
 })
 
 export default reducer

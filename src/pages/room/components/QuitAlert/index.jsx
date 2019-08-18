@@ -7,13 +7,14 @@ import {
   DivideLine,
   ButtonContainer,
   RedButton,
-  BlueButton
+  BlueButton,
+  Background
 } from './style'
 
-function QuitAlert(props) {
-  const {back, toQuit} = props;
+function QuitAlert({back, toQuit, showQuitAlert}) {
   return (
-    <AlertWrapper>
+    <AlertWrapper show={showQuitAlert}>
+      <Background onClick={() => back()}/>
       <AlertContainer>
         <TitleContainer>
           <Title>

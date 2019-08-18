@@ -7,12 +7,12 @@ import {
 } from './constants'
 
 const defaultState = {
-  token: '123',
-  userId: '15',
+  token: '',
+  userId: '',
   password: '',
   message: '',
-  username: '赵子琦',
-}
+  username: '',
+};
 
 export default (state = defaultState, action) => {
   let newState = JSON.parse(JSON.stringify(state))

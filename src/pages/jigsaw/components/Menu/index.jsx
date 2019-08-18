@@ -14,10 +14,7 @@ function Menu({userId, handleSideMenu, hiddenMenu, membersList, difficult, roomN
   };
   return (
     <div>
-      {
-        handleSideMenu ?
-        <BackArea onClick={() => hiddenMenu()}/>: null
-      }
+      <BackArea show={handleSideMenu} onClick={() => hiddenMenu()}/>
       <MenuWrapper style={{transform: `translateX(${showSide()}px)`}}>
         <Quit>
           退出

@@ -17,7 +17,10 @@ export const BackArea = styled.div`
   position: absolute;
   top: 0;left: 0;bottom: 0;right: 0;
   display: flex;
-  background: rgba(0,0,0,.4);
+  background: rgba(0,0,0,0.58);
+  transition: opacity .5s ease;
+  pointer-events: ${props => props.show ? 'auto' : 'none'};
+  opacity: ${props => props.show ? 1 : 0};
 `
 
 export const TitleContainer = styled.div`

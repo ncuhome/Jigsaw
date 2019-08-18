@@ -3,14 +3,14 @@ import Loadable from 'react-loadable'
 import Loading from '../common/Loading/index'
 
 const LoadableComponent = Loadable({
-  loader: () => import('./roompage'),
+  loader: () => import('./joinpage'),
   loading: Loading
 })
 
-class addpageLoadable extends Component {
+class joinpageLoadable extends Component {
   render() {
     return <LoadableComponent />
   }
 }
 
-export default addpageLoadable
+export default joinpageLoadable

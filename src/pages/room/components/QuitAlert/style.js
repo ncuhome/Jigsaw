@@ -18,10 +18,18 @@ export const AlertWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, .52);
-  -webkit-backdrop-filter: blur(5px);
+  overflow: hidden;
+  transition: opacity .5s ease;
+  pointer-events: ${props => props.show ? 'auto' : 'none'};
+  opacity: ${props => props.show ? 1 : 0};
   backdrop-filter: blur(5px);
-  animation: ${fadeIn} .4s ease;
+`
+
+export const Background = styled.div`
+  position: absolute;
+  top: 0;left: 0;bottom: 0;right: 0;
+  background: rgba(0,0,0,0.58);
+  transition: opacity .5s ease;
 `
 
 export const AlertContainer = styled.div`
@@ -36,6 +44,7 @@ export const AlertContainer = styled.div`
   animation: ${fadeIn} .4s ease;
   animation-delay: .1s;
   animation-fill-mode: backwards;
+  z-index: 1;
 `
 
 export const TitleContainer = styled.div`

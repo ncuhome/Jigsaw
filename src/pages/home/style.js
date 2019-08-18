@@ -1,4 +1,4 @@
-import styled,{keyframes} from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import mainImg from './img/mainImg.svg'
 import rightTop from './img/rightTop.svg'
 import add from './img/add.svg'
@@ -56,27 +56,25 @@ const mainShake = keyframes`
 
 const rightTopShake = keyframes` 
   0% {
-    right: -8vh;
+    right: -8vw;
   }
   50% {
     right: 0;
   }
   100% {
-    right: -8vh;
+    right: -8vw;
   }
 `
 
 export const HomeWarpper = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  top: 0;right: 0;left: 0;bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   z-index: -2;
+  overflow: hidden;
 `
 
 export const HelpButton = styled.div`
@@ -87,31 +85,38 @@ export const HelpButton = styled.div`
   bottom: 0;
   left: 0;
   margin: 20px;
-  width: 83px;
-  height: 41px;
-  border: 2px solid #D4D4D4;
+  width: 70px;
+  height: 38px;
+  border: 2px solid #cacaca;
   border-radius: 22px;
   background: #373737;
-  color: #DBDBDB;
-  font-size: 20px;
+  color: #d2d2d2;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: .83px;
   animation: ${scale} .5s ease, ${fadeIn} .6s ease;
   animation-delay: 1.2s;
   animation-fill-mode: backwards;
+  transition: opacity .55s ease, transform .55s ease;
+  &:active{
+    opacity: .3;
+    transform: scale(.88);
+  }
 `
 
-export const GreyImg = styled.div`
+export const RedImg = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: 221px;
-  height: 217px;
+  width: 213px;
+  height: 212px;
   animation: ${fadeIn} .7s ease, ${right} .7s ease, ${rightTopShake} 4s ease infinite;
+  transform: translateY(0);
   background: url(${rightTop});
+  z-index: -1;
 `
 
-export const MainImg = styled.div`
+export const BlueImg = styled.div`
   position: absolute;
   top: 27vh;
   left: 0;
@@ -119,6 +124,7 @@ export const MainImg = styled.div`
   height: 440px;
   animation: ${fadeIn} .7s ease, ${down} .7s ease, ${mainShake} 4s ease infinite;
   background: url(${mainImg});
+  z-index: -1;
 `
 
 export const Text = styled.div`
@@ -142,6 +148,7 @@ export const TextContainer = styled.div`
   animation: ${right} .7s ease, ${fadeIn} .7s ease;
   animation-delay: 1s;
   animation-fill-mode: backwards;
+  filter: drop-shadow(0 0 10px rgba(39,39,39,0.54));
 `
 
 export const Name = styled.div`

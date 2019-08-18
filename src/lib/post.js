@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 async function post(path, postData, token) {
-  const baseUrl = 'http://localhost:8081'
+  const baseUrl = ''
   let url = baseUrl.concat(path)
   const data = JSON.stringify(postData)
   let ret = await new Promise(resolve => {
@@ -9,7 +9,7 @@ async function post(path, postData, token) {
       method: 'post',
       url,
       data,
-      headers: {'Content-Type': 'application/json','Authorization': `Bearer ${token}`}
+      headers: {'Content-Type': 'application/json'}
     })
     .then(res => resolve(res.data))
   })

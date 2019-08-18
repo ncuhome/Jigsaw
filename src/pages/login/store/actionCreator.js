@@ -6,49 +6,67 @@ import {
   UPDATE_MSG
 } from './constants'
 import post from '../../../lib/post'
+import get from '../../../lib/get'
 
-export const onUserIdChangeAction = (value) => ({
-  type: ON_CHANGE_USERID,
-  value
-})
-
-export const onPasswordChangeAction = (value) => ({
-  type: ON_CHANGE_PASSWORD,
-  value
-})
-
-export const loginAsyncAction = (userId, password) => {
+const getUsernameAsyncAction = (token) => {
   return dispatch => {
-    let data = {
-      userId,
-      password
-    }
-    new Promise(resolve => {
-      let ret = post('/api/user/login', data, '')
+    token && new Promise(resolve => {
+      let ret = get('https://os.ncuos.com/api/user/profile/index', token);
       resolve(ret)
     })
       .then(ret => {
-        dispatch(setTokenAction(ret.token))
-        dispatch(setUserNameAction(ret.username))
-        dispatch(updateStatusMessage(ret.message))
+        dispatch(setUserNameAction(ret.name))
       })
       .catch(err => {
         throw new Error(err)
       })
   }
-}
+};
 
-export const setUserNameAction = value => ({
+const setUserNameAction = value => ({
   type: SET_NAME,
   value
-})
+});
 
-export const setTokenAction = (value) => ({
+const setTokenAction = (value) => ({
   type: SET_TOKEN,
   value
-})
+});
 
-export const updateStatusMessage = value => ({
+const updateStatusMessage = value => ({
   type: UPDATE_MSG,
   value
-})
+});
+
+export const onUserIdChangeAction = (value) => ({
+  type: ON_CHANGE_USERID,
+  value
+});
+
+
+export const onPasswordChangeAction = (value) => ({
+  type: ON_CHANGE_PASSWORD,
+  value
+});
+
+
+export const loginAsyncAction = (userId, password, token) => {
+  return dispatch => {
+    let data = {
+      username: userId,
+      password
+    };
+    new Promise(resolve => {
+      let ret = post('https://os.ncuos.com/api/user/token', data, '');
+      resolve(ret)
+    })
+      .then(ret => {
+        dispatch(setTokenAction(ret.token));
+        dispatch(updateStatusMessage(ret.message));
+        dispatch(getUsernameAsyncAction(ret.token));
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+};

@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import Picture1 from './img/loginImg1.svg'
-import LittleImge from './img/loginImg2.svg'
+import LittleImg from './img/loginImg2.svg'
 
 const mainShake = keyframes` 
   0% {
@@ -134,7 +134,7 @@ export const SecondPicture = styled.div`
   width: 219px;
   height: 222px;
   animation: ${otherShow} 1.4s ease, ${otherShake} 4s ease infinite;
-  background: url(${LittleImge});
+  background: url(${LittleImg});
 `
 
 export const LoginWrapper = styled.div`
@@ -223,7 +223,7 @@ export const Prompt = styled.div`
   line-height: 20px;
   font-size: 15px;
   text-align: center;
-  color: #5B5B5B;
+  color: #ededed;
   letter-spacing: 1.2px;
   font-weight: 500;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));

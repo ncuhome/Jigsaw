@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import {
   HomeWarpper,
@@ -8,20 +8,27 @@ import {
   Title,
   Welcome,
   Item,
-  GreyImg,
-  MainImg,
+  RedImg,
+  BlueImg,
   HelpButton,
   AddIcon,
   JoinIcon,
   RankIcon
 } from './style'
 import { connect } from 'react-redux'
+import Help from './components/Help/'
 
 function Homepage(props) {
+  const [handleHelp, setHandleHelp] = useState(false);
+
+  const closeHelp = () => {
+    setHandleHelp(false)
+  };
+
   return (
     <HomeWarpper>
-      <MainImg />
-      <GreyImg />
+      <BlueImg />
+      <RedImg />
       <Title>
         <Welcome>你好，</Welcome>
         <Name>{props.name}</Name>
@@ -33,20 +40,24 @@ function Homepage(props) {
             <Text>创建队伍</Text>
           </Item>
         </Link>
-        <Link to="/add/">
+        <Link to="/join/">
           <Item>
             <JoinIcon/>
             <Text>加入队伍</Text>
           </Item>
         </Link>
-        <Link to="/archive/">
+        <Link to="/sort/">
           <Item>
             <RankIcon/>
             <Text>查看排名</Text>
           </Item>
         </Link>
       </TextContainer>
-      <HelpButton>帮助</HelpButton>
+      <HelpButton onClick={()=>setHandleHelp(true)}>帮助</HelpButton>
+      <Help
+        handleHelp={handleHelp}
+        closeHelp={closeHelp}
+      />
       {props.token === '' ? <Redirect to="/login/" /> : null}
     </HomeWarpper>
   );

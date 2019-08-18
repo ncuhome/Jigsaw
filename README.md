@@ -112,7 +112,7 @@ yarn deploy
       },
       {
           "username": "王源",
-          "dentity": "member",
+          "identity": "member",
           "id": 3
       },
       {

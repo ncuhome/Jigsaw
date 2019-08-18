@@ -103,8 +103,12 @@ function RoomPage(props) {
             </MainButton>
         }
       </BottomElements>
+      <QuitAlert
+        back={back}
+        toQuit={toQuit}
+        showQuitAlert={showQuitAlert}
+      />
       {showTimeAlert ? <TimeAlert/> : null}
-      {showQuitAlert ? <QuitAlert back={back} toQuit={toQuit}/> : null}
       {status === -1 ? quit() : null}
     </RoomWrapper>
   );
