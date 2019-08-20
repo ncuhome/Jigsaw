@@ -3,14 +3,15 @@ import {
   ON_CHANGE_PASSWORD,
   SET_TOKEN,
   SET_NAME,
-  UPDATE_MSG
+  UPDATE_MSG,
+  SET_STATUS
 } from './constants'
 import post from '../../../lib/post'
 import get from '../../../lib/get'
 
 const getUsernameAsyncAction = (token) => {
   return dispatch => {
-    token && new Promise(resolve => {
+    new Promise(resolve => {
       let ret = get('https://os.ncuos.com/api/user/profile/index', token);
       resolve(ret)
     })
@@ -38,6 +39,11 @@ const updateStatusMessage = value => ({
   value
 });
 
+const setStatusAction = (value) => ({
+  type: SET_STATUS,
+  value
+})
+
 export const onUserIdChangeAction = (value) => ({
   type: ON_CHANGE_USERID,
   value
@@ -50,7 +56,7 @@ export const onPasswordChangeAction = (value) => ({
 });
 
 
-export const loginAsyncAction = (userId, password, token) => {
+export const loginAsyncAction = (userId, password) => {
   return dispatch => {
     let data = {
       username: userId,
@@ -61,9 +67,14 @@ export const loginAsyncAction = (userId, password, token) => {
       resolve(ret)
     })
       .then(ret => {
-        dispatch(setTokenAction(ret.token));
-        dispatch(updateStatusMessage(ret.message));
-        dispatch(getUsernameAsyncAction(ret.token));
+        dispatch(setStatusAction(ret.status));
+        if(ret.status === 1){
+          dispatch(setTokenAction(ret.token));
+          dispatch(updateStatusMessage(ret.message));
+          dispatch(getUsernameAsyncAction(ret.token));
+        }else {
+          dispatch(updateStatusMessage(ret.message));
+        }
       })
       .catch(err => {
         throw new Error(err)

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -8,74 +8,45 @@ import {
   ButtonsContainer,
   Button
 } from './style'
-import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { actionCreator } from './store'
+import { Link, Redirect } from 'react-router-dom'
 
 function JoinPage(props) {
-  const {username, roomName, message, userId, status, token} = props;
-  const {OnChangeGroupName, join, updateJoinStatus} = props;
-  const [showCancel, setShowCancel] = useState(false);
+  const { token } = props;
+  const [RoomID, setRoomID] = useState('');
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    OnChangeGroupName('')
-  }, [])
-
-  const handleCancel = () => {
-    setShowCancel(true)
-  }
-
-  const clearNewState = () => {
-    updateJoinStatus(0);
-  }
+  const join = () => {
+    console.log(RoomID)
+  };
 
   return (
     <NewPageWrapper>
       <NewPageContainer>
-        <Title>队伍名称</Title>
+        <Title>队伍ID</Title>
         <InputBox>
           <input
-            placeholder="请输入队伍名称"
-            value={roomName}
-            onChange={e => OnChangeGroupName(e.target.value)}
+            placeholder="请输入队伍ID"
+            value={RoomID}
+            onChange={e => setRoomID(e.target.value)}
           />
         </InputBox>
         <Message active={message}>{message}</Message>
         <ButtonsContainer>
-          <Button onClick={() => handleCancel()}>取消</Button>
-          <Button onClick={() => join(username, userId, roomName, token)}>加入</Button>
+          <Link to="/home/">
+            <Button>取消</Button>
+          </Link>
+          <Button onClick={() => join()}>加入</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {status ? (clearNewState(), <Redirect to="/room/"/>) : null}
-      {showCancel ? <Redirect to="/home/"/> : null}
     </NewPageWrapper>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    username: state.login.username,
-    userId: state.login.userId,
     token: state.login.token,
-
-    roomName: state.new.roomName,
-    message: state.new.message,
-    status: state.new.status,
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    OnChangeGroupName(roomName) {
-      dispatch(actionCreator.OnChangeGroupNameAction(roomName))
-    },
-    updateJoinStatus(status) {
-      dispatch(actionCreator.updateJoinStatusAction(status))
-    },
-    join(username, userId, roomName, token) {
-      dispatch(actionCreator.joinAsyncAction(username, userId, roomName, token))
-    }
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(JoinPage);
+export default connect(mapStateToProps)(JoinPage);

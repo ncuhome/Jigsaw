@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   HomeWarpper,
   Text,
@@ -18,7 +18,7 @@ import {
 import { connect } from 'react-redux'
 import Help from './components/Help/'
 
-function Homepage(props) {
+function Homepage({username}) {
   const [handleHelp, setHandleHelp] = useState(false);
 
   const closeHelp = () => {
@@ -31,7 +31,7 @@ function Homepage(props) {
       <RedImg />
       <Title>
         <Welcome>你好，</Welcome>
-        <Name>{props.name}</Name>
+        <Name>{username}</Name>
       </Title>
       <TextContainer>
         <Link to="/new/">
@@ -58,15 +58,13 @@ function Homepage(props) {
         handleHelp={handleHelp}
         closeHelp={closeHelp}
       />
-      {props.token === '' ? <Redirect to="/login/" /> : null}
     </HomeWarpper>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    name: state.login.username,
-    token: state.login.token,
+    username: state.login.username,
   }
 }
 

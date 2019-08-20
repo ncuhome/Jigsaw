@@ -12,12 +12,11 @@ import {
   MainPicture,
   SecondPicture
 } from './style'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { actionCreator } from './store'
 
 function LoginPage(props) {
-  const { userId, password, token, message } = props;
+  const { userId, password, message} = props;
   return (
     <LoginWrapper>
       <MainPicture />
@@ -45,10 +44,9 @@ function LoginPage(props) {
           />
         </PwdInputBox>
         <Prompt active={message}>{message}</Prompt>
-        <LoginBtn onClick={() => props.login(userId, password, token)}>登录</LoginBtn>
+        <LoginBtn onClick={() => props.login(userId, password)}>登录</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
-      {token ? <Redirect to="/home/" /> : null}
     </LoginWrapper>
   );
 }
@@ -57,7 +55,6 @@ const mapStateToProps = state => {
   return {
     userId: state.login.userId,
     password: state.login.password,
-    token: state.login.token,
     message: state.login.message,
   }
 };
@@ -70,8 +67,8 @@ const mapDispatchToProps = dispatch => {
     onChangePassword(e) {
       dispatch(actionCreator.onPasswordChangeAction(e.target.value))
     },
-    login(userId, password, token) {
-      dispatch(actionCreator.loginAsyncAction(userId, password, token))
+    login(userId, password) {
+      dispatch(actionCreator.loginAsyncAction(userId, password))
     }
   }
 };

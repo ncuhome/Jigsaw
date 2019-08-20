@@ -6,22 +6,77 @@ import Home from './pages/home'
 import NewPage from './pages/new'
 import RoomPage from './pages/room'
 import JoinPage from './pages/join'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
-function Routers() {
+const RoutesList = [
+  {
+    path: "/",
+    component: Home,
+    auth: true,
+  },
+  {
+    path: "/jigsaw/",
+    component: Jigsaw,
+    auth: true,
+  },
+  {
+    path: "/login/",
+    component: Login,
+  },
+  {
+    path: "/home/",
+    component: Home,
+    auth: true,
+  },
+  {
+    path: "/new/",
+    component: NewPage,
+    auth: true,
+  },
+  {
+    path: "/room/",
+    component: RoomPage,
+    auth: true,
+  },
+  {
+    path: "/join/",
+    component: JoinPage,
+    auth: true,
+  },
+  {
+    path: "*",
+    component: Home,
+    auth: true
+  }
+];
+
+function Routers({status}) {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/jigsaw/" component={Jigsaw} />
-        <Route path="/login/" component={Login} />
-        <Route path="/home/" component={Home} />
-        <Route path="/new/" component={NewPage} />
-        <Route path="/room/" component={RoomPage} />
-        <Route path="/join/" component={JoinPage} />
-        <Route component={Home} />
+        {
+          RoutesList.map((item, index) => (
+            <Route key={index} exact path={item.path} render={props =>
+              (!item.auth ? (<item.component {...props} />) :
+                (status ? <item.component {...props} /> :
+                    <Redirect to={{
+                      pathname: '/login/',
+                      state: { from: props.location }
+                    }}/>)
+              )
+            }/>
+          ))
+        }
       </Switch>
     </Router>
   )
 }
 
-export default Routers
+const mapStateToProps = state => {
+  return {
+    status: state.login.status,
+  }
+};
+
+export default  connect(mapStateToProps)(Routers)

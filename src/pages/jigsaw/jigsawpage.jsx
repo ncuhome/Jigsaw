@@ -284,7 +284,6 @@ function JigsawPage(props) {
             roomName={roomName}
             userId={userId}
       />
-      {token === '' ? <Redirect to="/login/"/> : null}
     </Wrapper>
   )
 }

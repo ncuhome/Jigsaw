@@ -4,6 +4,7 @@ import {
   SET_TOKEN,
   SET_NAME,
   UPDATE_MSG,
+  SET_STATUS
 } from './constants'
 
 const defaultState = {
@@ -12,6 +13,7 @@ const defaultState = {
   password: '',
   message: '',
   username: '',
+  status: 0,
 };
 
 export default (state = defaultState, action) => {
@@ -22,6 +24,9 @@ export default (state = defaultState, action) => {
       return newState
     case ON_CHANGE_PASSWORD:
       newState.password = action.value
+      return newState
+    case SET_STATUS:
+      newState.status = action.value
       return newState
     case SET_TOKEN:
       newState.token = action.value
