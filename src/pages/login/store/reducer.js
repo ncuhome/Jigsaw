@@ -2,18 +2,16 @@ import {
   ON_CHANGE_USERID,
   ON_CHANGE_PASSWORD,
   SET_TOKEN,
-  SET_NAME,
   UPDATE_MSG,
   SET_STATUS
 } from './constants'
 
 const defaultState = {
-  token: '',
-  userId: '',
+  token: window.localStorage.getItem('token'),
+  userId: window.localStorage.getItem('userId'),
   password: '',
   message: '',
-  username: '',
-  status: 0,
+  status: window.localStorage.getItem('status'),
 };
 
 export default (state = defaultState, action) => {
@@ -30,9 +28,6 @@ export default (state = defaultState, action) => {
       return newState
     case SET_TOKEN:
       newState.token = action.value
-      return newState
-    case SET_NAME:
-      newState.username = action.value
       return newState
     case UPDATE_MSG:
       newState.message = action.value

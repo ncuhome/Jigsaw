@@ -83,6 +83,33 @@ export const HelpButton = styled.div`
   align-items: center;
   position: absolute;
   bottom: 0;
+  right: 0;
+  margin: 20px;
+  width: 70px;
+  height: 38px;
+  border: 2px solid #cacaca;
+  border-radius: 22px;
+  background: #373737;
+  color: #d2d2d2;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .83px;
+  animation: ${scale} .5s ease, ${fadeIn} .6s ease;
+  animation-delay: 1.2s;
+  animation-fill-mode: backwards;
+  transition: opacity .55s ease, transform .55s ease;
+  &:active{
+    opacity: .3;
+    transform: scale(.88);
+  }
+`
+
+export const LeaveButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
   left: 0;
   margin: 20px;
   width: 70px;
@@ -103,6 +130,7 @@ export const HelpButton = styled.div`
     transform: scale(.88);
   }
 `
+
 
 export const RedImg = styled.div`
   position: absolute;

@@ -1,13 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Jigsaw from './pages/jigsaw'
 import Login from './pages/login'
 import Home from './pages/home'
-import NewPage from './pages/new'
-import RoomPage from './pages/room'
-import JoinPage from './pages/join'
+import New from './pages/new'
+import Room from './pages/room'
+import Join from './pages/join'
+import Sort from './pages/sort'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 const RoutesList = [
   {
@@ -31,18 +31,23 @@ const RoutesList = [
   },
   {
     path: "/new/",
-    component: NewPage,
+    component: New,
     auth: true,
   },
   {
     path: "/room/",
-    component: RoomPage,
-    auth: true,
+    component: Room,
+    auth: false,       //TODO:FIX（true）
   },
   {
     path: "/join/",
-    component: JoinPage,
+    component: Join,
     auth: true,
+  },
+  {
+    path: "/sort/",
+    component: Sort,
+    auth: false,       //TODO:FIX（true）
   },
   {
     path: "*",
@@ -79,4 +84,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default  connect(mapStateToProps)(Routers)
+export default connect(mapStateToProps)(Routers)

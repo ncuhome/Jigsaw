@@ -14,9 +14,10 @@ import {
 } from './style'
 import { connect } from 'react-redux'
 import { actionCreator } from './store'
+import { Redirect } from 'react-router-dom'
 
 function LoginPage(props) {
-  const { userId, password, message} = props;
+  const { userId, password, message, status} = props;
   return (
     <LoginWrapper>
       <MainPicture />
@@ -30,7 +31,7 @@ function LoginPage(props) {
           <input
             type="number"
             placeholder="请输入您的学号"
-            value={userId}
+            value={userId || ''}
             onChange={e => props.onChangeUserId(e)}
           />
         </UserIdInputBox>
@@ -47,6 +48,7 @@ function LoginPage(props) {
         <LoginBtn onClick={() => props.login(userId, password)}>登录</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
+      {status ? <Redirect to={"/home/"} />: null}
     </LoginWrapper>
   );
 }
@@ -56,6 +58,7 @@ const mapStateToProps = state => {
     userId: state.login.userId,
     password: state.login.password,
     message: state.login.message,
+    status: state.login.status,
   }
 };
 

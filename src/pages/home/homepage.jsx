@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import {
   HomeWarpper,
@@ -11,19 +11,38 @@ import {
   RedImg,
   BlueImg,
   HelpButton,
+  LeaveButton,
   AddIcon,
   JoinIcon,
   RankIcon
 } from './style'
 import { connect } from 'react-redux'
 import Help from './components/Help/'
+import Leave from './components/Leave/'
+import {actionCreator} from "./store";
 
-function Homepage({username}) {
+function Homepage({username, token, getUserName}) {
   const [handleHelp, setHandleHelp] = useState(false);
+  const [handleLeave, setHandleLeave] = useState(false);
 
   const closeHelp = () => {
     setHandleHelp(false)
   };
+
+  const closeLeave = () => {
+    setHandleLeave(false)
+  };
+
+  const clearLogin = () => {
+    window.localStorage.removeItem('status');
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('userId');
+    window.location.reload();
+  };
+
+  useEffect(()=>{
+    getUserName(token)
+  },[getUserName, token]);
 
   return (
     <HomeWarpper>
@@ -54,9 +73,15 @@ function Homepage({username}) {
         </Link>
       </TextContainer>
       <HelpButton onClick={()=>setHandleHelp(true)}>帮助</HelpButton>
+      <LeaveButton onClick={()=>setHandleLeave(true)}>离开</LeaveButton>
       <Help
         handleHelp={handleHelp}
         closeHelp={closeHelp}
+      />
+      <Leave
+        handleLeave={handleLeave}
+        closeLeave={closeLeave}
+        clearLogin={clearLogin}
       />
     </HomeWarpper>
   );
@@ -64,8 +89,18 @@ function Homepage({username}) {
 
 const mapStateToProps = state => {
   return {
-    username: state.login.username,
+    username: state.home.username,
+    token: state.login.token,
   }
-}
+};
 
-export default connect(mapStateToProps)(Homepage)
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserName(token) {
+      dispatch(actionCreator.getUsernameAsyncAction(token))
+    },
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
