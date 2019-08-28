@@ -1,14 +1,24 @@
 import React from 'react';
-import {Back, Header, SortWrapper, Title,} from './style'
+import {
+  Back,
+  Header,
+  SortWrapper,
+  Title
+} from './style'
 import YourSort from './components/YourSort/'
 import AllSort from './components/AllSort/'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 
-const sortColor = [
+const sortBackgroundColor = [
   '#3FBEFF', '#FD6060', '#7D7D7D'
 ];
+
+const sortTextColor = [
+  '#2a2a2a', '#2a2a2a', '#2a2a2a'
+];
+
 
 function SortPage({list, userId}) {
   const sortList = () => {
@@ -16,7 +26,8 @@ function SortPage({list, userId}) {
     temp = _.sortBy(temp, item => -item.score);
     temp.forEach((item, index) => {
       item.sort = index + 1;
-      item.color = sortColor[index] || 'rgba(0,0,0,0)'
+      item.backgroundColor = sortBackgroundColor[index] || 'rgba(0,0,0,0)'
+      item.textColor = sortTextColor[index] || '#8B8B8B'
     });
     return temp
   };
@@ -46,6 +57,7 @@ function SortPage({list, userId}) {
 
   return (
     <SortWrapper>
+      {console.log(allSortList())}
       <Header>
         <Title>
           成绩单

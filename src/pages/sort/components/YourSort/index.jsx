@@ -22,7 +22,7 @@ function YourSort({list}) {
       </Title>
       {list.map(item => (
         <Item key={item.roomId}>
-          <Number bg={item.color}>
+          <Number bg={item.backgroundColor} textColor={item.textColor}>
             {item.sort}
           </Number>
           <Card>

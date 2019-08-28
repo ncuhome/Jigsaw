@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   BottomText,
   Content,
@@ -15,9 +15,13 @@ import {
 import { connect } from 'react-redux'
 import { actionCreator } from './store'
 import { Redirect } from 'react-router-dom'
+import {listenToken} from "../../lib/ws"
 
 function LoginPage(props) {
   const { userId, password, message, status} = props;
+  useEffect(()=>{
+    listenToken(data => (console.log(data)))
+  },);
   return (
     <LoginWrapper>
       <MainPicture />

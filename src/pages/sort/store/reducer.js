@@ -74,6 +74,33 @@ const defaultState = {
       ],
       score: 76
     },
+    {
+      roomName: "我是",
+      roomId: 4663311,
+      members: [
+        {
+          username: "社会人",
+          userId: 12332
+        },
+        {
+          username: "赵子琦",
+          userId: 1234123
+        },
+        {
+          username: "胡昊江",
+          userId: 123
+        },
+        {
+          username: "赵弟弟",
+          userId: 123123
+        },
+        {
+          username: "胡弟弟",
+          userId: 1235555
+        }
+      ],
+      score: 76
+    },
   ],
   status: 0,
 };

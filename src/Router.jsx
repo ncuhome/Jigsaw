@@ -18,7 +18,7 @@ const RoutesList = [
   {
     path: "/jigsaw/",
     component: Jigsaw,
-    auth: true,
+    auth: false,
   },
   {
     path: "/login/",

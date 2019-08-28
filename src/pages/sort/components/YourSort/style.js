@@ -1,9 +1,31 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+const fadeIn = keyframes` 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const showDown = keyframes` 
+  0% {
+    transform: translateY(-25px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`
 
 export const YourSortContainer = styled.div`
+  margin-top: 102px;
   width: 90vw;
   display: flex;
   flex-direction: column;
+  animation: ${fadeIn} 1s ease, ${showDown} .7s ease;
+  animation-delay: .3s;
+  animation-fill-mode: backwards;
 `;
 
 export const Title = styled.div`
@@ -35,7 +57,7 @@ export const Number = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  color: #2a2a2a;
+  color: ${props => props.textColor};
   margin-right: 5vw;
   background: ${props => props.bg};
 `;
