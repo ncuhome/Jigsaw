@@ -7,6 +7,7 @@ import New from './pages/new'
 import Room from './pages/room'
 import Join from './pages/join'
 import Sort from './pages/sort'
+import Result from './pages/result'
 import { connect } from 'react-redux'
 
 const RoutesList = [
@@ -48,6 +49,11 @@ const RoutesList = [
     path: "/sort/",
     component: Sort,
     auth: false,       //TODO:FIX（true）
+  },
+  {
+    path: "/result/",
+    component: Result,
+    auth: false        //TODO:FIX（true）
   },
   {
     path: "*",

@@ -6,8 +6,10 @@ import {
 } from './constants'
 
 const defaultState = {
-  roomName: "我们是白给",
-  picKind: 0,
+  roomName: "来发张自拍",
+  roomId: 123123123,
+  score: 78,
+  picKind: 2,
   difficult: 5,
   endTime: Math.round(new Date() / 1000)+300,
   jigsawList: [    
@@ -38,9 +40,9 @@ const defaultState = {
       id: 3,
     },
     {
-      username: "赵子琦",
+      username: "孙翔宇",
       identity: "member",
-      userId: '15',
+      userId: '5504118087',
       id: 4,
     },
   ]
