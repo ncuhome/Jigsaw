@@ -1,5 +1,5 @@
 import webSocket from 'socket.io-client'
-const ws = webSocket('localhost:8089');
+const ws = webSocket('localhost:8000');
 
 export const listenToken = method => ws.on('token', method);
 export const sendToken = data => ws.emit('token', data);

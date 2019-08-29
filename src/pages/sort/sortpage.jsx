@@ -19,7 +19,6 @@ const sortTextColor = [
   '#2a2a2a', '#2a2a2a', '#2a2a2a'
 ];
 
-
 function SortPage({list, userId}) {
   const sortList = () => {
     let temp = list;

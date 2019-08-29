@@ -42,7 +42,6 @@ export const RoomWrapper = styled.div`
 export const TitleContainer = styled.div`
   margin-top: 40px;
   width: 85vw;
-  height: 94px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,30 +51,26 @@ export const TitleContainer = styled.div`
 export const GroupNameTitle = styled.div`
   font-size: 20px;
   letter-spacing: 1.25px;
-  font-weight: 800;
+  font-weight: 500;
   color: #AFAFAF;
   line-height: 22px;
   height: 22px;
 `
 
-export const GroupNameContent = styled.div`
-  line-height: 66px;
-  height: 66px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  overflow: hidden;
+export const GroupName = styled.div`
+  font-size: 39px;
+  letter-spacing: 2.13px;
+  font-weight: 500;
+  color: #DEDEDE;
+  margin: 9px 0 13px -4px;
+  line-height: 42px;
 `
 
-export const GroupName = styled.div`
-  font-size: 47px;
-  letter-spacing: 2.94px;
-  font-weight: 800;
-  color: #DEDEDE;
-  height: 66px;
-  width: 54vw;
-  margin-right: 16px;
-  overflow: hidden;
+export const GroupID = styled.div`
+  font-size: 16px;
+  letter-spacing: .88px;
+  font-weight: 500;
+  color: #7B7B7B;
 `
 
 export const HelloTitle = styled.div`

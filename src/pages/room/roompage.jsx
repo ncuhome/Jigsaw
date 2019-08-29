@@ -3,9 +3,9 @@ import {
   RoomWrapper,
   TitleContainer,
   GroupNameTitle,
-  GroupNameContent,
   MessageContainer,
   GroupName,
+  GroupID,
   HelloTitle,
   MembersContainer,
   MembersTitleContainer,
@@ -24,7 +24,7 @@ import QuitAlert from './components/QuitAlert/'
 import TimeAlert from './components/TimeAlert/'
 
 function RoomPage(props) {
-  const {roomName, members, difficult, userId, message, endTime, status} = props;
+  const {roomName, members, difficult, userId, message, endTime, status, roomId} = props;
   const {updateReady, updateStatus} = props;
   const [showQuitAlert, setShowQuitAlert] = useState(false)
   const [showTimeAlert, setShowTimeAlert] = useState(false)
@@ -61,10 +61,8 @@ function RoomPage(props) {
         <GroupNameTitle>
           队名
         </GroupNameTitle>
-        <GroupNameContent>
-          <GroupName>{roomName}</GroupName>
-          <HelloTitle>Hello！</HelloTitle>
-        </GroupNameContent>
+        <GroupName>{roomName}</GroupName>
+        <GroupID>ID: {roomId}</GroupID>
       </TitleContainer>
       <MessageContainer>
         {message}
@@ -117,6 +115,7 @@ function RoomPage(props) {
 const mapStateToProps = state => {
   return {
     roomName: state.room.roomName,
+    roomId: state.room.roomId,
     members: state.room.members,
     difficult: state.room.difficult,
     userId: state.room.userId,

@@ -19,9 +19,11 @@ import {listenToken} from "../../lib/ws"
 
 function LoginPage(props) {
   const { userId, password, message, status} = props;
+
   useEffect(()=>{
-    listenToken(data => (console.log(data)))
-  },);
+    listenToken(data => console.log(data))
+  });
+
   return (
     <LoginWrapper>
       <MainPicture />

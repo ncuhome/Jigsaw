@@ -54,4 +54,8 @@ export const Back = styled.div`
   color: #9C9C9C;
   font-size: 19px;
   font-weight: 500;
+  transition: transform .4s ease;
+  &:active{
+    transform: scale(.91);
+  }
 `

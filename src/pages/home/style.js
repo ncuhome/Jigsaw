@@ -197,7 +197,6 @@ export const Title = styled.div`
 `
 
 export const Welcome = styled.div`
-  width: 99px;
   height: 45px;
   line-height: 45px;
   font-size: 32px;

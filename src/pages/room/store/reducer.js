@@ -5,6 +5,7 @@ import {
 
 const defaultState = {
   roomName: "白色相簿",
+  roomId: 13321452314,
   username: "孙翔宇",
   userId: 123,
   endTime: Math.round(new Date() / 1000)+40,

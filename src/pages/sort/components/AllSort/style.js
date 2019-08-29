@@ -1,5 +1,17 @@
 import styled, {keyframes} from 'styled-components'
 
+const breath = keyframes`
+  0% {
+    border: 2px solid #ADADAD
+  }
+  50% {
+    border: 2px solid #404040
+  }
+  100% {
+    border: 2px solid #ADADAD
+  }
+`
+
 const fadeIn = keyframes` 
   0% {
     opacity: 0;
@@ -66,7 +78,8 @@ export const Card = styled.div`
   flex: 1;
   background: #393939;
   border-radius: 14px;
-  border: 2px solid ${props => props.myGroup ? '#ADADAD' : '#404040'};
+  border: 2px solid #404040;
+  animation: ${props => props.myGroup && breath} 2.6s ease infinite;
   box-shadow: 0 17px 21px 0 rgba(0,0,0,.17);
   padding: 11px 15px;
 `;

@@ -20,6 +20,14 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import {actionCreator} from "./store";
+import _ from 'lodash'
+
+const halo = () => {
+  const haloText = [
+    'Aloha！','等到你了，','Hello!','你来啦，','你好啊，'
+  ];
+  return haloText[_.random(0,haloText.length - 1)]
+};
 
 function Homepage({username, token, getUserName}) {
   const [handleHelp, setHandleHelp] = useState(false);
@@ -49,7 +57,7 @@ function Homepage({username, token, getUserName}) {
       <BlueImg />
       <RedImg />
       <Title>
-        <Welcome>你好，</Welcome>
+        <Welcome>{halo()}</Welcome>
         <Name>{username}</Name>
       </Title>
       <TextContainer>
