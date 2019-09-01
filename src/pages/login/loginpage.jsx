@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   BottomText,
   Content,
@@ -12,22 +12,17 @@ import {
   MainPicture,
   SecondPicture
 } from './style'
-import { connect } from 'react-redux'
-import { actionCreator } from './store'
-import { Redirect } from 'react-router-dom'
-import {listenToken} from "../../lib/ws"
+import {connect} from 'react-redux'
+import {actionCreator} from './store'
+import {Redirect} from 'react-router-dom'
 
 function LoginPage(props) {
-  const { userId, password, message, status} = props;
-
-  useEffect(()=>{
-    listenToken(data => console.log(data))
-  });
+  const {userId, password, message, status} = props;
 
   return (
     <LoginWrapper>
-      <MainPicture />
-      <SecondPicture />
+      <MainPicture/>
+      <SecondPicture/>
       <Content>
         <Title>
           许多人可以一起玩的拼图游戏
@@ -54,7 +49,7 @@ function LoginPage(props) {
         <LoginBtn onClick={() => props.login(userId, password)}>登录</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
-      {status ? <Redirect to={"/home/"} />: null}
+      {status ? <Redirect to={"/home/"}/> : null}
     </LoginWrapper>
   );
 }

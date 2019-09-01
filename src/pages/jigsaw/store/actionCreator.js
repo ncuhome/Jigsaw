@@ -1,26 +1,32 @@
 import {
-  CHANGE_JIGSAW_PIC_TO_JIG, 
-  CHANGE_JIGSAW_JIG_TO_JIG, 
+  CHANGE_JIGSAW_PIC_TO_JIG,
+  CHANGE_JIGSAW_JIG_TO_JIG,
   CHANGE_JIGSAW_JIG_TO_PIC,
-  SET_CHANGE
+  SET_CHANGE,
+  SET_SCORE
 } from './constants'
 
-export const picToJig = value => ({
+export const setScoreAction = value => ({
+  type: SET_SCORE,
+  value
+});
+
+export const picToJigAction = value => ({
   type: CHANGE_JIGSAW_PIC_TO_JIG,
   PTJValue: value
 });
 
-export const jigToJig = value => ({
+export const jigToJigAction = value => ({
   type: CHANGE_JIGSAW_JIG_TO_JIG,
   JTJValue: value
 });
 
-export const jigToPic = value => ({
+export const jigToPicAction = value => ({
   type: CHANGE_JIGSAW_JIG_TO_PIC,
   JTPValue: value
 });
 
-export const setChange = value => ({
+export const setChangeAction = value => ({
   type: SET_CHANGE,
   value
 });

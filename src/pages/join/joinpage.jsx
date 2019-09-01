@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -8,17 +8,29 @@ import {
   ButtonsContainer,
   Button
 } from './style'
-import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Link, Redirect} from 'react-router-dom'
+import {joinRoom,listenJoin} from '../../lib/ws'
+import {actionCreator} from "../room/store";
 
-function JoinPage(props) {
-  const { token } = props;
-  const [RoomID, setRoomID] = useState('');
+function JoinPage({userId}) {
+  const [roomID, setRoomID] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState(0);
 
   const join = () => {
-    console.log(RoomID)
+    joinRoom(JSON.stringify({
+      roomId: roomID,
+      userId,
+    }));
   };
+
+  useEffect(() => {
+    listenJoin(data => {
+      setMessage(data.message);
+      setStatus(data.status)
+    })
+  },[]);
 
   return (
     <NewPageWrapper>
@@ -27,7 +39,7 @@ function JoinPage(props) {
         <InputBox>
           <input
             placeholder="请输入队伍ID"
-            value={RoomID}
+            value={roomID}
             onChange={e => setRoomID(e.target.value)}
           />
         </InputBox>
@@ -39,6 +51,7 @@ function JoinPage(props) {
           <Button onClick={() => join()}>加入</Button>
         </ButtonsContainer>
       </NewPageContainer>
+      {status ? <Redirect to={"/room/"} /> : null}
     </NewPageWrapper>
   );
 }
@@ -46,7 +59,17 @@ function JoinPage(props) {
 const mapStateToProps = state => {
   return {
     token: state.login.token,
+    userId: state.login.userId
   }
 };
 
-export default connect(mapStateToProps)(JoinPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateStatus(status) {
+      dispatch(actionCreator.updateStatusAction(status))
+    },
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(JoinPage);

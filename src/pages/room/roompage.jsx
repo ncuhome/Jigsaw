@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   RoomWrapper,
   TitleContainer,
@@ -6,7 +6,6 @@ import {
   MessageContainer,
   GroupName,
   GroupID,
-  HelloTitle,
   MembersContainer,
   MembersTitleContainer,
   MembersTitle,
@@ -31,6 +30,7 @@ function RoomPage(props) {
   const [already, setAlready] = useState(false)
   const long = members.length
 
+
   const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader")
   const startShow = () => long === difficult && already && members.every(item => item.ready)
   const setReady = () => {
@@ -45,7 +45,7 @@ function RoomPage(props) {
   }
 
   const quit = () => {
-    updateStatus(0)
+    updateStatus(0);
     return console.log('退出')
     // TODO change
     /*return <Redirect to="/home/"/>*/

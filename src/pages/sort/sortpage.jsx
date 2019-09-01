@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Back,
   Header,
@@ -9,6 +9,8 @@ import YourSort from './components/YourSort/'
 import AllSort from './components/AllSort/'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {listenRank} from '../../lib/ws'
+import {actionCreator} from "./store";
 import _ from 'lodash'
 
 const sortBackgroundColor = [
@@ -19,17 +21,25 @@ const sortTextColor = [
   '#2a2a2a', '#2a2a2a', '#2a2a2a'
 ];
 
-function SortPage({list, userId}) {
+function SortPage({list, userId, updateSortList}) {
+  const [status, setStatus] = useState(0);
   const sortList = () => {
     let temp = list;
     temp = _.sortBy(temp, item => -item.score);
     temp.forEach((item, index) => {
       item.sort = index + 1;
-      item.backgroundColor = sortBackgroundColor[index] || 'rgba(0,0,0,0)'
+      item.backgroundColor = sortBackgroundColor[index] || 'rgba(0,0,0,0)';
       item.textColor = sortTextColor[index] || '#8B8B8B'
     });
     return temp
   };
+
+  useEffect(() => {
+    listenRank(res => {
+      updateSortList(res.data);
+      setStatus(res.status)
+    })
+  }, []);
 
   const formatList = () => {
     const temp = sortList();
@@ -56,7 +66,6 @@ function SortPage({list, userId}) {
 
   return (
     <SortWrapper>
-      {console.log(allSortList())}
       <Header>
         <Title>
           成绩单
@@ -77,12 +86,16 @@ const mapStateToProps = state => {
   return {
     userId: state.login.userId,
     token: state.login.token,
-    list: state.sort.list
+    list: state.sort.list,
   }
 };
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    updateSortList(data) {
+      dispatch(actionCreator.updateSortListAction(data))
+    }
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SortPage);

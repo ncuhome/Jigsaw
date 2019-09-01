@@ -6,7 +6,6 @@ import {
   SET_STATUS
 } from './constants'
 import post from '../../../lib/post'
-import {sendToken} from "../../../lib/ws"
 
 export const setTokenAction = (value) => ({
   type: SET_TOKEN,
@@ -28,12 +27,10 @@ export const onUserIdChangeAction = (value) => ({
   value
 });
 
-
 export const onPasswordChangeAction = (value) => ({
   type: ON_CHANGE_PASSWORD,
   value
 });
-
 
 export const loginAsyncAction = (userId, password) => {
   return dispatch => {
@@ -51,11 +48,6 @@ export const loginAsyncAction = (userId, password) => {
           window.localStorage.setItem('token', ret.token);
           window.localStorage.setItem('status', ret.status);
           window.localStorage.setItem('userId', userId);
-          sendToken(JSON.stringify(
-            {
-              token: ret.token
-            }
-          ));
           dispatch(setTokenAction(ret.token));
           dispatch(updateStatusMessage(ret.message));
         }else {

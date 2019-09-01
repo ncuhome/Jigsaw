@@ -105,6 +105,18 @@ io.on('connection', socket => {
         socket.broadcast.emit('sendChange', message)
     })
 
+    socket.on('token', data => {
+        // data : {userId,userName,identity,roomName}
+        socket.emit('token', "hahahahahaa")
+    })
+
+    socket.on('cal', data => {
+        // data : {userId,userName,identity,roomName}
+        socket.emit('cal', '{"data":77}')
+    })
+
+    socket.emit('getRank', '23333333333');
+
     socket.on('addRoom', data => {
         // data : {userId,userName,identity,roomName}
         let member = data;

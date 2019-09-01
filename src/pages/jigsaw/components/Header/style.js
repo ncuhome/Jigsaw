@@ -1,6 +1,6 @@
 import styled, {keyframes} from "styled-components";
 import menu from '../../img/menu.svg'
-import help from '../../img/help.svg'
+import over from '../../img/over.svg'
 
 const fadeIn = keyframes` 
   0% {
@@ -41,22 +41,20 @@ export const Menu = styled.div`
   height: 19px;
   background: url(${menu});
   margin: 0 15px 0 15px;
-  transition: transform .21s ease, opacity .21s ease;
+  transition: transform .21s ease;
   &:active{
-    transform : scale(.93,.93);
-    opacity: 0;
+    transform : scale(.86);
   }
 `;
 
-export const Help = styled.div`
-  width: 22px;
-  height: 22px;
-  background: url(${help});
+export const Over = styled.div`
+  width: 24px;
+  height: 21px;
+  background: url(${over});
   margin: 0 16px 0 16px;
-  transition: transform .21s ease, opacity .21s ease;
+  transition: transform .21s ease;
   &:active{
-    transform : scale(.93);
-    opacity: 0;
+    transform : scale(.86);
   }
 `;
 

@@ -1,6 +1,5 @@
 import {
   UPDATE_SORT_LIST,
-  UPDATE_SORT_STATUS,
 } from './constants'
 
 const defaultState = {
@@ -102,7 +101,6 @@ const defaultState = {
       score: 76
     },
   ],
-  status: 0,
 };
 
 export default (state = defaultState, action) => {
@@ -110,9 +108,6 @@ export default (state = defaultState, action) => {
   switch(action.type) {
     case UPDATE_SORT_LIST:
       newState.list = action.value;
-      return newState;
-    case UPDATE_SORT_STATUS:
-      newState.status = action.value;
       return newState;
     default:
       return newState

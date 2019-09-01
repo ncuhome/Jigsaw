@@ -3,29 +3,28 @@ import {
   HeaderContainer,
   HeaderTitle,
   Menu,
-  Help,
+  Over,
   Text
 } from './style'
 
 function timeShow(end) {
-  const start = Math.round(new Date() / 1000)
+  const start = Math.round(new Date() / 1000);
   return end - start
 }
 
-function Header({endTime, showMenu}) {
-  const [time, setTime] = useState(timeShow(endTime))
-
+function Header({endTime, showMenu, showOver, setHandleTimeOver}) {
+  const [time, setTime] = useState(timeShow(endTime));
 
   useEffect(() => {
     let timer;
     if (time > 0) {
       timer = setTimeout(() => setTime(t => t - 1), 1000)
     } else {
-      setTime(0)
+      setTime(0);
+      setHandleTimeOver(true)
     }
     return () => clearTimeout(timer)
-  }, [time])
-
+  }, [time]);
 
   return (
     <HeaderContainer>
@@ -34,7 +33,7 @@ function Header({endTime, showMenu}) {
         <Text>倒计时</Text>
         <p>{time}</p>
       </HeaderTitle>
-      <Help/>
+      <Over onClick={() => showOver()}/>
     </HeaderContainer>
     )
   }

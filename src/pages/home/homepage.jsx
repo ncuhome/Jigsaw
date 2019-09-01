@@ -20,18 +20,28 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import {actionCreator} from "./store";
-import _ from 'lodash'
+import halo from "../../lib/helloText"
+import {listenToken, sendToken} from '../../lib/ws'
 
-const halo = () => {
-  const haloText = [
-    'Aloha！','等到你了，','Hello!','你来啦，','你好啊，'
-  ];
-  return haloText[_.random(0,haloText.length - 1)]
-};
-
-function Homepage({username, token, getUserName}) {
+function Homepage(props) {
+  const {username, token, getUserName, haloText} = props;
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
+
+  useEffect(()=>{
+    sendToken(JSON.stringify(
+      {
+        token: token
+      }
+    ))
+    console.log("send")
+  },[])
+
+  useEffect(()=>{
+    listenToken(data=>{
+      console.log(data)
+    })
+  },[])
 
   const closeHelp = () => {
     setHandleHelp(false)
@@ -50,14 +60,14 @@ function Homepage({username, token, getUserName}) {
 
   useEffect(()=>{
     getUserName(token)
-  },[getUserName, token]);
+  },[getUserName]);
 
   return (
     <HomeWarpper>
       <BlueImg />
       <RedImg />
       <Title>
-        <Welcome>{halo()}</Welcome>
+        <Welcome>{haloText}</Welcome>
         <Name>{username}</Name>
       </Title>
       <TextContainer>
@@ -99,6 +109,7 @@ const mapStateToProps = state => {
   return {
     username: state.home.username,
     token: state.login.token,
+    haloText: halo()
   }
 };
 

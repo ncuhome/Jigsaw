@@ -1,6 +1,7 @@
 import {
   UPDATE_ROOM_STATUS,
-  UPDATE_MEMBERS_LIST
+  UPDATE_MEMBERS_LIST,
+  SET_ROOM_NAME
 } from './constants'
 
 const defaultState = {
@@ -41,17 +42,20 @@ const defaultState = {
   message: "胡昊江加入本房间",
   difficult: 4,
   status: 0,
-}
+};
 
 export default (state = defaultState, action) => {
-  let newState = JSON.parse(JSON.stringify(state))
+  let newState = JSON.parse(JSON.stringify(state));
   switch(action.type) {
+    case SET_ROOM_NAME:
+      newState.roomName = action.value;
+      return newState;
     case UPDATE_ROOM_STATUS:
-      newState.status = action.value
-      return newState
+      newState.status = action.value;
+      return newState;
     case UPDATE_MEMBERS_LIST:
-      newState.members = action.value
-      return newState
+      newState.members = action.value;
+      return newState;
     default:
       return newState
   }
