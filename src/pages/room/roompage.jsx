@@ -16,44 +16,33 @@ import {
 } from './style'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {actionCreator} from './store'
 import Members from './components/Members/'
 import PureCountdown from './components/PureCountDown/'
 import QuitAlert from './components/QuitAlert/'
 import TimeAlert from './components/TimeAlert/'
 
 function RoomPage(props) {
-  const {roomName, members, difficult, userId, message, endTime, status, roomId} = props;
-  const {updateReady, updateStatus} = props;
+  const {roomName, members, difficult, userId, message, endTime, roomId} = props;
   const [showQuitAlert, setShowQuitAlert] = useState(false)
   const [showTimeAlert, setShowTimeAlert] = useState(false)
   const [already, setAlready] = useState(false)
-  const long = members.length
+  const [status, setStatus] = useState(0)
 
+  const long = members.length
 
   const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader")
   const startShow = () => long === difficult && already && members.every(item => item.ready)
   const setReady = () => {
     setAlready(true)
-  }
-  const cancelReady = () => {
-    setAlready(false)
-  }
+  };
 
   const toQuit = () => {
-    updateStatus(-1)
-  }
-
-  const quit = () => {
-    updateStatus(0);
-    return console.log('退出')
-    // TODO change
-    /*return <Redirect to="/home/"/>*/
-  }
+    setStatus(-1)
+  };
 
   const back = () => {
     setShowQuitAlert(false)
-  }
+  };
 
   return (
     <RoomWrapper>
@@ -107,7 +96,7 @@ function RoomPage(props) {
         showQuitAlert={showQuitAlert}
       />
       {showTimeAlert ? <TimeAlert/> : null}
-      {status === -1 ? quit() : null}
+      {status === -1 ? <Redirect to="/home/"/> : null}
     </RoomWrapper>
   );
 }
@@ -125,12 +114,4 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateStatus(status) {
-      dispatch(actionCreator.updateStatusAction(status))
-    },
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);
+export default connect(mapStateToProps)(RoomPage);

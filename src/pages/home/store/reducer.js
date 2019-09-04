@@ -3,7 +3,7 @@ import {
 } from './constants'
 
 const defaultState = {
-  username: '',
+  username: window.localStorage.getItem('username'),
 };
 
 export default (state = defaultState, action) => {

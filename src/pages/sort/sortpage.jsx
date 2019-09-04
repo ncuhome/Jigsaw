@@ -34,11 +34,16 @@ function SortPage({list, userId, updateSortList}) {
     return temp
   };
 
-  useEffect(() => {
+  const getRankList = () => {
     listenRank(res => {
       updateSortList(res.data);
-      setStatus(res.status)
+      setStatus(res.status);
+      console.log(res)
     })
+  };
+
+  useEffect(() => {
+    getRankList()
   }, []);
 
   const formatList = () => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -9,21 +9,9 @@ import {
   Button,
   InputContainer
 } from './style'
-import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-function SelectPage(props) {
-  const {difficult} = props.params;
-  const {setDifficult, updatePage} = props.funcs;
-  const [showCancel, setShowCancel] = useState(false);
-
-  const handleCancel = () => {
-    setShowCancel(true)
-  }
-
-  const next = () => {
-    updatePage(1)
-  }
-
+function SelectPage({difficult, setDifficult, next}) {
   return (
     <NewPageWrapper>
       <NewPageContainer>
@@ -47,11 +35,12 @@ function SelectPage(props) {
         </InputContainer>
         <Message>生成一个 {difficult}x{difficult} 拼图</Message>
         <ButtonsContainer>
-          <Button onClick={() => handleCancel()}>取消</Button>
+          <Link to={"home"}>
+            <Button>取消</Button>
+          </Link>
           <Button onClick={() => next()}>下一步</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {showCancel ? <Redirect to="/home/"/> : null}
     </NewPageWrapper>
   );
 }

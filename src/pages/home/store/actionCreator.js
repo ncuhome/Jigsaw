@@ -15,7 +15,8 @@ export const getUsernameAsyncAction = (token) => {
       resolve(ret)
     })
       .then(ret => {
-        dispatch(setUserNameAction(ret.name))
+        dispatch(setUserNameAction(ret.name));
+        window.localStorage.setItem('username', ret.name)
       })
       .catch(err => {
         throw new Error(err)

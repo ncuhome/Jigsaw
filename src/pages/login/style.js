@@ -1,121 +1,7 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Picture1 from './img/loginImg1.svg'
 import LittleImg from './img/loginImg2.svg'
-
-const mainShake = keyframes` 
-  0% {
-    top: 10vh;
-  }
-  50% {
-    top: 18vh;
-  }
-  100% {
-    top: 10vh;
-  }
-`
-
-const mainShow = keyframes` 
-  0% {
-    transform: translateY(-255px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`
-
-const otherShake = keyframes` 
-  0% {
-    left: -8vw;
-  }
-  50% {
-    left: 0;
-  }
-  100% {
-    left: -8vw;
-  }
-`
-
-const otherShow = keyframes` 
-  0% {
-    transform: translateX(-222px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`
-
-const titleShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const messageShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const userIdInputShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  38% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const pwdInputShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  53% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const buttonShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  65% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const bottomTextShow = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
+import {mainShake, mainShow, otherShake, otherShow, fadeIn} from '@/style/animate.js'
 
 export const MainPicture = styled.div`
   position: absolute;
@@ -123,9 +9,9 @@ export const MainPicture = styled.div`
   top: 15vh;
   width: 255px;
   height: 464px;
-  animation: ${mainShow} 1s ease, ${mainShake} 4s ease infinite;
+  animation: ${mainShow} 1s ease, ${fadeIn} 1s ease, ${mainShake} 4s ease infinite;
   background: url(${Picture1});
-`
+`;
 
 export const SecondPicture = styled.div`
   position: absolute;
@@ -133,9 +19,9 @@ export const SecondPicture = styled.div`
   bottom: 0;
   width: 219px;
   height: 222px;
-  animation: ${otherShow} 1.4s ease, ${otherShake} 4s ease infinite;
+  animation: ${otherShow} 1.4s ease, ${fadeIn} 1s ease, ${otherShake} 4s ease infinite;
   background: url(${LittleImg});
-`
+`;
 
 export const LoginWrapper = styled.div`
   position: absolute;
@@ -148,7 +34,7 @@ export const LoginWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-`
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -156,7 +42,7 @@ export const Content = styled.div`
   align-items: center;
   margin-top: 8vh;
   z-index: 1;
-`
+`;
 
 export const Title = styled.div`
   height: 98px;
@@ -167,8 +53,10 @@ export const Title = styled.div`
   line-height: 49px;
   letter-spacing: 1px;
   margin-bottom: 41px;
-  animation: ${titleShow} 2s ease;
-`
+  animation: ${fadeIn} 2s ease;
+  animation-delay: .3s;
+  animation-fill-mode: backwards;
+`;
 
 const InputBox = styled.div`
   display: flex;
@@ -196,15 +84,19 @@ const InputBox = styled.div`
     height: 30px;
     color: #939393;
   }
-`
+`;
 
 export const UserIdInputBox = styled(InputBox)`
-  animation: ${userIdInputShow} 2s ease;
-`
+  animation: ${fadeIn} 1s ease;
+  animation-delay: .5s;
+  animation-fill-mode: backwards;
+`;
 
 export const PwdInputBox = styled(InputBox)`
-  animation: ${pwdInputShow} 2s ease;
-`
+  animation: ${fadeIn} 1s ease;
+  animation-delay: .7s;
+  animation-fill-mode: backwards;
+`;
 
 export const InputName = styled.div`
   display: flex;
@@ -214,7 +106,7 @@ export const InputName = styled.div`
   text-align: center;
   font-weight: 500;
   margin: 0 14px;
-`
+`;
 
 export const Prompt = styled.div`
   width: 240px;
@@ -227,8 +119,8 @@ export const Prompt = styled.div`
   letter-spacing: 1.2px;
   font-weight: 500;
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
-  animation: ${props => props.active ? messageShow : null} 1s ease;
-`
+  animation: ${props => props.active ? fadeIn : null} 1s ease;
+`;
 
 export const LoginBtn = styled.div`
   display: flex;
@@ -243,13 +135,15 @@ export const LoginBtn = styled.div`
   background: #494C4F;
   color: #fff;
   border-radius: 22.5px;
-  animation: ${buttonShow} 2s ease;
+  animation: ${fadeIn} 1s ease;
+  animation-delay: 1s;
+  animation-fill-mode: backwards;
   box-shadow: 0 13px 16px 0 rgba(0,0,0,.19);
   transition: opacity .38s;
   &:active{
     opacity: 0;
   }
-`
+`;
 
 export const BottomText = styled.div`
   position: absolute;
@@ -259,5 +153,7 @@ export const BottomText = styled.div`
   font-size: 12px;
   color: #d7d7d7;
   letter-spacing: 1.6px;
-  animation: ${bottomTextShow} 2.3s ease;
-`
+  animation: ${fadeIn} 1s ease;
+  animation-delay: 1.2s;
+  animation-fill-mode: backwards;
+`;

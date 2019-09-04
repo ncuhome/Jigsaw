@@ -1,5 +1,4 @@
 import {
-  UPDATE_ROOM_STATUS,
   UPDATE_MEMBERS_LIST,
   SET_ROOM_NAME
 } from './constants'
@@ -41,7 +40,6 @@ const defaultState = {
   ],
   message: "胡昊江加入本房间",
   difficult: 4,
-  status: 0,
 };
 
 export default (state = defaultState, action) => {
@@ -49,9 +47,6 @@ export default (state = defaultState, action) => {
   switch(action.type) {
     case SET_ROOM_NAME:
       newState.roomName = action.value;
-      return newState;
-    case UPDATE_ROOM_STATUS:
-      newState.status = action.value;
       return newState;
     case UPDATE_MEMBERS_LIST:
       newState.members = action.value;

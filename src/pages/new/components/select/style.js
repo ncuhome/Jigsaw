@@ -1,22 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-
-const fadeIn = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const showDown = keyframes` 
-  0% {
-    transform: translateY(-25px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`
+import styled from 'styled-components'
+import {fadeIn, showDown} from '@/style/animate.js'
 
 export const NewPageWrapper = styled.div`
   position: absolute;

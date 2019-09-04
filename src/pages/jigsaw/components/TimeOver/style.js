@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+const fadeIn = keyframes` 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const HelpContainer = styled.div`
   position: absolute;
@@ -7,9 +16,9 @@ export const HelpContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity .5s ease;
   pointer-events: ${props => props.show ? 'auto' : 'none'};
-  opacity: ${props => props.show ? 1 : 0};
+  animation: ${fadeIn} .5s ease;
+  
 `;
 
 export const HelpContent = styled.div`
@@ -32,18 +41,4 @@ export const BackGround = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0,0,0,0.7);
-`;
-
-export const Quit = styled.div`
-  pointer-events: auto;
-  font-size: 18px;
-  color: #d8d8d8;
-  margin-top: 29px;
-`;
-
-export const Back = styled.div`
-  pointer-events: auto;
-  font-size: 18px;
-  color: #a0a0a0;
-  margin-top: 12px;
 `;

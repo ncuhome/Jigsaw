@@ -21,27 +21,11 @@ import Help from './components/Help/'
 import Leave from './components/Leave/'
 import {actionCreator} from "./store";
 import halo from "../../lib/helloText"
-import {listenToken, sendToken} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, token, getUserName, haloText} = props;
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
-
-  useEffect(()=>{
-    sendToken(JSON.stringify(
-      {
-        token: token
-      }
-    ))
-    console.log("send")
-  },[])
-
-  useEffect(()=>{
-    listenToken(data=>{
-      console.log(data)
-    })
-  },[])
 
   const closeHelp = () => {
     setHandleHelp(false)
@@ -55,6 +39,7 @@ function Homepage(props) {
     window.localStorage.removeItem('status');
     window.localStorage.removeItem('token');
     window.localStorage.removeItem('userId');
+    window.localStorage.removeItem('username');
     window.location.reload();
   };
 

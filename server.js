@@ -1,135 +1,187 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
-const app = express()
+const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/api/user/login', function (req, res) {
-    const data = req.body;
-    const userId = data.userId;
-    const password = data.password;
-    switch (true) {
-        case (userId === "321" && password === "321"):
-            res.json({
-                token: '123123',
-                username: "蔡徐坤",
-                message: "登录成功"
-            })
-            break;
-        case (userId === "4321" && password === "4321"):
-            res.json({
-                token: '1111111',
-                username: "赵子琦",
-                message: "登录成功"
-            })
-            break;
-        default:
-            res.json({
-                token: '',
-                username: '',
-                message: "用户名不存在或密码错误"
-            })
-    }
-});
-
-app.post('/api/room/new', function (req, res) {
-    const data = req.body;
-    const roomName = data.roomName;
-    const difficult = data.difficult;
-    const userId = data.userId;
-    const username = data.username;
-    switch (true) {
-        case (roomName === "321"):
-            res.json({
-                message: "队伍名已存在",
-                status: 0
-            })
-            break;
-        default:
-            res.json({
-                message: "",
-                status: 1
-            })
-            database.rooms.concat({
-                roomName,
-                difficult,
-                members: [
-                    {
-                        username,
-                        identity: "leader",
-                        userId,
-                        id: 1,
-                    },
-                ]
-            })
-    }
-});
-
-const database = {
-    rooms: [
-        {
-            roomName: "wsc",  
-            difficult: 5,
-            members: []
-        }
-    ],
-    users: [
-        {
-            userId: 321, 
-            password: 321, 
-            username: "蔡徐坤"
-        }, 
-        {
-            userId: 4321, 
-            password: 4321, 
-            username: "赵子琦"
-        }, 
-    ],
-    cache: [
-        {
-            userId: 321,
-            token: 123
-        }
-    ]
-}
-
 const server = require('http').Server(app)
-    .listen(8081, () => { console.log('open server!') })
+    .listen(8081, () => { console.log('open server!') });
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(server);
+
+const sortMock = {
+    data: [
+        {
+            roomName: "白给小队",
+            roomId: 123123,
+            members: [
+                {
+                    username: "孙翔宇",
+                    userId: 5504118087
+                },
+                {
+                    username: "赵子琦",
+                    userId: 12341
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                }
+            ],
+            score: 74
+        },
+        {
+            roomName: "我是弟弟",
+            roomId: 23333,
+            members: [
+                {
+                    username: "张纪元",
+                    userId: 123554332
+                },
+                {
+                    username: "我是弟弟",
+                    userId: 1234
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                },
+                {
+                    username: "田弟弟",
+                    userId: 4321123
+                }
+            ],
+            score: 73
+        },
+        {
+            roomName: "我是哥哥",
+            roomId: 46633,
+            members: [
+                {
+                    username: "社会人",
+                    userId: 12332
+                },
+                {
+                    username: "赵子琦",
+                    userId: 1234123
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                },
+                {
+                    username: "赵弟弟",
+                    userId: 123123
+                },
+                {
+                    username: "胡弟弟",
+                    userId: 1235555
+                }
+            ],
+            score: 76
+        },
+        {
+            roomName: "我是",
+            roomId: 4663311,
+            members: [
+                {
+                    username: "社会人",
+                    userId: 12332
+                },
+                {
+                    username: "赵子琦",
+                    userId: 1234123
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                },
+                {
+                    username: "赵弟弟",
+                    userId: 123123
+                },
+                {
+                    username: "胡弟弟",
+                    userId: 1235555
+                }
+            ],
+            score: 76
+        },
+        {
+            roomName: "这就是你分手的借口",
+            roomId: 1145144,
+            members: [
+                {
+                    username: "社会人",
+                    userId: 12332
+                },
+                {
+                    username: "赵子琦",
+                    userId: 1234123
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                },
+                {
+                    username: "赵弟弟",
+                    userId: 123123
+                },
+                {
+                    username: "胡弟弟",
+                    userId: 1235555
+                }
+            ],
+            score: 69
+        },
+        {
+            roomName: "如果能够重新来过",
+            roomId: 1145100000,
+            members: [
+                {
+                    username: "社会人",
+                    userId: 12332
+                },
+                {
+                    username: "赵子琦",
+                    userId: 1234123
+                },
+                {
+                    username: "胡昊江",
+                    userId: 123
+                },
+                {
+                    username: "赵弟弟",
+                    userId: 123123
+                },
+                {
+                    username: "胡弟弟",
+                    userId: 1235555
+                }
+            ],
+            score: 64
+        },
+    ],
+    status: 1
+};
 
 io.on('connection', socket => {
-    console.log('success connect!')
+    console.log('success connect!');
 
     socket.on('sendChange', message => {
         socket.broadcast.emit('sendChange', message)
-    })
+    });
 
     socket.on('token', data => {
         // data : {userId,userName,identity,roomName}
         socket.emit('token', "hahahahahaa")
-    })
+    });
 
     socket.on('cal', data => {
         // data : {userId,userName,identity,roomName}
         socket.emit('cal', '{"data":77}')
-    })
+    });
 
-    socket.emit('getRank', '23333333333');
-
-    socket.on('addRoom', data => {
-        // data : {userId,userName,identity,roomName}
-        let member = data;
-        database.rooms.forEach(item=>{
-            if(item.roomName === data.roomName){
-                member.id = item.members.length + 1
-                item.members.concat(member)
-            }
-        })
-        socket.join(member.roomName)
-        io.sockets.in(member.roomName).emit('addRoom', database.rooms.some(item => (
-            item.roomName === member.roomName
-        )))
-    })
-})
+    socket.emit('getRank', sortMock);
+});
 

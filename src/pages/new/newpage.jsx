@@ -1,13 +1,62 @@
-import React from 'react';
-import { actionCreator } from './store'
-import { connect } from 'react-redux'
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux'
 import SelectPage from './components/select'
 import CreatePage from './components/create'
+import {Redirect} from 'react-router-dom'
+import {actionCreator} from "../room/store";
+import {listenNew, createNew} from '../../lib/ws'
 
-function NewPage(props) {
+function NewPage({username, userId, setRoomID}) {
+  const [status, setStatus] = useState(0);
+  const [roomName, setRoomName] = useState('');
+  const [difficult, setDifficult] = useState(3);
+  const [message, setMessage] = useState('');
+  const [page, setPage] = useState(1);
+
+  const back = () => {
+    setPage(1)
+  };
+
+  const next = () => {
+    setPage(2)
+  };
+
+  useEffect(()=>{
+    listenNew(res => {
+      setStatus(res.status);
+      setRoomID(res.data.id)
+    })
+  });
+
+  const create = (username, userId, roomName, difficult) => {
+    createNew(JSON.stringify({
+      username,
+      userId,
+      roomName,
+      difficult
+    }));
+    console.log('init')
+  };
+
   return (
     <div>
-      {props.page ? <CreatePage params={props} funcs={props} /> : <SelectPage params={props} funcs={props} />}
+      {page === 1 ?
+        <SelectPage
+          next={next}
+          difficult={difficult}
+          setDifficult={setDifficult}
+        /> : null}
+      {page === 2 ?
+        <CreatePage
+          userId={userId}
+          difficult={difficult}
+          roomName={roomName}
+          setRoomName={setRoomName}
+          message={message}
+          back={back}
+          create={create}
+        /> : null}
+      {status ? <Redirect to={"/room/"}/> : null}
     </div>
   );
 }
@@ -15,33 +64,18 @@ function NewPage(props) {
 const mapStateToProps = state => {
   return {
     username: state.login.username,
+    userId: state.login.userId,
     token: state.login.token,
-    page: state.new.page,
-    roomName: state.new.roomName,
-    message: state.new.message,
-    status: state.new.status,
-    difficult: state.new.difficult
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updatePage(page) {
-      dispatch(actionCreator.updatePageAction(page))
-    },
-    OnChangeGroupName(roomName) {
-      dispatch(actionCreator.OnChangeGroupNameAction(roomName))
-    },
-    setDifficult(difficult) {
-      dispatch(actionCreator.setDifficultAction(difficult))
-    },
-    updateNewStatus(status) {
-      dispatch(actionCreator.updateNewStatusAction(status))
-    },
-    create(username, roomName, difficult, token) {
-      dispatch(actionCreator.createAsyncAction(username, roomName, difficult, token))
+    setRoomID(data) {
+      dispatch(actionCreator.setRoomIDAction(data))
     }
   }
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPage);

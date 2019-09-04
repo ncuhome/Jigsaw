@@ -293,8 +293,8 @@ function JigsawPage(props) {
         hiddenOver={hiddenOver}
         submit={submit}
       />
-      {handleTimeOver ?  <TimeOver
-        handleOver={handleTimeOver}
+      {handleTimeOver ? <TimeOver
+        handleTimeOver={handleTimeOver}
         submit={submit}
       /> : null}
       {goResult ? <Redirect to={"/result/"}/> : null}

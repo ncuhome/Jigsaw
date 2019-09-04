@@ -1,38 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-
-const fadeIn = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const showDown = keyframes` 
-  0% {
-    transform: translateY(-25px);
-    
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
-const scaleAnimation = keyframes` 
-  0% {
-    transform: scale(.88);
-  }
-`;
-
-const showUp = keyframes` 
-  0% {
-    transform: translateY(25px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
+import styled from 'styled-components'
+import {fadeIn, showDown, scale, showUp} from '@/style/animate.js'
 
 export const ResultWrapper = styled.div`
   position: absolute;
@@ -57,7 +24,7 @@ export const JigContainer = styled.div`
   border-radius: 14px;
   background: #212121;
   transform: scale(.88);
-  animation: ${fadeIn} .7s ease, ${showDown} .5s ease, ${scaleAnimation} .5s ease;
+  animation: ${fadeIn} .7s ease, ${showDown} .5s ease, ${scale} .5s ease;
   animation-delay: .35s;
   animation-fill-mode: backwards;
 `;

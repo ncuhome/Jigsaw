@@ -5,7 +5,7 @@ import {
   BackGround,
 } from './style'
 
-function TimeOver({handleOver, submit}) {
+function TimeOver({handleTimeOver, submit}) {
   const [time, setTime] = useState(3);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function TimeOver({handleOver, submit}) {
   }, [time]);
 
   return (
-    <HelpContainer show={handleOver}>
+    <HelpContainer show={handleTimeOver}>
       <BackGround/>
       <HelpContent>
         <p>已经过了好久了，{time}秒后提交</p>

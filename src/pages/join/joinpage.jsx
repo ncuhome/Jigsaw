@@ -10,15 +10,15 @@ import {
 } from './style'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
-import {joinRoom,listenJoin} from '../../lib/ws'
-import {actionCreator} from "../room/store";
+import {joinRoom, listenJoin} from '../../lib/ws'
+import {actionCreator} from "../room/store"
 
-function JoinPage({userId}) {
+function JoinPage({userId, setMainRoomID}) {
   const [roomID, setRoomID] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(0);
 
-  const join = () => {
+  const submit = () => {
     joinRoom(JSON.stringify({
       roomId: roomID,
       userId,
@@ -27,9 +27,14 @@ function JoinPage({userId}) {
 
   useEffect(() => {
     listenJoin(data => {
-      setMessage(data.message);
-      setStatus(data.status)
-    })
+      if(data.status){
+        setMainRoomID(roomID);
+        setStatus(data.status);
+      }else{
+        setMessage(data.message);
+        setStatus(data.status);
+      }
+    });
   },[]);
 
   return (
@@ -48,7 +53,7 @@ function JoinPage({userId}) {
           <Link to="/home/">
             <Button>取消</Button>
           </Link>
-          <Button onClick={() => join()}>加入</Button>
+          <Button onClick={() => submit()}>加入</Button>
         </ButtonsContainer>
       </NewPageContainer>
       {status ? <Redirect to={"/room/"} /> : null}
@@ -65,8 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateStatus(status) {
-      dispatch(actionCreator.updateStatusAction(status))
+    setMainRoomID(status) {
+      dispatch(actionCreator.setRoomIDAction(status))
     },
   }
 };

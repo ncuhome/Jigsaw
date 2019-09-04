@@ -12,7 +12,7 @@ const defaultState = {
   score: 0,
   picKind: 2,
   difficult: 5,
-  endTime: Math.round(new Date() / 1000) + 3000,
+  endTime: Math.round(new Date() / 1000) + 7,
   jigsawList: [
     [0, 2, 3, 0, 0],
     [6, 0, 8, 9, 10],

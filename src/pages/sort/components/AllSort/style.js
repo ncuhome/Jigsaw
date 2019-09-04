@@ -1,34 +1,5 @@
-import styled, {keyframes} from 'styled-components'
-
-const breath = keyframes`
-  0% {
-    border: 2px solid #ADADAD
-  }
-  50% {
-    border: 2px solid #404040
-  }
-  100% {
-    border: 2px solid #ADADAD
-  }
-`
-
-const fadeIn = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
-
-const showDown = keyframes` 
-  0% {
-    transform: translateY(-25px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`
+import styled from 'styled-components'
+import {fadeIn, showDown, breath} from '@/style/animate.js'
 
 export const AllSortContainer = styled.div`
   width: 90vw;

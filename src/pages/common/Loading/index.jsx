@@ -3,8 +3,6 @@ import Lottie from 'react-lottie';
 import * as animationData from './loading.json'
  
 export default class Loading extends React.Component {
- 
- 
   render() {
     const defaultOptions = {
       loop: true,
