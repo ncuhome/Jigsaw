@@ -4,9 +4,9 @@ import SelectPage from './components/select'
 import CreatePage from './components/create'
 import {Redirect} from 'react-router-dom'
 import {actionCreator} from "../room/store";
-import {listenNew, createNew} from '../../lib/ws'
+import {listenJoin, joinRoom} from '../../lib/ws'
 
-function NewPage({username, userId, setRoomID}) {
+function NewPage({username, userId, getRoomName}) {
   const [status, setStatus] = useState(0);
   const [roomName, setRoomName] = useState('');
   const [difficult, setDifficult] = useState(3);
@@ -22,16 +22,16 @@ function NewPage({username, userId, setRoomID}) {
   };
 
   useEffect(()=>{
-    listenNew(res => {
+    listenJoin(res => {
       setStatus(res.status);
-      setRoomID(res.data.id)
+      setMessage(res.message);
+      getRoomName(roomName)
     })
-  });
+  },[]);
 
   const create = (username, userId, roomName, difficult) => {
-    createNew(JSON.stringify({
+    joinRoom(JSON.stringify({
       username,
-      userId,
       roomName,
       difficult
     }));
@@ -48,6 +48,7 @@ function NewPage({username, userId, setRoomID}) {
         /> : null}
       {page === 2 ?
         <CreatePage
+          username={username}
           userId={userId}
           difficult={difficult}
           roomName={roomName}
@@ -71,8 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setRoomID(data) {
-      dispatch(actionCreator.setRoomIDAction(data))
+    getRoomName(data) {
+      dispatch(actionCreator.setRoomNameAction(data))
     }
   }
 };

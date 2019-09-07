@@ -23,15 +23,15 @@ import TimeAlert from './components/TimeAlert/'
 
 function RoomPage(props) {
   const {roomName, members, difficult, userId, message, endTime, roomId} = props;
-  const [showQuitAlert, setShowQuitAlert] = useState(false)
-  const [showTimeAlert, setShowTimeAlert] = useState(false)
-  const [already, setAlready] = useState(false)
-  const [status, setStatus] = useState(0)
+  const [showQuitAlert, setShowQuitAlert] = useState(false);
+  const [showTimeAlert, setShowTimeAlert] = useState(false);
+  const [already, setAlready] = useState(false);
+  const [status, setStatus] = useState(0);
 
-  const long = members.length
+  const long = members.length;
 
-  const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader")
-  const startShow = () => long === difficult && already && members.every(item => item.ready)
+  const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader");
+  const startShow = () => long === difficult && already && members.every(item => item.ready);
   const setReady = () => {
     setAlready(true)
   };

@@ -1,26 +1,31 @@
 import io from 'socket.io-client'
-/*const socket = io('localhost:5656');*/
-const socket = io('localhost:8081');
+const common = io('http://jigsaw.mehacker.cn');
+const game = io('http://jigsaw.mehacker.cn/game');
+const room = io('http://jigsaw.mehacker.cn/room');
 
 /*验证token*/
-export const listenToken = method => socket.on('token', method);
-export const sendToken = data => socket.emit('token', data);
+export const listenToken = method => common.on('token', method);
+export const sendToken = data => common.emit('token', data);
 
-/*创建房间*/
-export const listenNew = method => socket.on('new', method);
-export const createNew = data => socket.emit('new', data);
+/*获取房间列表*/
+export const listenRoomList = method => common.on('get', method);
 
-/*加入房间*/
-export const listenJoin =  method => socket.on('join', method);
-export const joinRoom = data => socket.emit('join', data);
-
-/*计算分数*/
-export const listenCal =  method => socket.on('cal', method);
-export const sendCal = data => socket.emit('cal', data);
-
-/*获取排名*/
-export const listenRank = method => socket.on('getRank', method);
+/*创建/加入房间*/
+export const listenJoin =  method => room.on('join', method);
+export const joinRoom = data => room.emit('join', data);
 
 /*移动切片*/ /*待改*/
-export const listenList = method => socket.on('sendChange', method);
-export const sendListChange = data => socket.emit('sendChange', data);
+export const listenList = method => game.on('move', method);
+export const sendListChange = data => game.emit('move', data);
+
+/*计算分数*/
+export const listenCal =  method => game.on('cal', method);
+export const sendCal = data => game.emit('cal', data);
+
+/*加入游戏*/
+export const listenJoinGame =  method => game.on('join', method);
+export const sendJpinGame = data => game.emit('join', data);
+
+/*获取排名*/
+export const listenRank = method => game.on('rank', method);
+

@@ -93,7 +93,7 @@ yarn deploy
 
 ### 前后通信websocket部分
 
-每次有人进入房间进行准备模式时，向该人发送
+每次有人进入房间时，向该人发送
 
 ```json
 {
@@ -126,8 +126,7 @@ yarn deploy
 向房间内其他人发送
 ```json
 {
-  "userame": "sxy",         //用户名
-  "userId": 114512,         //用户学号
+  "message": "xxx加入房间",
   "members": [              //该房间用户信息
       {
           "username": "蔡徐坤",     //用户名
@@ -322,6 +321,39 @@ leader开始游戏时
 #### 未到5分钟 因为拼完而结束
 队长提交矩阵/完成时间/队伍与房间信息 并计算出分数
 
-### TODO 房间前后端通信
-
-### TODO 排名与over数值具体算法
+#### 加入房间
+返回的data
+```
+{
+  roomName: "白色相簿",
+  roomId: 13321452314,
+  members: [
+    {
+      username: "胡昊江",
+      userId: 123,
+      identity: "leader",
+      class: "物理学类 183班",
+      ready: false,
+      id: 1
+    },
+    {
+      username: "赵子琦",
+      userId: 11,
+      identity: "member",
+      class: "数学与应用数学 193班",
+      ready: false,
+      id: 2
+    },
+    {
+      username: "田承涵",
+      userId: 13,
+      identity: "member",
+      class: "信息与计算科学 181班",
+      ready: true,
+      id: 3
+    }
+  ],
+  message: "胡昊江加入本房间",
+  difficult: 4,
+};
+```

@@ -2,6 +2,7 @@ import {
   SET_NAME,
 } from './constants'
 import get from '../../../lib/get'
+import {sendToken} from '../../../lib/ws'
 
 const setUserNameAction = value => ({
   type: SET_NAME,
@@ -16,7 +17,11 @@ export const getUsernameAsyncAction = (token) => {
     })
       .then(ret => {
         dispatch(setUserNameAction(ret.name));
-        window.localStorage.setItem('username', ret.name)
+        window.localStorage.setItem('username', ret.name);
+        sendToken(JSON.stringify({
+          username: ret.name,
+          token
+        }))
       })
       .catch(err => {
         throw new Error(err)

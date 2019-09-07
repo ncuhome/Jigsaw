@@ -19,8 +19,9 @@ import {
 import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
-import {actionCreator} from "./store";
+import {actionCreator} from "./store"
 import halo from "../../lib/helloText"
+import {listenToken} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, token, getUserName, haloText} = props;
@@ -43,12 +44,12 @@ function Homepage(props) {
     window.location.reload();
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUserName(token)
-  },[getUserName]);
+  },[]);
 
   return (
-    <HomeWarpper>
+    <HomeWarpper>-
       <BlueImg />
       <RedImg />
       <Title>

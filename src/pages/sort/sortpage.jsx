@@ -36,7 +36,8 @@ function SortPage({list, userId, updateSortList}) {
 
   const getRankList = () => {
     listenRank(res => {
-      updateSortList(res.data);
+      const rankList = res.data.rank;
+      updateSortList(rankList);
       setStatus(res.status);
       console.log(res)
     })

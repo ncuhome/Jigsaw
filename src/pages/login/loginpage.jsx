@@ -16,9 +16,7 @@ import {connect} from 'react-redux'
 import {actionCreator} from './store'
 import {Redirect} from 'react-router-dom'
 
-function LoginPage(props) {
-  const {userId, password, message, status} = props;
-
+function LoginPage({userId, password, message, status, onChangeUserId, onChangePassword, login}) {
   return (
     <LoginWrapper>
       <MainPicture/>
@@ -33,7 +31,7 @@ function LoginPage(props) {
             type="number"
             placeholder="请输入您的学号"
             value={userId || ''}
-            onChange={e => props.onChangeUserId(e)}
+            onChange={e => onChangeUserId(e)}
           />
         </UserIdInputBox>
         <PwdInputBox>
@@ -42,11 +40,11 @@ function LoginPage(props) {
             type="password"
             placeholder="请输入云家园密码"
             value={password}
-            onChange={e => props.onChangePassword(e)}
+            onChange={e => onChangePassword(e)}
           />
         </PwdInputBox>
         <Prompt active={message}>{message}</Prompt>
-        <LoginBtn onClick={() => props.login(userId, password)}>登录</LoginBtn>
+        <LoginBtn onClick={() => login(userId, password)}>登录</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
       {status ? <Redirect to={"/home/"}/> : null}

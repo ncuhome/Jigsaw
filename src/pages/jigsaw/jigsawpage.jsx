@@ -51,20 +51,6 @@ function JigsawPage(props) {
     value: handleValue
   } = handleObject
 
-  const [otherhandleObject, setOtherhandleObject] = useState({
-    row: null,
-    column: null,
-    value: null,
-    userId: null
-  })
-
-  const {
-    row: otherSelectRow,
-    column: otherSelectColum,
-    value: otherSelectValue,
-    userId: otherSelectUserId
-  } = otherhandleObject
-
   /*防止拖拽滚动*/
   useEffect(() => {
     polyfill({
@@ -76,26 +62,15 @@ function JigsawPage(props) {
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
       {
-        list: jigsawList,
-        handleRow,
-        handleColumn,
-        handleValue,
-        id: 12
+        jigsawList,
       }
     ))
   }, [handleNumber]);
 
   /*监听服务器发送的切片移动*/
   useEffect(() => {
-    listenList(data => {
-      const res = JSON.parse(data)
-      props.changeList(res.list)
-      setOtherhandleObject({
-        row: res.handleRow,
-        column: res.handleColumn,
-        value: res.handleValue,
-        userId: res.id
-      })
+    listenList(res => {
+      props.changeList(res.jigsawList)
       console.log(res)                         //TODO:记得删
     })
   }, []);
@@ -139,8 +114,6 @@ function JigsawPage(props) {
     return colorMapPure[id]
   }
 
-  const otherColor = () => colorMapPure[otherSelectUserId]
-
   /*移动切片后的事件处理*/
   const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {
     switch (true) {
@@ -183,11 +156,6 @@ function JigsawPage(props) {
       value: item
     });
   };
-
-  const otherActionSlice = (rowIndex, columnIndex) =>
-    (otherSelectRow === rowIndex && otherSelectColum === columnIndex) ? otherColor() : '#333537'
-
-  const otherActionPics = value => otherSelectValue === value ? otherColor() : null
 
   const delayShow = x => ((x + 1) / difficult) / 1.3;
 
@@ -242,7 +210,6 @@ function JigsawPage(props) {
                         positionY={cutSliceY(item)}
                         size={length()}
                         myColor={myColor()}
-                        otherColor={otherActionSlice(rowIndex, columnIndex)}
                         active={handleValue !== 0 && handleValue === item}
                         onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
                       />

@@ -8,7 +8,6 @@ const defaultState = {
   roomId: 13321452314,
   username: "孙翔宇",
   userId: 123,
-  endTime: Math.round(new Date() / 1000)+40,
   members: [
     {
       username: "胡昊江",
@@ -16,7 +15,6 @@ const defaultState = {
       identity: "leader",
       class: "物理学类 183班",
       ready: true,
-      readyTime: 123,
       id: 1
     },
     {
@@ -25,7 +23,6 @@ const defaultState = {
       identity: "member",
       class: "数学与应用数学 193班",
       ready: true,
-      readyTime: 123,
       id: 2
     },
     {
@@ -34,7 +31,6 @@ const defaultState = {
       identity: "member",
       class: "信息与计算科学 181班",
       ready: false,
-      readyTime: 123,
       id: 3
     }
   ],

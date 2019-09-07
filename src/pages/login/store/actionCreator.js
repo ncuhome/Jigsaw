@@ -20,7 +20,7 @@ const updateStatusMessage = value => ({
 export const setStatusAction = (value) => ({
   type: SET_STATUS,
   value
-})
+});
 
 export const onUserIdChangeAction = (value) => ({
   type: ON_CHANGE_USERID,
