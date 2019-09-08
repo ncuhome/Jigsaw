@@ -17,31 +17,26 @@ import {
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
-import PureCountdown from './components/PureCountDown/'
 import QuitAlert from './components/QuitAlert/'
-import TimeAlert from './components/TimeAlert/'
 
 function RoomPage(props) {
-  const {roomName, members, difficult, userId, message, endTime, roomId} = props;
+  const {roomName, members, difficult, username, message, roomId} = props;
   const [showQuitAlert, setShowQuitAlert] = useState(false);
-  const [showTimeAlert, setShowTimeAlert] = useState(false);
-  const [already, setAlready] = useState(false);
   const [status, setStatus] = useState(0);
-
   const long = members.length;
 
-  const ifLeader = () => members.some(item => item.userId === userId && item.identity === "leader");
-  const startShow = () => long === difficult && already && members.every(item => item.ready);
-  const setReady = () => {
-    setAlready(true)
+  const ifLeader = () => members.some(item => item.username === username && item.identity === "leader");
+
+  const back = () => {
+    setShowQuitAlert(false)
   };
 
   const toQuit = () => {
     setStatus(-1)
   };
 
-  const back = () => {
-    setShowQuitAlert(false)
+  const start = () => {
+    console.log('kaishi')
   };
 
   return (
@@ -66,36 +61,21 @@ function RoomPage(props) {
           </MembersTitle>
         </MembersTitleContainer>
         <Members
-          userId={userId}
+          username={username}
           members={members}
           difficult={difficult}
           long={long}
         />
       </MembersContainer>
       <BottomElements>
-        {already ? <div/> : <ExitTitle onClick={() => setShowQuitAlert(true)}>退出</ExitTitle>}
-        {startShow() ? <MainButton onClick={() => console.log("开始")}>开始</MainButton> :
-          already ?
-            <MainButton style={{color: '#747474'}}>已准备</MainButton> :
-            <MainButton onClick={() => setReady()}>
-              <p>准备</p>
-              <ButtonNumber>
-                <PureCountdown
-                  endTime={endTime}
-                  status={status}
-                  toQuit={toQuit}
-                  setShowTimeAlert={setShowTimeAlert}
-                />
-              </ButtonNumber>
-            </MainButton>
-        }
+        <ExitTitle onClick={() => setShowQuitAlert(true)}>退出</ExitTitle>
+        {ifLeader() ? <MainButton onClick={() => start()}>开始</MainButton> : <div/>}
       </BottomElements>
       <QuitAlert
         back={back}
         toQuit={toQuit}
         showQuitAlert={showQuitAlert}
       />
-      {showTimeAlert ? <TimeAlert/> : null}
       {status === -1 ? <Redirect to="/home/"/> : null}
     </RoomWrapper>
   );
@@ -107,7 +87,7 @@ const mapStateToProps = state => {
     roomId: state.room.roomId,
     members: state.room.members,
     difficult: state.room.difficult,
-    userId: state.room.userId,
+    username: state.home.username,
     message: state.room.message,
     endTime: state.room.endTime,
     status: state.room.status

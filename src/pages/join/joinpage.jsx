@@ -13,14 +13,14 @@ import {Link, Redirect} from 'react-router-dom'
 import {joinRoom, listenJoin} from '../../lib/ws'
 import {actionCreator} from "../room/store"
 
-function JoinPage({userId, setMainRoomID}) {
-  const [roomID, setRoomID] = useState('');
+function JoinPage({userId, setMainRoomName}) {
+  const [roomName, setRoomName] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(0);
 
   const submit = () => {
     joinRoom(JSON.stringify({
-      roomId: roomID,
+      roomName: roomName,
       userId,
     }));
   };
@@ -28,7 +28,7 @@ function JoinPage({userId, setMainRoomID}) {
   useEffect(() => {
     listenJoin(data => {
       if(data.status){
-        setMainRoomID(roomID);
+        setMainRoomName(roomName);
         setStatus(data.status);
       }else{
         setMessage(data.message);
@@ -40,12 +40,12 @@ function JoinPage({userId, setMainRoomID}) {
   return (
     <NewPageWrapper>
       <NewPageContainer>
-        <Title>队伍ID</Title>
+        <Title>加入队伍</Title>
         <InputBox>
           <input
-            placeholder="请输入队伍ID"
-            value={roomID}
-            onChange={e => setRoomID(e.target.value)}
+            placeholder="请输入队伍名称"
+            value={roomName}
+            onChange={e => setRoomName(e.target.value)}
           />
         </InputBox>
         <Message active={message}>{message}</Message>
@@ -70,8 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setMainRoomID(status) {
-      dispatch(actionCreator.setRoomIDAction(status))
+    setMainRoomName(status) {
+      dispatch(actionCreator.setRoomNameAction(status))
     },
   }
 };

@@ -167,9 +167,12 @@ const sortMock = {
     status: 1
 };
 
-const tokenReturn = {
-    status: 1,
-    message: 'test'
+const tokenReturn = res => {
+    const data = JSON.parse(res);
+    return {
+        status: 1,
+        message: data.username
+    }
 };
 
 io.on('connection', socket => {
@@ -181,7 +184,7 @@ io.on('connection', socket => {
 
     socket.on('token', data => {
         // data : {userId,userName,identity,roomName}
-        socket.emit('token', tokenReturn)
+        socket.emit('token', tokenReturn(data))
     });
 
     socket.on('cal', data => {

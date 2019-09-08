@@ -12,7 +12,7 @@ import {
   ReadyContainer,
   Slider
 } from './style'
-import { colorMapGradient } from "../../../../lib/colorMap"
+import {colorMapGradient} from "../../../../lib/colorMap"
 
 function AwaitMember() {
   return (
@@ -41,30 +41,30 @@ function AwaitMember() {
 }
 
 function Members(props) {
-  const {members, userId, difficult, long} = props;
+  const {members, username, difficult, long} = props;
 
   const emptyMember = () => {
-    let arr = []
+    let arr = [];
     for (let i = long + 1; i <= difficult; i++) {
       arr.push(1)
     }
     return arr
-  }
+  };
 
-  const avatarColor = ({id}) => colorMapGradient[id]
+  const avatarColor = ({id}) => colorMapGradient[id];
 
-  const usernameFormat = ({username}) => username.split('').reverse().join('')[0]
+  const usernameFormat = ({username}) => username.split('').reverse().join('')[0];
 
-  const identityFormat = ({identity}) => identity === "leader" ? '队长' : null
+  const identityFormat = ({identity}) => identity === "leader" ? '队长' : '队员';
 
-  const sliderColor = (itemUserId, id) => itemUserId === userId ? colorMapGradient[id] : null
+  const sliderColor = (itemUsername, id) => itemUsername === username ? colorMapGradient[id] : null;
   return (
     <div>
       {
         members.map((item, index) => (
           <MemberContentContainer
             key={`user ${index}`}
-            myself={item.userId === userId}
+            myself={item.username === username}
           >
             <MemberContent>
               <MemberMessageContainer>
@@ -72,23 +72,18 @@ function Members(props) {
                   {usernameFormat(item)}
                 </Avatar>
                 <MemberMessageContent>
-                  <MemberNameContent>
-                    <MemberName>
-                      {item.username}
-                    </MemberName>
-                    <Identity>
-                      {identityFormat(item)}
-                    </Identity>
-                  </MemberNameContent>
-                  <ClassMessage>
-                    {item.class}
-                  </ClassMessage>
+                  <MemberName>
+                    {item.username}
+                  </MemberName>
+                  <Identity>
+                    {identityFormat(item)}
+                  </Identity>
                 </MemberMessageContent>
               </MemberMessageContainer>
               <ReadyContainer ifReady={item.ready}>
                 {item.ready && "已准备"}
               </ReadyContainer>
-              <Slider color={sliderColor(item.userId, item.id)}/>
+              <Slider color={sliderColor(item.username, item.id)}/>
             </MemberContent>
           </MemberContentContainer>))
       }

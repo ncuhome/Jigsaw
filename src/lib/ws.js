@@ -1,11 +1,12 @@
 import io from 'socket.io-client'
-const common = io('http://jigsaw.mehacker.cn');
+const common = io('http://jigsaw.mehacker.cn/');
 const game = io('http://jigsaw.mehacker.cn/game');
 const room = io('http://jigsaw.mehacker.cn/room');
+const test = io('http://localhost:8081/');
 
 /*验证token*/
-export const listenToken = method => common.on('token', method);
-export const sendToken = data => common.emit('token', data);
+export const listenToken = method => test.on('token', method);
+export const sendToken = data => test.emit('token', data);
 
 /*获取房间列表*/
 export const listenRoomList = method => common.on('get', method);

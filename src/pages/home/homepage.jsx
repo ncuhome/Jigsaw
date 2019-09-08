@@ -19,9 +19,8 @@ import {
 import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
-import {actionCreator} from "./store"
 import halo from "../../lib/helloText"
-import {listenToken} from '../../lib/ws'
+import {listenToken, sendToken} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, token, getUserName, haloText} = props;
@@ -44,12 +43,14 @@ function Homepage(props) {
     window.location.reload();
   };
 
-  useEffect(() => {
-    getUserName(token)
-  },[]);
+  useEffect(()=>{
+    listenToken(res => {
+      console.log(res)
+    })
+  },[])
 
   return (
-    <HomeWarpper>-
+    <HomeWarpper>
       <BlueImg />
       <RedImg />
       <Title>
@@ -93,19 +94,9 @@ function Homepage(props) {
 
 const mapStateToProps = state => {
   return {
-    username: state.home.username,
-    token: state.login.token,
+    username: state.login.username,
     haloText: halo()
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getUserName(token) {
-      dispatch(actionCreator.getUsernameAsyncAction(token))
-    },
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default connect(mapStateToProps)(Homepage)
