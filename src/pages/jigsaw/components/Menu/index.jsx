@@ -6,6 +6,7 @@ import {
   Title,
   Quit
 } from './style'
+import {Link} from 'react-router-dom'
 import Members from "../Members/"
 
 function Menu({username, handleSideMenu, hiddenMenu, membersList, difficult, roomName}) {
@@ -16,9 +17,11 @@ function Menu({username, handleSideMenu, hiddenMenu, membersList, difficult, roo
     <div>
       <BackArea show={handleSideMenu} onClick={() => hiddenMenu()}/>
       <MenuWrapper style={{transform: `translateX(${showSide()}px)`}}>
-        <Quit>
-          退出
-        </Quit>
+        <Link to={'/home/'}>
+          <Quit>
+            退出
+          </Quit>
+        </Link>
         <TitleContainer>
           队名
           <Title>
