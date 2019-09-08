@@ -12,7 +12,7 @@ const defaultState = {
   score: 0,
   picKind: 2,
   difficult: 5,
-  endTime: Math.round(new Date() / 1000) + 7,
+  endTime: Math.round(new Date() / 1000) + 300,
   jigsawList: [
     [0, 2, 3, 0, 0],
     [6, 0, 8, 9, 10],
@@ -23,27 +23,23 @@ const defaultState = {
   pics: [1, 4, 5, 7, 20],
   members: [
     {
-      username: "蔡徐坤",
+      username: "孙翔宇",
       identity: "leader",
-      userId: "12",
       id: 1,
     },
     {
       username: "吴亦凡",
       identity: "member",
-      userId: "13",
       id: 2,
     },
     {
       username: "王源",
       identity: "member",
-      userId: "14",
       id: 3,
     },
     {
-      username: "孙翔宇",
+      username: "孙翔",
       identity: "member",
-      userId: "5504118087",
       id: 4,
     },
   ]

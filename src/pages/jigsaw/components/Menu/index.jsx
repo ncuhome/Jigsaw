@@ -8,7 +8,7 @@ import {
 } from './style'
 import Members from "../Members/"
 
-function Menu({userId, handleSideMenu, hiddenMenu, membersList, difficult, roomName}) {
+function Menu({username, handleSideMenu, hiddenMenu, membersList, difficult, roomName}) {
   const showSide = () => {
     return handleSideMenu ? 0 : -250
   };
@@ -28,7 +28,7 @@ function Menu({userId, handleSideMenu, hiddenMenu, membersList, difficult, roomN
         <Members
           membersList={membersList}
           difficult={difficult}
-          userId={userId}
+          username={username}
         />
       </MenuWrapper>
     </div>

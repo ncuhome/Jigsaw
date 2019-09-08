@@ -24,7 +24,7 @@ function EmptyMember() {
   )
 }
 
-function Members({membersList, difficult, userId}) {
+function Members({membersList, difficult, username}) {
   const emptyMember = () => {
     let arr = [];
     for (let i = membersList.length + 1; i <= difficult; i++) {
@@ -39,7 +39,7 @@ function Members({membersList, difficult, userId}) {
         membersList.map((item, index) => (
             <MemberContent 
               key={index}
-              ifMine={userId === item.userId}
+              ifMine={username === item.username}
             >
               <MemberHead>
                 <MemberAvatar

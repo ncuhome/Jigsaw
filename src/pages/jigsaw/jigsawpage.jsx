@@ -32,9 +32,9 @@ const pictures = [
 ];
 
 function JigsawPage(props) {
-  const {userId, picKind, roomId, jigsawList, pics, membersList, difficult, roomName, endTime, setScore} = props;
+  const {picKind, username, jigsawList, pics, membersList, difficult, roomName, endTime, setScore} = props;
 
-  const [handleSideMenu, setHandleSideMenu] = useState(false)
+  const [handleSideMenu, setHandleSideMenu] = useState(false);
   const [handleNumber, setHandleNumber] = useState(0);
   const [handleObject, setHandleObject] = useState({
     row: null,
@@ -101,8 +101,8 @@ function JigsawPage(props) {
   };
 
   const myColor = () => {
-    let id
-    membersList.map(item => item.userId === userId && (id = item.id))
+    let id;
+    membersList.map(item => item.username === username && (id = item.id));
     return colorMapPure[id]
   }
 
@@ -153,17 +153,16 @@ function JigsawPage(props) {
 
   useEffect(() => {
     listenCal(res => {
-      setScore(res.data)
+      setScore(res.score)
     })
-  },[])
+  },[]);
 
   const submit = () => {
     sendCal(JSON.stringify({
-      roomId,
-      jigsawList
+      roomName
     }));
     setGoResult(true)
-  }
+  };
 
   return (
     <Wrapper>
@@ -244,7 +243,7 @@ function JigsawPage(props) {
         membersList={membersList}
         difficult={difficult}
         roomName={roomName}
-        userId={userId}
+        username={username}
       />
       <Over
         handleOver={handleOver}
@@ -263,7 +262,6 @@ function JigsawPage(props) {
 const mapStateToProps = state => {
   return {
     username: state.login.username,
-    userId: state.login.userId,
     token: state.login.token,
 
     endTime: state.jigsaw.endTime,

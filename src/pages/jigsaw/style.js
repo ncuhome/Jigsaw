@@ -80,7 +80,7 @@ export const Slice = styled.div.attrs(({ifZero}) => ({
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   animation: ${props => props.active ? Focus : null} 2s ease infinite;
-  border: 3px solid ${props => props.same ? props.myColor : props.otherColor};
+  border: 3px solid ${props => props.same ? props.myColor : '#333537'};
   border-radius: 9px;
   background: 
     url(${props => props.bgUrl}) 

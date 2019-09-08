@@ -13,7 +13,7 @@ import {Link, Redirect} from 'react-router-dom'
 import {joinRoom, listenJoin} from '../../lib/ws'
 import {actionCreator} from "../room/store"
 
-function JoinPage({userId, setMainRoomName}) {
+function JoinPage({setMainRoomName}) {
   const [roomName, setRoomName] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(0);
@@ -21,7 +21,6 @@ function JoinPage({userId, setMainRoomName}) {
   const submit = () => {
     joinRoom(JSON.stringify({
       roomName: roomName,
-      userId,
     }));
   };
 
@@ -64,7 +63,6 @@ function JoinPage({userId, setMainRoomName}) {
 const mapStateToProps = state => {
   return {
     token: state.login.token,
-    userId: state.login.userId
   }
 };
 
