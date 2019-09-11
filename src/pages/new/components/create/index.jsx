@@ -9,7 +9,7 @@ import {
   Button
 } from './style'
 
-function CreatePage({username, userId, difficult, create, roomName, setRoomName, message, back}) {
+function CreatePage({username, difficult, create, roomName, setRoomName, message, back}) {
   return (
     <NewPageWrapper>
       <NewPageContainer>
@@ -24,7 +24,7 @@ function CreatePage({username, userId, difficult, create, roomName, setRoomName,
         <Message active={message}>{message}</Message>
         <ButtonsContainer>
           <Button onClick={() => back()}>上一步</Button>
-          <Button onClick={() => create(username, userId, roomName, difficult)}>创建</Button>
+          <Button onClick={() => create(username, roomName, difficult)}>创建</Button>
         </ButtonsContainer>
       </NewPageContainer>
     </NewPageWrapper>

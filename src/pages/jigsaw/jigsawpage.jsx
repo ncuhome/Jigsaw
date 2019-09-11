@@ -104,7 +104,7 @@ function JigsawPage(props) {
     let id;
     membersList.map(item => item.username === username && (id = item.id));
     return colorMapPure[id]
-  }
+  };
 
   /*移动切片后的事件处理*/
   const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {

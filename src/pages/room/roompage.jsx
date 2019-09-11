@@ -12,15 +12,16 @@ import {
   BottomElements,
   ExitTitle,
   MainButton,
-  ButtonNumber,
 } from './style'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
 import QuitAlert from './components/QuitAlert/'
+import {listenBroadcast, gameStart, removeListenCommon, removeListenRoom, listenLeave, leaveRoom, listenStart} from '../../lib/ws'
+import {actionCreator} from "./store";
 
 function RoomPage(props) {
-  const {roomName, members, difficult, username, message, roomId} = props;
+  const {roomName, members, difficult, username, message, roomId, updateMembersList, updateRoomMessage, setRoomName, setRoomId} = props;
   const [showQuitAlert, setShowQuitAlert] = useState(false);
   const [status, setStatus] = useState(0);
   const long = members.length;
@@ -32,11 +33,50 @@ function RoomPage(props) {
   };
 
   const toQuit = () => {
+    leaveRoom(JSON.stringify({
+      username,
+      roomName
+    }));
     setStatus(-1)
   };
 
+  useEffect(() => {
+    listenLeave(res => {
+      res.status && setStatus(-1)
+    });
+    return () => removeListenRoom('leave')
+  }, []);
+
+  const array = n => {
+    let myArr = [];
+    for (let i = 0; i < n; i++) {
+      myArr[i] = [];
+      for (let j = 0; j < n; j++) {
+        myArr[i][j] = 0;
+      }
+    }
+    return myArr
+  };
+
+  useEffect(() => {
+    listenBroadcast(res => {
+      const data = res.data;
+      updateMembersList(data.members);
+      updateRoomMessage(data.message);
+      setRoomName(data.roomName);
+      setRoomId(data.roomId);
+      console.log(`listen:${data}`)
+    });
+    return () => removeListenCommon('broadcast')
+  }, []);
+
   const start = () => {
-    console.log('kaishi')
+    console.log('start');
+    gameStart(JSON.stringify({
+      roomName,
+      picKind: difficult - 2,
+      jigsawList: array(difficult)
+    }))
   };
 
   return (
@@ -87,11 +127,28 @@ const mapStateToProps = state => {
     roomId: state.room.roomId,
     members: state.room.members,
     difficult: state.room.difficult,
-    username: state.home.username,
+    username: state.login.username,
     message: state.room.message,
-    endTime: state.room.endTime,
     status: state.room.status
   }
 };
 
-export default connect(mapStateToProps)(RoomPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMembersList(data) {
+      dispatch(actionCreator.updateMembersListAction(data))
+    },
+    updateRoomMessage(data) {
+      dispatch(actionCreator.updateRoomMessageAction(data))
+    },
+    setRoomName(data) {
+      dispatch(actionCreator.setRoomNameAction(data))
+    },
+    setRoomId(data) {
+      dispatch(actionCreator.setRoomIdAction(data))
+    },
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);

@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import SelectPage from './components/select'
 import CreatePage from './components/create'
 import {Redirect} from 'react-router-dom'
-import {actionCreator} from "../room/store";
-import {listenJoin, joinRoom} from '../../lib/ws'
+import {listenJoin, joinRoom, removeListenCommon, listenBroadcast} from '../../lib/ws'
 
-function NewPage({username, userId, getRoomName}) {
+function NewPage({username}) {
   const [status, setStatus] = useState(0);
   const [roomName, setRoomName] = useState('');
   const [difficult, setDifficult] = useState(3);
@@ -21,21 +20,22 @@ function NewPage({username, userId, getRoomName}) {
     setPage(2)
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     listenJoin(res => {
       setStatus(res.status);
       setMessage(res.message);
-      getRoomName(roomName)
-    })
+    });
+    return () => removeListenCommon('join')
   },[]);
 
-  const create = (username, userId, roomName, difficult) => {
-    joinRoom(JSON.stringify({
+  const create = (username, roomName, difficult) => {
+    const sendData = JSON.stringify({
       username,
       roomName,
       difficult
-    }));
-    console.log('init')
+    });
+    joinRoom(sendData);
+    console.log('send:'+ sendData)
   };
 
   return (
@@ -49,7 +49,6 @@ function NewPage({username, userId, getRoomName}) {
       {page === 2 ?
         <CreatePage
           username={username}
-          userId={userId}
           difficult={difficult}
           roomName={roomName}
           setRoomName={setRoomName}
@@ -64,19 +63,8 @@ function NewPage({username, userId, getRoomName}) {
 
 const mapStateToProps = state => {
   return {
-    username: state.login.username,
-    userId: state.login.userId,
-    token: state.login.token,
+    username: state.login.username
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getRoomName(data) {
-      dispatch(actionCreator.setRoomNameAction(data))
-    }
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewPage);
+export default connect(mapStateToProps)(NewPage);

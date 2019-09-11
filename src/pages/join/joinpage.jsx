@@ -10,30 +10,26 @@ import {
 } from './style'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
-import {joinRoom, listenJoin} from '../../lib/ws'
-import {actionCreator} from "../room/store"
+import {joinRoom, listenJoin, removeListenRoom} from '../../lib/ws'
 
-function JoinPage({setMainRoomName}) {
+function JoinPage({username}) {
   const [roomName, setRoomName] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(0);
 
   const submit = () => {
     joinRoom(JSON.stringify({
-      roomName: roomName,
+      roomName,
+      username
     }));
   };
 
   useEffect(() => {
-    listenJoin(data => {
-      if(data.status){
-        setMainRoomName(roomName);
-        setStatus(data.status);
-      }else{
-        setMessage(data.message);
-        setStatus(data.status);
-      }
+    listenJoin(res => {
+        setMessage(res.message);
+        setStatus(res.status);
     });
+    return () => removeListenRoom('join')
   },[]);
 
   return (
@@ -62,17 +58,8 @@ function JoinPage({setMainRoomName}) {
 
 const mapStateToProps = state => {
   return {
-    token: state.login.token,
+    username: state.login.username
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setMainRoomName(status) {
-      dispatch(actionCreator.setRoomNameAction(status))
-    },
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(JoinPage);
+export default connect(mapStateToProps)(JoinPage);

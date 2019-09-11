@@ -3,8 +3,14 @@ import {
   CHANGE_JIGSAW_JIG_TO_JIG,
   CHANGE_JIGSAW_JIG_TO_PIC,
   SET_CHANGE,
-  SET_SCORE
+  SET_SCORE,
+  UPDATE_JIGSAW_DATA
 } from './constants'
+
+export const setJigsawDataAction = value => ({
+  type: UPDATE_JIGSAW_DATA,
+  value
+});
 
 export const setScoreAction = value => ({
   type: SET_SCORE,

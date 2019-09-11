@@ -47,14 +47,6 @@ export const GroupID = styled.div`
   color: #7B7B7B;
 `
 
-export const HelloTitle = styled.div`
-  font-size: 27px;
-  letter-spacing: 0;
-  color: #C5C5C5;
-  height: 43px;
-  line-height: 43px;
-`
-
 export const MessageContainer = styled.div`
   height: 31px;
   line-height: 31px;
@@ -130,17 +122,5 @@ export const MainButton = styled.div`
   font-weight: 600;
   color: #CDCDCD;
   letter-spacing: 2.31px;
-  transition: color 1s easy;
-`
-
-export const ButtonNumber = styled.div`
-  letter-spacing: 1.25px;
-  color: #CDCDCD;
-  font-size: 20px;
-  font-weight: 500;
-  height: 29px;
-  margin-left: 9px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  transition: color 1s ease;
 `

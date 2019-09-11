@@ -3,12 +3,12 @@ import {
   CHANGE_JIGSAW_JIG_TO_JIG,
   CHANGE_JIGSAW_JIG_TO_PIC,
   SET_CHANGE,
-  SET_SCORE
+  SET_SCORE,
+  UPDATE_JIGSAW_DATA
 } from './constants'
 
 const defaultState = {
   roomName: "来发张自拍",
-  roomId: 123123123,
   score: 0,
   picKind: 2,
   difficult: 5,
@@ -48,6 +48,9 @@ const defaultState = {
 export default (state = defaultState, action) => {
   let newState = JSON.parse(JSON.stringify(state));
   switch (action.type) {
+    case UPDATE_JIGSAW_DATA:
+      newState = action.value;
+      return newState;
     case CHANGE_JIGSAW_PIC_TO_JIG:
       const {PTJRowIndex, PTJColumnIndex, PTJHandleValue} = action.PTJValue;
       let PTJList = newState.jigsawList;

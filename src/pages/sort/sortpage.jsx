@@ -9,8 +9,9 @@ import YourSort from './components/YourSort/'
 import AllSort from './components/AllSort/'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {listenRank} from '../../lib/ws'
+import {listenRank, getRank, removeListenGame} from '../../lib/ws'
 import {actionCreator} from "./store";
+import Loading from '../common/Loading/index'
 import _ from 'lodash'
 
 const sortBackgroundColor = [
@@ -34,17 +35,18 @@ function SortPage({list, userId, updateSortList}) {
     return temp
   };
 
-  const getRankList = () => {
+  useEffect(()=>{
+    getRank(JSON.stringify({}))
+  },[]);
+
+  useEffect(() => {
     listenRank(res => {
       const rankList = res.data.rank;
       updateSortList(rankList);
       setStatus(res.status);
-      console.log(res)
-    })
-  };
-
-  useEffect(() => {
-    getRankList()
+      console.log(`rank:${res}`)
+    });
+    return () => removeListenGame('rank')
   }, []);
 
   const formatList = () => {
@@ -82,8 +84,11 @@ function SortPage({list, userId, updateSortList}) {
           </Back>
         </Link>
       </Header>
-      <YourSort list={yourSortList()}/>
-      <AllSort list={allSortList()}/>
+      <Loading style={{display: status ? 'none' : null}}/>
+      <div style={{display: status ? null : 'none'}}>
+        <YourSort list={yourSortList()}/>
+        <AllSort list={allSortList()}/>
+      </div>
     </SortWrapper>
   );
 }

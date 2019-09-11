@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import halo from "../../lib/helloText"
-import {listenToken, sendToken} from '../../lib/ws'
+import {listenToken, sendToken, removeListenCommon} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, token, getUserName, haloText} = props;
@@ -43,10 +43,11 @@ function Homepage(props) {
     window.location.reload();
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     listenToken(res => {
       console.log(res)
     })
+    return () => removeListenCommon('token')
   },[])
 
   return (
