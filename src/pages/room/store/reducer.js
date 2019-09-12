@@ -2,7 +2,8 @@ import {
   UPDATE_MEMBERS_LIST,
   SET_ROOM_NAME,
   UPDATE_ROOM_MESSAGE,
-  SET_ROOM_ID
+  SET_ROOM_ID,
+  SET_ROOM_DIF
 } from './constants'
 
 const defaultState = {
@@ -37,6 +38,9 @@ export default (state = defaultState, action) => {
       return newState;
     case SET_ROOM_ID:
       newState.roomId = action.value;
+      return newState;
+    case SET_ROOM_DIF:
+      newState.difficult = action.value;
       return newState;
     case UPDATE_MEMBERS_LIST:
       newState.members = action.value;

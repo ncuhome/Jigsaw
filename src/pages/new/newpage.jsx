@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import SelectPage from './components/select'
 import CreatePage from './components/create'
 import {Redirect} from 'react-router-dom'
-import {listenJoin, joinRoom, removeListenCommon, listenBroadcast} from '../../lib/ws'
+import {listenJoin, joinRoom, removeSocket} from '../../lib/ws'
 
 function NewPage({username}) {
   const [status, setStatus] = useState(0);
@@ -25,7 +25,7 @@ function NewPage({username}) {
       setStatus(res.status);
       setMessage(res.message);
     });
-    return () => removeListenCommon('join')
+    return () => removeSocket('join')
   },[]);
 
   const create = (username, roomName, difficult) => {

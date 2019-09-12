@@ -9,7 +9,7 @@ import YourSort from './components/YourSort/'
 import AllSort from './components/AllSort/'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {listenRank, getRank, removeListenGame} from '../../lib/ws'
+import {listenRank, getRank, removeSocket} from '../../lib/ws'
 import {actionCreator} from "./store";
 import Loading from '../common/Loading/index'
 import _ from 'lodash'
@@ -46,7 +46,7 @@ function SortPage({list, userId, updateSortList}) {
       setStatus(res.status);
       console.log(`rank:${res}`)
     });
-    return () => removeListenGame('rank')
+    return () => removeSocket('rank')
   }, []);
 
   const formatList = () => {

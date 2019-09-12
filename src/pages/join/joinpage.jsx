@@ -10,7 +10,7 @@ import {
 } from './style'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
-import {joinRoom, listenJoin, removeListenRoom} from '../../lib/ws'
+import {joinRoom, listenJoin, removeSocket} from '../../lib/ws'
 
 function JoinPage({username}) {
   const [roomName, setRoomName] = useState('');
@@ -29,7 +29,7 @@ function JoinPage({username}) {
         setMessage(res.message);
         setStatus(res.status);
     });
-    return () => removeListenRoom('join')
+    return () => removeSocket('join')
   },[]);
 
   return (

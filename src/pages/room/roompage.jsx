@@ -17,11 +17,12 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
 import QuitAlert from './components/QuitAlert/'
-import {listenBroadcast, gameStart, removeListenCommon, removeListenRoom, listenLeave, leaveRoom, listenStart} from '../../lib/ws'
-import {actionCreator} from "./store";
+import {listenBroadcast, gameStart, removeSocket, listenLeave, leaveRoom, listenStart} from '../../lib/ws'
+import {actionCreator as roomActionCreator} from "./store";
+import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
 function RoomPage(props) {
-  const {roomName, members, difficult, username, message, roomId, updateMembersList, updateRoomMessage, setRoomName, setRoomId} = props;
+  const {roomName, members, difficult, username, message, roomId, updateMembersList, updateRoomMessage, setRoomName, setRoomId, setRoomDifficult, setJigsawData} = props;
   const [showQuitAlert, setShowQuitAlert] = useState(false);
   const [status, setStatus] = useState(0);
   const long = members.length;
@@ -40,13 +41,6 @@ function RoomPage(props) {
     setStatus(-1)
   };
 
-  useEffect(() => {
-    listenLeave(res => {
-      res.status && setStatus(-1)
-    });
-    return () => removeListenRoom('leave')
-  }, []);
-
   const array = n => {
     let myArr = [];
     for (let i = 0; i < n; i++) {
@@ -59,18 +53,44 @@ function RoomPage(props) {
   };
 
   useEffect(() => {
+    //监听离开房间事件
+    listenLeave(res => {
+      res.status && setStatus(-1)
+    });
+    return () => removeSocket('leave')
+  }, []);
+
+  useEffect(() => {
+    //监听其他人加入房间
     listenBroadcast(res => {
       const data = res.data;
       updateMembersList(data.members);
       updateRoomMessage(data.message);
       setRoomName(data.roomName);
       setRoomId(data.roomId);
+      setRoomDifficult(data.difficult);
       console.log(`listen:${data}`)
     });
-    return () => removeListenCommon('broadcast')
+    return () => removeSocket('broadcast')
+  }, []);
+
+  useEffect(() => {
+    listenStart(res => {
+      let pics = [];
+      res.data.members.map(member => member.username === username && (pics = members.pics));
+      setJigsawData(
+        {
+          pics,
+          ...res.data,
+          score: 0
+        }
+      )
+    });
+    return () => removeSocket('start')
   }, []);
 
   const start = () => {
+    //开始游戏
     console.log('start');
     gameStart(JSON.stringify({
       roomName,
@@ -136,16 +156,22 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateMembersList(data) {
-      dispatch(actionCreator.updateMembersListAction(data))
+      dispatch(roomActionCreator.updateMembersListAction(data))
     },
     updateRoomMessage(data) {
-      dispatch(actionCreator.updateRoomMessageAction(data))
+      dispatch(roomActionCreator.updateRoomMessageAction(data))
     },
     setRoomName(data) {
-      dispatch(actionCreator.setRoomNameAction(data))
+      dispatch(roomActionCreator.setRoomNameAction(data))
     },
     setRoomId(data) {
-      dispatch(actionCreator.setRoomIdAction(data))
+      dispatch(roomActionCreator.setRoomIdAction(data))
+    },
+    setRoomDifficult(data) {
+      dispatch(roomActionCreator.setRoomDifficultAction(data))
+    },
+    setJigsawData(data) {
+      dispatch(jigsawActionCreator.setJigsawDataAction(data))
     },
   };
 };

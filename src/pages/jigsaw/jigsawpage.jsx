@@ -62,6 +62,7 @@ function JigsawPage(props) {
   useEffect(() => {
     handleNumber === 0 || sendListChange(JSON.stringify(
       {
+        roomName,
         jigsawList,
       }
     ))

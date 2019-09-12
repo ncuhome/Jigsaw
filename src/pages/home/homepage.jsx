@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import halo from "../../lib/helloText"
-import {listenToken, sendToken, removeListenCommon} from '../../lib/ws'
+import {listenToken, sendToken, removeSocket} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, token, getUserName, haloText} = props;
@@ -47,7 +47,7 @@ function Homepage(props) {
     listenToken(res => {
       console.log(res)
     })
-    return () => removeListenCommon('token')
+    return () => removeSocket('token')
   },[])
 
   return (
