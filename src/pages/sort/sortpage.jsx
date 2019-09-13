@@ -78,7 +78,6 @@ function SortPage({list, userId, updateSortList}) {
 
   return (
     <SortWrapper>
-      {console.log(handleEmpty)}
       <Header>
         <Title>
           成绩单

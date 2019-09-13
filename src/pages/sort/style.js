@@ -36,7 +36,7 @@ export const EmptyBox = styled.div`
 export const EmptyBoxContainer = styled.div`
   margin-top: 230px;
   width: 169px;
-  height: 150px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -45,6 +45,9 @@ export const EmptyBoxContainer = styled.div`
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1.41px;
+  animation: ${fadeIn} 1.2s ease, ${showDown} .5s ease;
+  animation-delay: .35s;
+  animation-fill-mode: backwards;
 `
 
 export const Title = styled.div`
