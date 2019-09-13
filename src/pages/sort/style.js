@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import emptyBox from './img/empty_box.svg';
 import {fadeIn, showDown} from '@/style/animate.js';
 
 export const SortWrapper = styled.div`
@@ -24,6 +25,26 @@ export const Header = styled.div`
   z-index: 999;
   background: 
     linear-gradient(rgba(42,42,42,1) 0%, rgba(42,42,42,1) 77%, rgba(42,42,42,0) 100%);
+`
+
+export const EmptyBox = styled.div`
+  width: 169px;
+  height: 111px;
+  background: url(${emptyBox})
+`
+
+export const EmptyBoxContainer = styled.div`
+  margin-top: 230px;
+  width: 169px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #545454;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1.41px;
 `
 
 export const Title = styled.div`

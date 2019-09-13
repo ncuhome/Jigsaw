@@ -3,7 +3,9 @@ import {
   Back,
   Header,
   SortWrapper,
-  Title
+  Title,
+  EmptyBox,
+  EmptyBoxContainer
 } from './style'
 import YourSort from './components/YourSort/'
 import AllSort from './components/AllSort/'
@@ -24,6 +26,7 @@ const sortTextColor = [
 
 function SortPage({list, userId, updateSortList}) {
   const [status, setStatus] = useState(0);
+  const [handleEmpty, setHandleEmpty] = useState(0);
   const sortList = () => {
     let temp = list;
     temp = _.sortBy(temp, item => -item.score);
@@ -35,15 +38,16 @@ function SortPage({list, userId, updateSortList}) {
     return temp
   };
 
-  useEffect(()=>{
-    getRank(JSON.stringify({}))
-  },[]);
+  useEffect(() => {
+    getRank('');
+  }, []);
 
   useEffect(() => {
     listenRank(res => {
       const rankList = res.data.rank;
       updateSortList(rankList);
       setStatus(res.status);
+      setHandleEmpty(rankList);
       console.log(`rank:${res}`)
     });
     return () => removeSocket('rank')
@@ -74,6 +78,7 @@ function SortPage({list, userId, updateSortList}) {
 
   return (
     <SortWrapper>
+      {console.log(handleEmpty)}
       <Header>
         <Title>
           成绩单
@@ -84,11 +89,19 @@ function SortPage({list, userId, updateSortList}) {
           </Back>
         </Link>
       </Header>
-      <Loading style={{display: status ? 'none' : null}}/>
-      <div style={{display: status ? null : 'none'}}>
-        <YourSort list={yourSortList()}/>
-        <AllSort list={allSortList()}/>
-      </div>
+      {
+        status ?
+          handleEmpty ?
+            <EmptyBoxContainer>
+              <EmptyBox/>
+              好像还没有人拼完嗷
+            </EmptyBoxContainer> :
+            <div>
+              <YourSort list={yourSortList()}/>
+              <AllSort list={allSortList()}/>
+            </div> :
+          <Loading/>
+      }
     </SortWrapper>
   );
 }

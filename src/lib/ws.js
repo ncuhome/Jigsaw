@@ -30,7 +30,7 @@ export const sendCal = data => socket.emit('gameCal', data);
 
 /*获取排名*/
 export const listenRank = method => socket.on('rank', method);
-export const getRank = method => socket.on('rankList', method);
+export const getRank = data => socket.emit('rankList', data);
 
 /*删除监听*/
 export const removeSocket = (event) => socket.removeAllListeners(event);
