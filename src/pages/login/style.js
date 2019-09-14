@@ -90,12 +90,14 @@ export const UserIdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
   animation-delay: .5s;
   animation-fill-mode: backwards;
+  height: 47px;
 `;
 
 export const PwdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
   animation-delay: .7s;
   animation-fill-mode: backwards;
+  height: 47px;
 `;
 
 export const InputName = styled.div`
@@ -128,6 +130,7 @@ export const LoginBtn = styled.div`
   align-items: center;
   height: 45px;
   width: 109px;
+  line-height: 45px;
   margin-top: 30px;
   font-size: 18px;
   font-weight: 500;

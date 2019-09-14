@@ -19,15 +19,15 @@ function JoinPage({username}) {
 
   const submit = () => {
     joinRoom(JSON.stringify({
-      room_name: roomName,
-      user_name: username
+      roomName,
+      username
     }));
   };
 
   useEffect(() => {
     listenJoin(res => {
-        setMessage(res.message);
-        setStatus(res.status);
+      setMessage(res.message);
+      setStatus(res.status);
     });
     return () => removeSocket('join')
   },[]);

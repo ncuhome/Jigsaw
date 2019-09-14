@@ -7,27 +7,11 @@ import {
 } from './constants'
 
 const defaultState = {
-  roomName: "白色相簿",
-  roomId: 13321452314,
-  members: [
-    {
-      username: "孙翔宇",
-      identity: "leader",
-      id: 1
-    },
-    {
-      username: "赵子琦",
-      identity: "member",
-      id: 2
-    },
-    {
-      username: "田承涵",
-      identity: "member",
-      id: 3
-    }
-  ],
-  message: "胡昊江加入本房间",
-  difficult: 4,
+  roomName: "",
+  roomId: null,
+  members: [],
+  message: "",
+  difficult: null,
 };
 
 export default (state = defaultState, action) => {

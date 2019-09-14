@@ -24,14 +24,15 @@ function NewPage({username}) {
     listenJoin(res => {
       setStatus(res.status);
       setMessage(res.message);
+      console.log(res);
     });
     return () => removeSocket('join')
   },[]);
 
   const create = (username, roomName, difficult) => {
     const sendData = JSON.stringify({
-      user_name: username,
-      room_name: roomName,
+      username,
+      roomName,
       difficult
     });
     joinRoom(sendData);
