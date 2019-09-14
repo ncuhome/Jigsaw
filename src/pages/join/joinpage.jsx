@@ -19,8 +19,8 @@ function JoinPage({username}) {
 
   const submit = () => {
     joinRoom(JSON.stringify({
-      roomName,
-      username
+      room_name: roomName,
+      user_name: username
     }));
   };
 

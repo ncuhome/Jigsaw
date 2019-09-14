@@ -38,7 +38,6 @@ function RoomPage(props) {
       username,
       roomName
     }));
-    setStatus(-1)
   };
 
   const array = n => {

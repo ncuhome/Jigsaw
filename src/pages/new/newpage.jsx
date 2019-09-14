@@ -30,8 +30,8 @@ function NewPage({username}) {
 
   const create = (username, roomName, difficult) => {
     const sendData = JSON.stringify({
-      username,
-      roomName,
+      user_name: username,
+      room_name: roomName,
       difficult
     });
     joinRoom(sendData);

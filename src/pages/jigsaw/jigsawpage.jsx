@@ -15,7 +15,7 @@ import {
 } from './style'
 import {actionCreator} from "./store"
 import {Redirect} from 'react-router-dom'
-import {listenList, sendListChange, listenCal, sendCal} from "../../lib/ws"
+import {listenList, sendListChange, listenCal, sendCal, listenLeave, removeSocket, leaveRoom} from "../../lib/ws"
 import {colorMapPure} from "../../lib/colorMap"
 import {polyfill} from "mobile-drag-drop"
 import {scrollBehaviourDragImageTranslateOverride} from "mobile-drag-drop/scroll-behaviour"
@@ -36,6 +36,7 @@ function JigsawPage(props) {
 
   const [handleSideMenu, setHandleSideMenu] = useState(false);
   const [handleNumber, setHandleNumber] = useState(0);
+  const [handleQuit, setHandleQuit] = useState(false);
   const [handleObject, setHandleObject] = useState({
     row: null,
     column: null,
@@ -76,6 +77,14 @@ function JigsawPage(props) {
     })
   }, []);
 
+  useEffect(() => {
+    //监听离开房间事件
+    listenLeave(res => {
+      res.status && setHandleQuit(false)
+    });
+    return () => removeSocket('leave')
+  }, []);
+
   const showOver = () => setHandleOver(true);
 
   const hiddenOver = () => setHandleOver(false);
@@ -91,6 +100,13 @@ function JigsawPage(props) {
   const cutSliceY = index => Math.floor((index - 1) / difficult) * length();
 
   const sameElement = item => pics.some(el => el === item);
+
+  const toQuit = () => {
+    leaveRoom(JSON.stringify({
+      username,
+      roomName
+    }));
+  };
 
   /*选择切片时获取坐标与数值*/
   const getHandle = (rowIndex, columnIndex, targetItem) => {
@@ -245,6 +261,7 @@ function JigsawPage(props) {
         difficult={difficult}
         roomName={roomName}
         username={username}
+        toQuit={toQuit}
       />
       <Over
         handleOver={handleOver}
@@ -256,6 +273,7 @@ function JigsawPage(props) {
         submit={submit}
       /> : null}
       {goResult ? <Redirect to={"/result/"}/> : null}
+      {handleQuit ? <Redirect to={"/home/"}/> : null}
     </Wrapper>
   )
 }
