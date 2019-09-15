@@ -10,7 +10,7 @@ import {
 const defaultState = {
   username: window.localStorage.getItem('username'),
   token: window.localStorage.getItem('token'),
-  userId: window.localStorage.getItem('userId'),
+  userId: '',
   password: '',
   message: '',
   status: window.localStorage.getItem('status'),

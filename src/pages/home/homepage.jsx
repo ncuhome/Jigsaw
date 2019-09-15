@@ -38,7 +38,6 @@ function Homepage(props) {
   const clearLogin = () => {
     window.localStorage.removeItem('status');
     window.localStorage.removeItem('token');
-    window.localStorage.removeItem('userId');
     window.localStorage.removeItem('username');
     window.location.reload();
   };

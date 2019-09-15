@@ -4,8 +4,9 @@ import SelectPage from './components/select'
 import CreatePage from './components/create'
 import {Redirect} from 'react-router-dom'
 import {listenJoin, joinRoom, removeSocket} from '../../lib/ws'
+import {actionCreator as roomActionCreator} from "../room/store";
 
-function NewPage({username}) {
+function NewPage({username, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult, updateMembersList}) {
   const [status, setStatus] = useState(0);
   const [roomName, setRoomName] = useState('');
   const [difficult, setDifficult] = useState(3);
@@ -22,8 +23,16 @@ function NewPage({username}) {
 
   useEffect(() => {
     listenJoin(res => {
+      if(res.status){
+        updateMembersList(res.data.members);
+        updateRoomMessage(res.message);
+        setRoomId(res.data.roomId);
+        setRoomDifficult(difficult);
+        setRoomPageName(res.data.roomName);
+      }else {
+        setMessage(res.message);
+      }
       setStatus(res.status);
-      setMessage(res.message);
       console.log(res);
     });
     return () => removeSocket('join')
@@ -68,4 +77,24 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(NewPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMembersList(data) {
+      dispatch(roomActionCreator.updateMembersListAction(data))
+    },
+    updateRoomMessage(data) {
+      dispatch(roomActionCreator.updateRoomMessageAction(data))
+    },
+    setRoomPageName(data) {
+      dispatch(roomActionCreator.setRoomNameAction(data))
+    },
+    setRoomId(data) {
+      dispatch(roomActionCreator.setRoomIdAction(data))
+    },
+    setRoomDifficult(data) {
+      dispatch(roomActionCreator.setRoomDifficultAction(data))
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPage);

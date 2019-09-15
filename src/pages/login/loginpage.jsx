@@ -30,7 +30,7 @@ function LoginPage({userId, password, message, status, onChangeUserId, onChangeP
           <input
             type="number"
             placeholder="请输入您的学号"
-            value={userId || ''}
+            value={userId}
             onChange={e => onChangeUserId(e)}
           />
         </UserIdInputBox>

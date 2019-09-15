@@ -75,7 +75,6 @@ export const loginAsyncAction = (userId, password) => {
         if(ret.status === 1){
           window.localStorage.setItem('token', ret.token);
           window.localStorage.setItem('status', ret.status);
-          window.localStorage.setItem('userId', userId);
           dispatch(getUsernameAsyncAction(ret.token));
           dispatch(setTokenAction(ret.token));
           dispatch(updateStatusMessage(ret.message));

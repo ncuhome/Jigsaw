@@ -21,11 +21,10 @@ import {listenAddBroadcast, gameStart, removeSocket, listenLeave, leaveRoom, lis
 import {actionCreator as roomActionCreator} from "./store";
 import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
-function RoomPage(props) {
-  const {roomName, members, difficult, username, message, roomId, updateMembersList, updateRoomMessage, setRoomName, setRoomId, setRoomDifficult, setJigsawData} = props;
+function RoomPage({roomName, members, difficult, username, message, roomId, updateMembersList, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult, setJigsawData}) {
   const [showQuitAlert, setShowQuitAlert] = useState(false);
   const [status, setStatus] = useState(0);
-  const long = members.length;
+  const long = () => members.length;
 
   const ifLeader = () => members.some(item => item.username === username && item.identity === "leader");
 
@@ -74,8 +73,8 @@ function RoomPage(props) {
     listenAddBroadcast(res => {
       const data = res.data;
       updateMembersList(data.members);
-      updateRoomMessage(data.message);
-      setRoomName(data.roomName);
+      updateRoomMessage(res.message);
+      setRoomPageName(data.roomName);
       setRoomId(data.roomId);
       setRoomDifficult(data.difficult);
       console.log(`listen:${data}`)
@@ -85,15 +84,21 @@ function RoomPage(props) {
 
   useEffect(() => {
     listenStart(res => {
-      let pics = [];
-      res.data.members.map(member => member.username === username && (pics = members.pics));
-      setJigsawData(
-        {
-          pics,
-          ...res.data,
-          score: 0
-        }
-      )
+      if(res.status){
+        let pics = [];
+        res.data.members.map(member => member.username === username && (pics = members.pics));
+        setJigsawData(
+          {
+            pics,
+            ...res.data,
+            score: 0
+          }
+        );
+        setStatus(1)
+      }else{
+        updateRoomMessage(res.message)
+      }
+      console.log(res)
     });
     return () => removeSocket('broadcastGameStart')
   }, []);
@@ -126,14 +131,14 @@ function RoomPage(props) {
             队伍成员
           </MembersTitle>
           <MembersTitle style={{fontWeight: 500}}>
-            {long} / {difficult}
+            {long()} / {difficult}
           </MembersTitle>
         </MembersTitleContainer>
         <Members
           username={username}
           members={members}
           difficult={difficult}
-          long={long}
+          long={long()}
         />
       </MembersContainer>
       <BottomElements>
@@ -146,6 +151,7 @@ function RoomPage(props) {
         showQuitAlert={showQuitAlert}
       />
       {status === -1 ? <Redirect to="/home/"/> : null}
+      {status === 1 ? <Redirect to="/jigsaw/"/> : null}
     </RoomWrapper>
   );
 }
@@ -170,7 +176,7 @@ const mapDispatchToProps = dispatch => {
     updateRoomMessage(data) {
       dispatch(roomActionCreator.updateRoomMessageAction(data))
     },
-    setRoomName(data) {
+    setRoomPageName(data) {
       dispatch(roomActionCreator.setRoomNameAction(data))
     },
     setRoomId(data) {
