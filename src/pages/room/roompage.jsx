@@ -17,7 +17,7 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
 import QuitAlert from './components/QuitAlert/'
-import {listenBroadcast, gameStart, removeSocket, listenLeave, leaveRoom, listenStart} from '../../lib/ws'
+import {listenAddBroadcast, gameStart, removeSocket, listenLeave, leaveRoom, listenStart, listenLeaveBroadcast} from '../../lib/ws'
 import {actionCreator as roomActionCreator} from "./store";
 import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
@@ -38,6 +38,7 @@ function RoomPage(props) {
       username,
       roomName
     }));
+    console.log(`send Leave: ${username}, ${roomName}`)
   };
 
   const array = n => {
@@ -52,16 +53,25 @@ function RoomPage(props) {
   };
 
   useEffect(() => {
-    //监听离开房间事件
+    //监听某人离开房间事件
+    listenLeaveBroadcast(res => {
+      res.status && updateRoomMessage(res.message)
+    });
+    return () => removeSocket('broadcastRoomLeave')
+  }, []);
+
+  useEffect(() => {
+    //监听自己离开房间事件
     listenLeave(res => {
-      res.status && setStatus(-1)
+      res.status && setStatus(-1);
+      console.log(`listen Leave: ${res}`)
     });
     return () => removeSocket('leave')
   }, []);
 
   useEffect(() => {
     //监听其他人加入房间
-    listenBroadcast(res => {
+    listenAddBroadcast(res => {
       const data = res.data;
       updateMembersList(data.members);
       updateRoomMessage(data.message);
@@ -70,7 +80,7 @@ function RoomPage(props) {
       setRoomDifficult(data.difficult);
       console.log(`listen:${data}`)
     });
-    return () => removeSocket('broadcast')
+    return () => removeSocket('broadcastRoomJoin')
   }, []);
 
   useEffect(() => {
@@ -85,7 +95,7 @@ function RoomPage(props) {
         }
       )
     });
-    return () => removeSocket('start')
+    return () => removeSocket('broadcastGameStart')
   }, []);
 
   const start = () => {

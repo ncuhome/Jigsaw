@@ -38,7 +38,7 @@ const RoutesList = [
   {
     path: "/room/",
     component: Room,
-    auth: false,       //TODO:FIX（true）
+    auth: true,
   },
   {
     path: "/join/",
@@ -48,12 +48,12 @@ const RoutesList = [
   {
     path: "/sort/",
     component: Sort,
-    auth: false,       //TODO:FIX（true）
+    auth: true,
   },
   {
     path: "/result/",
     component: Result,
-    auth: false        //TODO:FIX（true）
+    auth: true
   },
   {
     path: "*",

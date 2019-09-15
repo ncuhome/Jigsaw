@@ -24,12 +24,7 @@ import Header from "./components/Header/"
 import Menu from "./components/Menu/"
 import Over from "./components/Over/"
 import TimeOver from "./components/TimeOver/"
-
-const pictures = [
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562336127688&di=8b3b64da7ea88ddb1a14b95b9ba2e7cc&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F29%2F20170529020618_QMZXK.jpeg",
-  "http://b-ssl.duitang.com/uploads/item/201706/17/20170617111634_Uxyrk.jpeg",
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562930803&di=efa158df98e214314b3bc5c235fbba81&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F23%2F20180423194810_yywff.jpg"
-];
+import { pictures } from "../../lib/pictures"
 
 function JigsawPage(props) {
   const {picKind, username, jigsawList, pics, membersList, difficult, roomName, endTime, setScore} = props;
@@ -172,6 +167,7 @@ function JigsawPage(props) {
     listenCal(res => {
       setScore(res.score)
     })
+    return () => removeSocket('broadcastScore')
   },[]);
 
   const submit = () => {

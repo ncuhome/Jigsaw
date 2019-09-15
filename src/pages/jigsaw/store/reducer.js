@@ -8,41 +8,14 @@ import {
 } from './constants'
 
 const defaultState = {
-  roomName: "来发张自拍",
+  roomName: "",
   score: 0,
   picKind: 2,
-  difficult: 5,
-  endTime: Math.round(new Date() / 1000) + 300,
-  jigsawList: [
-    [0, 2, 3, 0, 0],
-    [6, 0, 8, 9, 10],
-    [11, 12, 13, 14, 15],
-    [16, 17, 18, 19, 0],
-    [21, 22, 23, 24, 25]
-  ],
-  pics: [1, 4, 5, 7, 20],
-  members: [
-    {
-      username: "孙翔宇",
-      identity: "leader",
-      id: 1,
-    },
-    {
-      username: "吴亦凡",
-      identity: "member",
-      id: 2,
-    },
-    {
-      username: "王源",
-      identity: "member",
-      id: 3,
-    },
-    {
-      username: "孙翔",
-      identity: "member",
-      id: 4,
-    },
-  ]
+  difficult: 3,
+  endTime: null,
+  jigsawList: [],
+  pics: [],
+  members: []
 };
 
 export default (state = defaultState, action) => {
