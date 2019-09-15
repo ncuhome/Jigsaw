@@ -17,7 +17,7 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
 import QuitAlert from './components/QuitAlert/'
-import {listenAddBroadcast, gameStart, removeSocket, listenLeave, leaveRoom, listenStart, listenLeaveBroadcast} from '../../lib/ws'
+import {listenAddBroadcast, listenWaitStart, gameStart, removeSocket, listenLeave, leaveRoom, listenStart, listenLeaveBroadcast} from '../../lib/ws'
 import {actionCreator as roomActionCreator} from "./store";
 import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
@@ -102,6 +102,14 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
     });
     return () => removeSocket('broadcastGameStart')
   }, []);
+
+  useEffect(() => {
+    listenWaitStart(res => {
+      updateRoomMessage(res.message);
+      console.log(res)
+    });
+    return () => removeSocket('start')
+  },[]);
 
   const start = () => {
     //开始游戏

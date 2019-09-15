@@ -21,6 +21,7 @@ export const listenLeaveBroadcast =  method => socket.on('broadcastRoomLeave', m
 
 /*开始游戏*/
 export const listenStart =  method => socket.on('broadcastGameStart', method);
+export const listenWaitStart =  method => socket.on('start', method);
 export const gameStart = data => socket.emit('gameStart', data);
 
 /*移动切片*/ /*待改*/

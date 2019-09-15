@@ -36,7 +36,7 @@ function NewPage({username, updateRoomMessage, setRoomPageName, setRoomId, setRo
       console.log(res);
     });
     return () => removeSocket('join')
-  },[]);
+  },[page]);
 
   const create = (username, roomName, difficult) => {
     const sendData = JSON.stringify({
