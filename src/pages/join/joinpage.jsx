@@ -28,6 +28,7 @@ function JoinPage({username}) {
     listenJoin(res => {
       setMessage(res.message);
       setStatus(res.status);
+      console.log(res)
     });
     return () => removeSocket('join')
   },[]);

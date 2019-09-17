@@ -77,7 +77,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
       setRoomPageName(data.roomName);
       setRoomId(data.roomId);
       setRoomDifficult(data.difficult);
-      console.log(`listenOthers: ${data}`)
+      console.log(data)
     });
     return () => removeSocket('broadcastRoomJoin')
   }, []);
