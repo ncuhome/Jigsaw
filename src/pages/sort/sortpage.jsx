@@ -38,21 +38,6 @@ function SortPage({list, userId, updateSortList}) {
     return temp
   };
 
-  useEffect(() => {
-    getRank('');
-  }, []);
-
-  useEffect(() => {
-    listenRank(res => {
-      const rankList = res.data.rank;
-      updateSortList(rankList);
-      setStatus(res.status);
-      setHandleEmpty(rankList);
-      console.log(res)
-    });
-    return () => removeSocket('rank')
-  }, []);
-
   const formatList = () => {
     const temp = sortList();
     temp.forEach(item => {
@@ -75,6 +60,25 @@ function SortPage({list, userId, updateSortList}) {
   const allSortList = () => {
     return formatList()
   };
+
+  useEffect(() => {
+    getRank('');
+  }, []);
+
+  useEffect(() => {
+    listenRank(res => {
+      if(res.status){
+        const rankList = res.data.rank;
+        setHandleEmpty(!rankList.length);
+        updateSortList(rankList);
+        setStatus(res.status);
+        console.log(rankList)
+      }else{
+        console.log('网络错误')
+      }
+    });
+    return () => removeSocket('rank')
+  }, []);
 
   return (
     <SortWrapper>

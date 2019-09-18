@@ -21,7 +21,7 @@ function AllSort({list}) {
         所有排名
       </Title>
       {list.map(item => (
-        <Item key={item.roomId}>
+        <Item key={item.roomName}>
           <Number bg={item.backgroundColor} textColor={item.textColor}>
             {item.sort}
           </Number>
