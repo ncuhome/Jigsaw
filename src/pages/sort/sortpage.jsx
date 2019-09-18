@@ -48,7 +48,7 @@ function SortPage({list, userId, updateSortList}) {
       updateSortList(rankList);
       setStatus(res.status);
       setHandleEmpty(rankList);
-      console.log(`rank:${res}`)
+      console.log(res)
     });
     return () => removeSocket('rank')
   }, []);

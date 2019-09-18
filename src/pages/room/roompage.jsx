@@ -63,7 +63,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
     //监听自己离开房间事件
     listenLeave(res => {
       res.status && setStatus(-1);
-      console.log(`listen Leave: ${res}`)
+      console.log(res)
     });
     return () => removeSocket('leave')
   }, []);

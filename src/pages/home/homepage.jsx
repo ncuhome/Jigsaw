@@ -20,10 +20,10 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import halo from "../../lib/helloText"
-import {listenToken, sendToken, removeSocket} from '../../lib/ws'
+import {listenToken, removeSocket} from '../../lib/ws'
 
 function Homepage(props) {
-  const {username, token, getUserName, haloText} = props;
+  const {username, haloText} = props;
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
 

@@ -10,9 +10,11 @@ import {
 } from './style'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
-import {joinRoom, listenJoin, removeSocket} from '../../lib/ws'
+import {joinRoom, listenAddBroadcast, listenJoin, removeSocket} from '../../lib/ws'
+import {actionCreator as roomActionCreator} from "../room/store";
+import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
-function JoinPage({username}) {
+function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult}) {
   const [roomName, setRoomName] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(0);
@@ -26,7 +28,19 @@ function JoinPage({username}) {
 
   useEffect(() => {
     listenJoin(res => {
-      setMessage(res.message);
+      if(res.status){
+        listenAddBroadcast(addRes => {
+          const data = addRes.data;
+          updateMembersList(data.members);
+          updateRoomMessage(addRes.message);
+          setRoomPageName(data.roomName);
+          setRoomId(data.roomId);
+          setRoomDifficult(data.difficult);
+          console.log(addRes)
+        });
+      }else{
+        setMessage(res.message);
+      }
       setStatus(res.status);
       console.log(res)
     });
@@ -63,4 +77,28 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(JoinPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMembersList(data) {
+      dispatch(roomActionCreator.updateMembersListAction(data))
+    },
+    updateRoomMessage(data) {
+      dispatch(roomActionCreator.updateRoomMessageAction(data))
+    },
+    setRoomPageName(data) {
+      dispatch(roomActionCreator.setRoomNameAction(data))
+    },
+    setRoomId(data) {
+      dispatch(roomActionCreator.setRoomIdAction(data))
+    },
+    setRoomDifficult(data) {
+      dispatch(roomActionCreator.setRoomDifficultAction(data))
+    },
+    setJigsawData(data) {
+      dispatch(jigsawActionCreator.setJigsawDataAction(data))
+    },
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(JoinPage);
