@@ -104,7 +104,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
     listenBroadcastStart(res => {
       if(res.status){
         let pics = [];
-        res.data.members.map(member => member.username === username && (pics = members.pics));
+        res.data.members.map(item => item.username === username && (pics = item.pics));
         setJigsawData(
           {
             pics,

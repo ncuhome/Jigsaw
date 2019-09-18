@@ -45,7 +45,7 @@ function JigsawPage(props) {
     row: handleRow,
     column: handleColumn,
     value: handleValue
-  } = handleObject
+  } = handleObject;
 
   /*防止拖拽滚动*/
   useEffect(() => {
@@ -165,8 +165,11 @@ function JigsawPage(props) {
 
   useEffect(() => {
     listenCal(res => {
-      setScore(res.score)
-    })
+      if(res.status){
+        setScore(res.score);
+        setGoResult(res.status);
+      }
+    });
     return () => removeSocket('broadcastScore')
   },[]);
 

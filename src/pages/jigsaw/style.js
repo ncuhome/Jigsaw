@@ -62,8 +62,6 @@ export const Content = styled.div`
 `;
 
 export const SliceContainer = styled.div`
-  width: 69px;
-  height: 69px;
   margin: 1.5px;
   transition: transform .27s;
   &:active{transform : scale(.88,.88);}

@@ -30,8 +30,6 @@ export const JigContainer = styled.div`
 `;
 
 export const SliceContainer = styled.div`
-  width: 69px;
-  height: 69px;
   margin: 1.5px;
 `;
 
