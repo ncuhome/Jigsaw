@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <link rel="shortcut icon" href="%PUBLIC_URL%/logo.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -27,7 +27,14 @@
   <title>Let's Pin</title>
   <style>
     * {
+      -webkit-touch-callout: none;
+      -webkit-user-select: auto;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
+    }
+    html, body {
+      background: #2a2a2a;
     }
   </style>
 </head>

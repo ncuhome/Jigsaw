@@ -28,7 +28,6 @@ export const LoginWrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -67,7 +66,6 @@ const InputBox = styled.div`
   background: #464646;
   border-radius: 8px;
   border: 1px solid #4D4D4D;
-  position: relative;
   color: #D6D6D6;
   font-size: 18px;
   box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
@@ -90,14 +88,12 @@ export const UserIdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
   animation-delay: .5s;
   animation-fill-mode: backwards;
-  height: 47px;
 `;
 
 export const PwdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
   animation-delay: .7s;
   animation-fill-mode: backwards;
-  height: 47px;
 `;
 
 export const InputName = styled.div`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BottomText,
   Content,
@@ -17,8 +17,9 @@ import {actionCreator} from './store'
 import {Redirect} from 'react-router-dom'
 
 function LoginPage({userId, password, message, status, onChangeUserId, onChangePassword, login}) {
+  const [height, setHeight] = useState(document.documentElement.clientHeight);
   return (
-    <LoginWrapper>
+    <LoginWrapper style={{height: `${height}px`}}>
       <MainPicture/>
       <SecondPicture/>
       <Content>
