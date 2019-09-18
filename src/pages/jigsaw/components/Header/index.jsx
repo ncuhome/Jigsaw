@@ -12,7 +12,7 @@ function timeShow(end) {
   return end - start
 }
 
-function Header({endTime, showMenu, showOver, setHandleTimeOver}) {
+function Header({endTime, showMenu, showOver, setHandleTimeOver, ifLeader}) {
   const [time, setTime] = useState(timeShow(endTime));
 
   useEffect(() => {
@@ -33,7 +33,11 @@ function Header({endTime, showMenu, showOver, setHandleTimeOver}) {
         <Text>倒计时</Text>
         <p>{time}</p>
       </HeaderTitle>
-      <Over onClick={() => showOver()}/>
+      {
+        ifLeader ?
+          <Over onClick={() => showOver()}/>
+          : <div/>
+      }
     </HeaderContainer>
     )
   }

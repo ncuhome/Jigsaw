@@ -29,7 +29,7 @@ export const listenList = method => socket.on('broadcastMove', method);
 export const sendListChange = data => socket.emit('gameMove', data);
 
 /*计算分数*/
-export const listenCal =  method => socket.on('broadcastScore', method);
+export const listenCal = method => socket.on('broadcastScore', method);
 export const sendCal = data => socket.emit('gameCal', data);
 
 /*获取排名*/

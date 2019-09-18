@@ -38,7 +38,7 @@ function JigsawPage(props) {
     value: 0
   });
   const [handleOver, setHandleOver] = useState(false);
-  const [goResult, setGoResult] = useState(false);
+  const [goResult, setGoResult] = useState(0);
   const [handleTimeOver, setHandleTimeOver] = useState(false);
 
   const {
@@ -118,6 +118,12 @@ function JigsawPage(props) {
     return colorMapPure[id]
   };
 
+  const ifLeader = () => {
+    let result = false;
+    membersList.map(item => item.identity === "leader" && item.username === username && (result = true))
+    return result
+  };
+
   /*移动切片后的事件处理*/
   const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {
     switch (true) {
@@ -165,10 +171,9 @@ function JigsawPage(props) {
 
   useEffect(() => {
     listenCal(res => {
-      if(res.status){
-        setScore(res.score);
-        setGoResult(res.status);
-      }
+      setScore(res.score);
+      setGoResult(1);
+      console.log(res)
     });
     return () => removeSocket('broadcastScore')
   },[]);
@@ -177,7 +182,7 @@ function JigsawPage(props) {
     sendCal(JSON.stringify({
       roomName
     }));
-    setGoResult(true)
+    console.log(roomName)
   };
 
   return (
@@ -187,6 +192,7 @@ function JigsawPage(props) {
         showMenu={showMenu}
         showOver={showOver}
         setHandleTimeOver={setHandleTimeOver}
+        ifLeader={ifLeader()}
       />
       <Content>
         <JigArea>
