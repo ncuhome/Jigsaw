@@ -17,7 +17,7 @@ import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Members from './components/Members/'
 import QuitAlert from './components/QuitAlert/'
-import {listenAddBroadcast, listenWaitStart, gameStart, removeSocket, listenLeave, leaveRoom, listenStart, listenLeaveBroadcast} from '../../lib/ws'
+import {listenAddBroadcast, listenBroadcastStart, gameStart, removeSocket, listenLeave, leaveRoom, listenStart, listenLeaveBroadcast} from '../../lib/ws'
 import {actionCreator as roomActionCreator} from "./store";
 import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 
@@ -25,6 +25,12 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
   const [showQuitAlert, setShowQuitAlert] = useState(false);
   const [status, setStatus] = useState(0);
   const long = () => members.length;
+
+  const myID = () => {
+    let result = 0;
+    members.map(item => item.username === username && (result = item.id));
+    return result
+  };
 
   const ifLeader = () => members.some(item => item.username === username && item.identity === "leader");
 
@@ -35,7 +41,8 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
   const toQuit = () => {
     leaveRoom(JSON.stringify({
       username,
-      roomName
+      roomName,
+      id: myID()
     }));
     console.log(`send Leave: ${username}, ${roomName}`)
   };
@@ -54,7 +61,13 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
   useEffect(() => {
     //监听某人离开房间事件
     listenLeaveBroadcast(res => {
-      res.status && updateRoomMessage(res.message)
+      if(res.status){
+        const data = res.data;
+        updateMembersList(data.members);
+      }else{
+        updateRoomMessage('网络错误')
+      }
+      console.log(res)
     });
     return () => removeSocket('broadcastRoomLeave')
   }, []);
@@ -71,19 +84,24 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
   useEffect(() => {
     //监听其他人加入房间
     listenAddBroadcast(res => {
-      const data = res.data;
-      updateMembersList(data.members);
-      updateRoomMessage(res.message);
-      setRoomPageName(data.roomName);
-      setRoomId(data.roomId);
-      setRoomDifficult(data.difficult);
-      console.log(data)
+      if(res.status){
+        const data = res.data;
+        updateMembersList(data.members);
+        updateRoomMessage(res.message);
+        setRoomPageName(data.roomName);
+        setRoomId(data.roomId);
+        setRoomDifficult(data.difficult);
+        console.log(data)
+      }else{
+        updateRoomMessage(res.message || '网络错误');
+      }
+      console.log(res)
     });
     return () => removeSocket('broadcastRoomJoin')
   }, []);
 
   useEffect(() => {
-    listenStart(res => {
+    listenBroadcastStart(res => {
       if(res.status){
         let pics = [];
         res.data.members.map(member => member.username === username && (pics = members.pics));
@@ -96,7 +114,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
         );
         setStatus(1)
       }else{
-        updateRoomMessage(res.message)
+        updateRoomMessage(res.message || '网络错误');
       }
       console.log(res)
     });
@@ -104,7 +122,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
   }, []);
 
   useEffect(() => {
-    listenWaitStart(res => {
+    listenStart(res => {
       updateRoomMessage(res.message);
       console.log(res)
     });
