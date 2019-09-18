@@ -36,7 +36,7 @@ function Header({endTime, showMenu, showOver, setHandleTimeOver, ifLeader}) {
       {
         ifLeader ?
           <Over onClick={() => showOver()}/>
-          : <div/>
+          : <div style={{width: '23px'}}/>
       }
     </HeaderContainer>
     )
