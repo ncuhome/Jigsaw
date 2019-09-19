@@ -20,10 +20,10 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import halo from "../../lib/helloText"
-import {listenToken, removeSocket} from '../../lib/ws'
+import {listenToken, sendToken, removeSocket} from '../../lib/ws'
 
 function Homepage(props) {
-  const {username, haloText} = props;
+  const {username, haloText, token} = props;
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
 
@@ -41,6 +41,13 @@ function Homepage(props) {
     window.localStorage.removeItem('username');
     window.location.reload();
   };
+
+  useEffect(() => {
+    sendToken(JSON.stringify({
+      username,
+      token
+    }))
+  },[])
 
   useEffect(() => {
     listenToken(res => {
@@ -95,7 +102,8 @@ function Homepage(props) {
 const mapStateToProps = state => {
   return {
     username: state.login.username,
-    haloText: halo()
+    haloText: halo(),
+    token: state.login.token
   }
 };
 
