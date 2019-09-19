@@ -17,7 +17,7 @@ export const HelpContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   z-index: 1;
   line-height: 30px;

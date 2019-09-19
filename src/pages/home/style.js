@@ -89,7 +89,6 @@ export const HelpButton = styled.div`
   height: 38px;
   border: 2px solid #cacaca;
   border-radius: 22px;
-  background: #373737;
   color: #d2d2d2;
   font-size: 18px;
   font-weight: 500;
@@ -116,7 +115,6 @@ export const LeaveButton = styled.div`
   height: 38px;
   border: 2px solid #cacaca;
   border-radius: 22px;
-  background: #373737;
   color: #d2d2d2;
   font-size: 18px;
   font-weight: 500;
@@ -171,8 +169,8 @@ export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 228px;
-  margin: 15vh 5vw 0 auto;
+  height: 29vh;
+  margin: 14vh 5vw 0 auto;
   animation: ${right} .7s ease, ${fadeIn} .7s ease;
   animation-delay: 1s;
   animation-fill-mode: backwards;

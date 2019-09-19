@@ -1,29 +1,22 @@
-# 许多人可以一起玩的拼图游戏
-
-## Pages
-
-<img src="./img/jigsaw.jpg" width="240px" alt="jigsaw"/>
-<img src="./img/jigsaw-side.jpg" width="240px" alt="jigsaw-side"/>
-<img src="./img/home.jpg" width="240px" alt="home"/>
-<img src="./img/room.jpg" width="240px" alt="room"/>
+# 许多人可以一起玩的拼图游戏(Let's Pin)
 
 ## 项目地址
 
-[Home](https://jigsaw.icecee.com/home)
+[屠龙宝刀 点击就送](https://jigsaw.icecee.com/home)
 
-[Room](https://jigsaw.icecee.com/room)
-
-[游戏进行时页面](https://jigsaw.icecee.com/jigsaw)
+[后端项目地址](https://github.com/Jinof/Jigsaw-be/tree/fix/refactor)
 
 ## 目前进度
 
 + [x] 基本页面&样式
 + [x] 拼图逻辑
 + [x] 登陆状态的储存
-+ [ ] 完善 UI Design
-+ [ ] add more animation
-+ [ ] newPage's socket通信
-+ [ ] roomPage's socket通信
++ [x] 完善 UI Design
++ [x] add more animation
++ [x] 前后端联调
++ [x] 游戏内测
++ [ ] 游戏分数数设置(backEnd)
++ [ ] 游戏公测
 
 ## 开发环境调试
 
@@ -36,7 +29,7 @@ node server.js
 ```
 yarn start
 ```
-进入`localhost:3000/jigsaw`进行调试
+进入`localhost:3000`进行调试
 
 ## 前端服务部署到OSS
 

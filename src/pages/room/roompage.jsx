@@ -10,7 +10,7 @@ import {
   MembersTitleContainer,
   MembersTitle,
   BottomElements,
-  ExitTitle,
+  ExitTitle, 
   MainButton,
 } from './style'
 import {Redirect} from 'react-router-dom'
