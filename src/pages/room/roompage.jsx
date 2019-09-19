@@ -134,7 +134,7 @@ function RoomPage({roomName, members, difficult, username, message, roomId, upda
     console.log('start');
     gameStart(JSON.stringify({
       roomName,
-      picKind: difficult - 2,
+      picKind: difficult - 3,
       jigsawList: array(difficult)
     }))
   };
