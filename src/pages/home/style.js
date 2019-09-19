@@ -5,7 +5,7 @@ import add from './img/add.svg'
 import join from './img/join.svg'
 import rank from './img/rank.svg'
 
-const down = keyframes` 
+const down = keyframes`
   0% {
     transform: translateY(-132px);
   }

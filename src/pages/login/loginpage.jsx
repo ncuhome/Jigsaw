@@ -29,7 +29,6 @@ function LoginPage({userId, password, message, status, onChangeUserId, onChangeP
         <UserIdInputBox>
           <InputName>学号</InputName>
           <input
-            type="number"
             placeholder="请输入您的学号"
             value={userId}
             onChange={e => onChangeUserId(e)}
