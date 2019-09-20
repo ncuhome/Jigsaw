@@ -4,6 +4,7 @@ export const colorMapGradient = [
     'linear-gradient(to bottom right, #eb3349, #f45c43)',
     'linear-gradient(to bottom right, #ff8008, #ffc837)',
     'linear-gradient(to bottom right, #56ab2f, #a8e063)',
+    'linear-gradient(to bottom right, #eb6539, #d72972)',
 ];
 
 export const colorMapPure = [
