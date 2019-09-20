@@ -5,9 +5,6 @@ import {
   SliceContainer,
   Slice,
   Row,
-  TitleContainer,
-  TitleText,
-  Title,
   ScoreContainer,
   ScoreText,
   Score,
@@ -34,14 +31,15 @@ function ResultPage({jigsawList, picKind, difficult, score, roomName}) {
 
   return (
     <ResultWrapper>
-      <TitleContainer>
-        <TitleText>
-          队名
-        </TitleText>
-        <Title>
-          {roomName}
-        </Title>
-      </TitleContainer>
+      <ScoreContainer>
+        <ScoreText>
+          分数
+        </ScoreText>
+        <Score>
+          <Number>{score}</Number>
+          <Text>分</Text>
+        </Score>
+      </ScoreContainer>
       <JigContainer>
         {jigsawList.map((rowItem, rowIndex) => (
           <Row key={rowIndex}>
@@ -62,15 +60,6 @@ function ResultPage({jigsawList, picKind, difficult, score, roomName}) {
           </Row>
         ))}
       </JigContainer>
-      <ScoreContainer>
-        <ScoreText>
-          分数
-        </ScoreText>
-        <Score>
-          <Number>{score}</Number>
-          <Text>分</Text>
-        </Score>
-      </ScoreContainer>
       <ToSort>
         <Link to={"/sort/"}>
           查看排名

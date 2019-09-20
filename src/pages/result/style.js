@@ -9,7 +9,7 @@ export const ResultWrapper = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
 `;
@@ -21,6 +21,7 @@ export const Row = styled.div`
 
 export const JigContainer = styled.div`
   padding: 6px;
+  margin: 15px;
   border-radius: 14px;
   background: #212121;
   transform: scale(.88);
@@ -55,22 +56,6 @@ export const Slice = styled.div.attrs(({ifZero}) => ({
   filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
 `;
 
-export const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  animation: ${fadeIn} .7s ease, ${showDown} .5s ease;
-  margin-top: 6vh;
-`
-
-export const TitleText = styled.div`
-  font-size: 19px;
-  color: #828282;
-  margin: 11px;
-  letter-spacing: .98px;
-`
-
 export const Title = styled.div`
   font-size: 31px;
   font-weight: 500;
@@ -84,8 +69,6 @@ export const ScoreContainer = styled.div`
   justify-content: center;
   align-items: center;
   animation: ${fadeIn} .7s ease, ${showDown} .5s ease;
-  animation-delay: .7s;
-  animation-fill-mode: backwards;
 `
 
 export const ScoreText = styled.div`
@@ -117,15 +100,14 @@ export const Text = styled.div`
 `
 
 export const ToSort = styled.div`
-  position: absolute;
-  bottom: 22px;
+  margin: 11px;
   font-size: 23px;
   font-weight: 500;
   color: #A5A5A5;
   letter-spacing: 1.3px;
   transition: transform .18s ease;
   animation: ${fadeIn} .7s ease, ${showUp} .5s ease;
-  animation-delay: .9s;
+  animation-delay: .6s;
   animation-fill-mode: backwards;
   &:active{
     transform : scale(.9);

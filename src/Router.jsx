@@ -54,7 +54,7 @@ const RoutesList = [
   {
     path: "/result/",
     component: Result,
-    auth: true
+    auth: true,
   },
   {
     path: "*",

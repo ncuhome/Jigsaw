@@ -11,5 +11,6 @@ export const colorMapPure = [
     '#00bfff',
     '#eb6539',
     '#ff8008',
+    '#d72972',
     '#4ad72b',
 ];
