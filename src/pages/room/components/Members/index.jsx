@@ -7,6 +7,7 @@ import {
   MemberMessageContent,
   MemberNameContent,
   MemberName,
+  WaitMemberName,
   Identity,
   ClassMessage,
   ReadyContainer,
@@ -24,9 +25,9 @@ function AwaitMember() {
           </Avatar>
           <MemberMessageContent>
             <MemberNameContent>
-              <MemberName style={{color: '#5F5F5F'}}>
+              <WaitMemberName>
                 待加入...
-              </MemberName>
+              </WaitMemberName>
               <Identity> </Identity>
             </MemberNameContent>
             <ClassMessage style={{color: '#424242'}}>

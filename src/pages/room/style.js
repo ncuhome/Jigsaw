@@ -14,7 +14,7 @@ export const RoomWrapper = styled.div`
 `
 
 export const TitleContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 4vh;
   width: 85vw;
   display: flex;
   flex-direction: column;

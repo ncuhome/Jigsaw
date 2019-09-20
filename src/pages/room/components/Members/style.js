@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
 
 export const MemberContentContainer = styled.div`
   width: 100vw;
@@ -55,6 +56,16 @@ export const MemberName = styled.div`
   height: 29px;
   line-height: 29px;
   color: #DBDBDB;
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: 1.31px;
+  margin-right: 8px;
+`
+
+export const WaitMemberName = styled.div`
+  height: 29px;
+  line-height: 29px;
+  color: #5F5F5F;
   font-weight: 800;
   font-size: 21px;
   letter-spacing: 1.31px;

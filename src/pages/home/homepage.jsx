@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 import Help from './components/Help/'
 import Leave from './components/Leave/'
 import halo from "../../lib/helloText"
-import {listenToken, sendToken, removeSocket} from '../../lib/ws'
+import {listenToken, removeSocket} from '../../lib/ws'
 
 function Homepage(props) {
   const {username, haloText, token} = props;
@@ -41,13 +41,6 @@ function Homepage(props) {
     window.localStorage.removeItem('username');
     window.location.reload();
   };
-
-  useEffect(() => {
-    sendToken(JSON.stringify({
-      username,
-      token
-    }))
-  },[])
 
   useEffect(() => {
     listenToken(res => {

@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket = io('https://jigsaw.ncuos.com/');
+const socket = io('https://jigsaw.mehacker.cn/');
 
 /*验证token*/
 export const listenToken = method => socket.on('token', method);

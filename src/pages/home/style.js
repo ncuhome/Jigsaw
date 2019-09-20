@@ -90,6 +90,7 @@ export const HelpButton = styled.div`
   border: 2px solid #cacaca;
   border-radius: 22px;
   color: #d2d2d2;
+  background: rgba(0,0,0,.11);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: .83px;
@@ -116,6 +117,7 @@ export const LeaveButton = styled.div`
   border: 2px solid #cacaca;
   border-radius: 22px;
   color: #d2d2d2;
+  background: rgba(0,0,0,.11);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: .83px;
@@ -128,7 +130,6 @@ export const LeaveButton = styled.div`
     transform: scale(.88);
   }
 `
-
 
 export const RedImg = styled.div`
   position: absolute;
@@ -169,8 +170,8 @@ export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 29vh;
-  margin: 14vh 5vw 0 auto;
+  height: 33vh;
+  margin: 11vh 5vw 0 auto;
   animation: ${right} .7s ease, ${fadeIn} .7s ease;
   animation-delay: 1s;
   animation-fill-mode: backwards;
@@ -191,7 +192,7 @@ export const Name = styled.div`
 
 export const Title = styled.div`
   width: 86vw;
-  margin-top: 8vh;
+  margin-top: 6.5vh;
 `
 
 export const Welcome = styled.div`
