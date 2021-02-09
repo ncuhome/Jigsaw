@@ -22,6 +22,9 @@ export const scale = keyframes`
   0% {
     transform: scale(.88);
   }
+  100% {
+    transform: scale(.9);
+  }
 `;
 
 export const showUp = keyframes` 
