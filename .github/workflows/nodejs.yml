@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Build project
+      run: |
+        echo install dependencies
+        yarn
+        echo build project
+        yarn build
+    - name: deploy
+      uses: fangbinwei/aliyun-oss-website-action@v1
+      with:
+       folder: build
+       accessKeyId: ${{ secrets.ACCESSKEYID }}
+       accessKeySecret: ${{ secrets.ACCESSKEYSECRET }}
+       bucket: ncu-market
+       endpoint: oss-cn-shenzhen.aliyuncs.com
+       skipSetting: true
