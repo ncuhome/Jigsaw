@@ -9,7 +9,7 @@ import {
   Button
 } from './style'
 import {connect} from 'react-redux'
-import {Link, Redirect} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {joinRoom, listenAddBroadcast, listenJoin, removeSocket} from '../../lib/ws'
 import {actionCreator as roomActionCreator} from "../room/store";
 import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
@@ -17,7 +17,7 @@ import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
 function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult}) {
   const [roomName, setRoomName] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState(0);
+  const history = useHistory()
 
   const submit = () => {
     joinRoom(JSON.stringify({
@@ -41,7 +41,7 @@ function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageNa
       }else{
         setMessage(res.message);
       }
-      setStatus(res.status);
+      history.push('/room')
       console.log(res)
     });
     return () => removeSocket('join')
@@ -66,7 +66,6 @@ function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageNa
           <Button onClick={() => submit()}>加入</Button>
         </ButtonsContainer>
       </NewPageContainer>
-      {status ? <Redirect to={"/room/"} /> : null}
     </NewPageWrapper>
   );
 }

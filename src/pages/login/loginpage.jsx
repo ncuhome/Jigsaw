@@ -18,6 +18,7 @@ import {Redirect} from 'react-router-dom'
 
 function LoginPage({userId, password, message, status, onChangeUserId, onChangePassword, login}) {
   const [height, setHeight] = useState(document.documentElement.clientHeight);
+
   return (
     <LoginWrapper style={{height: `${height}px`}}>
       <MainPicture/>

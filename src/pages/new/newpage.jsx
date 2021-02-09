@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import SelectPage from './components/select'
 import CreatePage from './components/create'
-import {Redirect} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {listenJoin, joinRoom, removeSocket} from '../../lib/ws'
 import {actionCreator as roomActionCreator} from "../room/store";
 
 function NewPage({username, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult, updateMembersList}) {
-  const [status, setStatus] = useState(0);
   const [roomName, setRoomName] = useState('');
   const [difficult, setDifficult] = useState(3);
   const [message, setMessage] = useState('');
   const [page, setPage] = useState(1);
+  const history = useHistory()
 
   const back = () => {
     setPage(1)
@@ -32,7 +32,7 @@ function NewPage({username, updateRoomMessage, setRoomPageName, setRoomId, setRo
       }else {
         setMessage(res.message);
       }
-      setStatus(res.status);
+      history.push('/room')
       console.log(res);
     });
     return () => removeSocket('join')
@@ -66,7 +66,6 @@ function NewPage({username, updateRoomMessage, setRoomPageName, setRoomId, setRo
           back={back}
           create={create}
         /> : null}
-      {status ? <Redirect to={"/room/"}/> : null}
     </div>
   );
 }
