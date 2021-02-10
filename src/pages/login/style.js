@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import Picture1 from './img/loginImg1.svg'
-import LittleImg from './img/loginImg2.svg'
-import {mainShake, mainShow, otherShake, otherShow, fadeIn} from '@/style/animate.js'
+import styled from "styled-components";
+import Picture1 from "./img/loginImg1.svg";
+import LittleImg from "./img/loginImg2.svg";
+import { mainShake, mainShow, otherShake, otherShow, fadeIn } from "@/style/animate.js";
 
 export const MainPicture = styled.div`
   position: absolute;
@@ -48,12 +48,12 @@ export const Title = styled.div`
   width: 324px;
   font-size: 35px;
   font-weight: 800;
-  color: #FBFBFB;
+  color: #fbfbfb;
   line-height: 49px;
   letter-spacing: 1px;
   margin-bottom: 41px;
   animation: ${fadeIn} 2s ease;
-  animation-delay: .3s;
+  animation-delay: 0.3s;
   animation-fill-mode: backwards;
 `;
 
@@ -65,17 +65,17 @@ const InputBox = styled.div`
   margin-top: 31px;
   background: #464646;
   border-radius: 8px;
-  border: 1px solid #4D4D4D;
-  color: #D6D6D6;
+  border: 1px solid #4d4d4d;
+  color: #d6d6d6;
   font-size: 18px;
-  box-shadow: 0 2px 15px 0 rgba(0,0,0,.15);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
   input {
     width: 240px;
     height: 30px;
     line-height: 30px;
-    letter-spacing: .8px;
+    letter-spacing: 0.8px;
     font-size: 18px;
-    color: #D6D6D6;
+    color: #d6d6d6;
     background: #464646;
   }
   input::-webkit-input-placeholder {
@@ -86,13 +86,13 @@ const InputBox = styled.div`
 
 export const UserIdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
-  animation-delay: .5s;
+  animation-delay: 0.5s;
   animation-fill-mode: backwards;
 `;
 
 export const PwdInputBox = styled(InputBox)`
   animation: ${fadeIn} 1s ease;
-  animation-delay: .7s;
+  animation-delay: 0.7s;
   animation-fill-mode: backwards;
 `;
 
@@ -116,8 +116,8 @@ export const Prompt = styled.div`
   color: #ededed;
   letter-spacing: 1.2px;
   font-weight: 500;
-  filter: drop-shadow(0 0 10px rgba(58,58,58,.2));
-  animation: ${props => props.active ? fadeIn : null} 1s ease;
+  filter: drop-shadow(0 0 10px rgba(58, 58, 58, 0.2));
+  animation: ${(props) => (props.active ? fadeIn : null)} 1s ease;
 `;
 
 export const LoginBtn = styled.div`
@@ -131,15 +131,15 @@ export const LoginBtn = styled.div`
   font-size: 18px;
   font-weight: 500;
   text-align: center;
-  background: #494C4F;
+  background: #494c4f;
   color: #fff;
   border-radius: 22.5px;
   animation: ${fadeIn} 1s ease;
   animation-delay: 1s;
   animation-fill-mode: backwards;
-  box-shadow: 0 13px 16px 0 rgba(0,0,0,.19);
-  transition: opacity .38s;
-  &:active{
+  box-shadow: 0 13px 16px 0 rgba(0, 0, 0, 0.19);
+  transition: opacity 0.38s;
+  &:active {
     opacity: 0;
   }
 `;

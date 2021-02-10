@@ -23,10 +23,7 @@ export const useLogin = stateFactory(
         password,
       };
 
-      const { status, token, message } = await post(
-        "https://os.ncuos.com/api/user/token",
-        data
-      );
+      const { status, token, message } = await post("https://os.ncuos.com/api/user/token", data);
 
       if (status === 1) {
         window.localStorage.setItem("token", token);

@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes` 
   0% {
@@ -11,14 +11,16 @@ const fadeIn = keyframes`
 
 export const HelpContainer = styled.div`
   position: absolute;
-  top: 0;right: 0;left: 0;bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  pointer-events: ${props => props.show ? 'auto' : 'none'};
-  animation: ${fadeIn} .5s ease;
-  
+  pointer-events: ${(props) => (props.show ? "auto" : "none")};
+  animation: ${fadeIn} 0.5s ease;
 `;
 
 export const HelpContent = styled.div`
@@ -35,10 +37,13 @@ export const HelpContent = styled.div`
 
 export const BackGround = styled.div`
   position: absolute;
-  top: 0;right: 0;left: 0;bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
 `;

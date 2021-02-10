@@ -79,11 +79,7 @@ function Homepage() {
       <HelpButton onClick={() => setHandleHelp(true)}>帮助</HelpButton>
       <LeaveButton onClick={() => setHandleLeave(true)}>离开</LeaveButton>
       <Help handleHelp={handleHelp} closeHelp={closeHelp} />
-      <Leave
-        handleLeave={handleLeave}
-        closeLeave={closeLeave}
-        clearLogin={logout}
-      />
+      <Leave handleLeave={handleLeave} closeLeave={closeLeave} clearLogin={logout} />
     </HomeWarpper>
   );
 }

@@ -1,6 +1,6 @@
-import styled, {keyframes} from "styled-components";
-import menu from '../../img/menu.svg'
-import over from '../../img/over.svg'
+import styled, { keyframes } from "styled-components";
+import menu from "../../img/menu.svg";
+import over from "../../img/over.svg";
 
 const fadeIn = keyframes` 
   0% {
@@ -30,9 +30,9 @@ export const HeaderTitle = styled.div`
   text-align: center;
   color: #c9ced2;
   letter-spacing: 1px;
-  transition: transform .27s ease;
-  &:active{
-    transform : scale(.93,.93);
+  transition: transform 0.27s ease;
+  &:active {
+    transform: scale(0.93, 0.93);
   }
 `;
 
@@ -41,9 +41,9 @@ export const Menu = styled.div`
   height: 19px;
   background: url(${menu});
   margin: 0 15px 0 15px;
-  transition: transform .21s ease;
-  &:active{
-    transform : scale(.86);
+  transition: transform 0.21s ease;
+  &:active {
+    transform: scale(0.86);
   }
 `;
 
@@ -52,9 +52,9 @@ export const Over = styled.div`
   height: 21px;
   background: url(${over});
   margin: 0 16px 0 16px;
-  transition: transform .21s ease;
-  &:active{
-    transform : scale(.86);
+  transition: transform 0.21s ease;
+  &:active {
+    transform: scale(0.86);
   }
 `;
 
@@ -62,4 +62,4 @@ export const Text = styled.div`
   font-size: 14px;
   color: #7b7b7b;
   margin-bottom: 4px;
-`
+`;

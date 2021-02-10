@@ -1,11 +1,12 @@
 {
   "name": "jigsaw",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "postbuild": "cd scripts && sh clean.sh"
+    "postbuild": "cd scripts && sh clean.sh",
+    "lint": "pretty-quick ./src"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -30,6 +31,7 @@
     "@snowpack/plugin-react-refresh": "2.3.7",
     "@snowpack/plugin-webpack": "2.1.1",
     "husky": "^5.0.9",
+    "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
     "snowpack": "2.17.1"
   },

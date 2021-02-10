@@ -57,11 +57,7 @@ function NewPage() {
   return (
     <div>
       {page === 1 ? (
-        <SelectPage
-          next={next}
-          difficult={difficult}
-          setDifficult={setDifficult}
-        />
+        <SelectPage next={next} difficult={difficult} setDifficult={setDifficult} />
       ) : null}
       {page === 2 ? (
         <CreatePage

@@ -38,16 +38,14 @@ function RoomPage() {
     setValue: state.setValue,
     setMutiValue: state.setMutiValue,
   }));
-  const { roomName, members, difficult, roomId, message } = useRoom(
-    (state) => ({
-      roomName: state.roomName,
-      members: state.members,
-      difficult: state.difficult,
-      roomId: state.roomId,
-      message: state.message,
-    })
-  );
-  const setJigsawData = useGrid((state) => state.setMutiValue)  
+  const { roomName, members, difficult, roomId, message } = useRoom((state) => ({
+    roomName: state.roomName,
+    members: state.members,
+    difficult: state.difficult,
+    roomId: state.roomId,
+    message: state.message,
+  }));
+  const setJigsawData = useGrid((state) => state.setMutiValue);
 
   const history = useHistory();
   const long = () => members.length;
@@ -63,9 +61,7 @@ function RoomPage() {
   };
 
   const ifLeader = () =>
-    members.some(
-      (item) => item.username === username && item.identity === "leader"
-    );
+    members.some((item) => item.username === username && item.identity === "leader");
 
   const back = () => {
     setShowQuitAlert(false);
@@ -144,9 +140,7 @@ function RoomPage() {
     listenBroadcastStart((res) => {
       if (res.status) {
         let pics = [];
-        res.data.members.map(
-          (item) => item.username === username && (pics = item.pics)
-        );
+        res.data.members.map((item) => item.username === username && (pics = item.pics));
         setJigsawData({
           pics,
           ...res.data,
@@ -197,20 +191,11 @@ function RoomPage() {
             {long()} / {difficult}
           </MembersTitle>
         </MembersTitleContainer>
-        <Members
-          username={username}
-          members={members}
-          difficult={difficult}
-          long={long()}
-        />
+        <Members username={username} members={members} difficult={difficult} long={long()} />
       </MembersContainer>
       <BottomElements>
         <ExitTitle onClick={() => setShowQuitAlert(true)}>退出</ExitTitle>
-        {ifLeader() ? (
-          <MainButton onClick={() => start()}>开始</MainButton>
-        ) : (
-          <div />
-        )}
+        {ifLeader() ? <MainButton onClick={() => start()}>开始</MainButton> : <div />}
       </BottomElements>
       <QuitAlert back={back} toQuit={toQuit} showQuitAlert={showQuitAlert} />
     </RoomWrapper>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -6,10 +6,10 @@ import {
   Title,
   Message,
   ButtonsContainer,
-  Button
-} from './style'
+  Button,
+} from "./style";
 
-function CreatePage({username, difficult, create, roomName, setRoomName, message, back}) {
+function CreatePage({ username, difficult, create, roomName, setRoomName, message, back }) {
   return (
     <NewPageWrapper>
       <NewPageContainer>
@@ -18,7 +18,7 @@ function CreatePage({username, difficult, create, roomName, setRoomName, message
           <input
             placeholder="请输入队伍名称"
             value={roomName}
-            onChange={e => setRoomName(e.target.value)}
+            onChange={(e) => setRoomName(e.target.value)}
           />
         </InputBox>
         <Message active={message}>{message}</Message>

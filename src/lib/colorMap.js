@@ -1,5 +1,4 @@
-const linerGradient = (start, end) =>
-  `linear-gradient(to bottom right, ${start}, ${end})`;
+const linerGradient = (start, end) => `linear-gradient(to bottom right, ${start}, ${end})`;
 
 export const colorMapGradient = [
   "rgb(0,0,0)",
@@ -10,13 +9,6 @@ export const colorMapGradient = [
   linerGradient("#eb6539", "#d72972"),
 ];
 
-console.log(colorMapGradient)
+console.log(colorMapGradient);
 
-export const colorMapPure = [
-  "rgb(0,0,0)",
-  "#00bfff",
-  "#eb6539",
-  "#ff8008",
-  "#d72972",
-  "#4ad72b",
-];
+export const colorMapPure = ["rgb(0,0,0)", "#00bfff", "#eb6539", "#ff8008", "#d72972", "#4ad72b"];

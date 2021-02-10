@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
-import Routers from './Router';
-import GlobalReset from './style/reset';
-import { usePreFetch } from '@/lib/hooks/usePreFetch';
+import React, { Fragment } from "react";
+import Routers from "./Router";
+import GlobalReset from "./style/reset";
+import { usePreFetch } from "@/lib/hooks/usePreFetch";
 
 function App() {
   usePreFetch();

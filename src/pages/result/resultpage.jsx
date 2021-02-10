@@ -17,14 +17,12 @@ import { useGrid } from "@/pages/jigsaw/store";
 import { pictures } from "../../lib/pictures";
 
 function ResultPage() {
-  const { jigsawList, picKind, difficult, score } = useGrid(
-    (state) => ({
-      picKind: state.picKind,
-      jigsawList: state.jigsawList,
-      score: state.score,
-      difficult: state.difficult,
-    })
-  );
+  const { jigsawList, picKind, difficult, score } = useGrid((state) => ({
+    picKind: state.picKind,
+    jigsawList: state.jigsawList,
+    score: state.score,
+    difficult: state.difficult,
+  }));
 
   const length = () => {
     return 300 / difficult;
@@ -51,10 +49,7 @@ function ResultPage() {
         {jigsawList.map((rowItem, rowIndex) => (
           <Row key={rowIndex}>
             {rowItem.map((item, columnIndex) => (
-              <SliceContainer
-                key={`slice(${rowIndex}, ${columnIndex})`}
-                ifZero={item === 0}
-              >
+              <SliceContainer key={`slice(${rowIndex}, ${columnIndex})`} ifZero={item === 0}>
                 <Slice
                   ifZero={item === 0}
                   bgUrl={pictures[picKind]}

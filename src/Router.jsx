@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Jigsaw from "./pages/jigsaw";
 import Login from "./pages/login";
 import Home from "./pages/home";
@@ -99,12 +94,7 @@ function Routers() {
     <Router>
       <Switch>
         {RoutesList.map((item, index) => (
-          <Route
-            key={index}
-            exact
-            path={item.path}
-            render={(props) => renderPage(item, props)}
-          />
+          <Route key={index} exact path={item.path} render={(props) => renderPage(item, props)} />
         ))}
       </Switch>
     </Router>

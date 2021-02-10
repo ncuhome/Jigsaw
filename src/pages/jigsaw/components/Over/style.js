@@ -1,15 +1,18 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const HelpContainer = styled.div`
   position: absolute;
-  top: 0;right: 0;left: 0;bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity .5s ease;
-  pointer-events: ${props => props.show ? 'auto' : 'none'};
-  opacity: ${props => props.show ? 1 : 0};
+  transition: opacity 0.5s ease;
+  pointer-events: ${(props) => (props.show ? "auto" : "none")};
+  opacity: ${(props) => (props.show ? 1 : 0)};
 `;
 
 export const HelpContent = styled.div`
@@ -26,12 +29,15 @@ export const HelpContent = styled.div`
 
 export const BackGround = styled.div`
   position: absolute;
-  top: 0;right: 0;left: 0;bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
 `;
 
 export const Quit = styled.div`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   YourSortContainer,
   Title,
@@ -11,36 +11,28 @@ import {
   ScoreNumber,
   ScoreText,
   Score,
-  CardHead
-} from './style'
+  CardHead,
+} from "./style";
 
-function YourSort({list}) {
+function YourSort({ list }) {
   return (
     <YourSortContainer>
-      <Title>
-        你的排名
-      </Title>
-      {list.map(item => (
+      <Title>你的排名</Title>
+      {list.map((item) => (
         <Item key={item.roomName}>
           <Number bg={item.backgroundColor} textColor={item.textColor}>
             {item.sort}
           </Number>
           <Card>
             <CardHead>
-              <Name>
-                {item.roomName}
-              </Name>
+              <Name>{item.roomName}</Name>
               <Score>
-                <ScoreNumber>
-                  {item.score}
-                </ScoreNumber>
-                <ScoreText>
-                  分
-                </ScoreText>
+                <ScoreNumber>{item.score}</ScoreNumber>
+                <ScoreText>分</ScoreText>
               </Score>
             </CardHead>
             <MembersContainer>
-              {item.members.map(user => (
+              {item.members.map((user) => (
                 <Member key={user.userId} mine={user.mine}>
                   {user.username}
                 </Member>
@@ -50,7 +42,7 @@ function YourSort({list}) {
         </Item>
       ))}
     </YourSortContainer>
-  )
+  );
 }
 
-export default YourSort
+export default YourSort;

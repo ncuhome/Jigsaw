@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 const GlobalReset = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -56,6 +56,6 @@ const GlobalReset = createGlobalStyle`
     border: none;
     outline: none;
   }
-`
+`;
 
-export default GlobalReset
+export default GlobalReset;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   JigArea,
   Slice,
@@ -11,8 +11,8 @@ import {
   Wrapper,
   Drag,
   JigContainer,
-} from './style';
-import { useHistory } from 'react-router-dom';
+} from "./style";
+import { useHistory } from "react-router-dom";
 import {
   listenList,
   sendListChange,
@@ -21,17 +21,17 @@ import {
   listenLeave,
   removeSocket,
   leaveRoom,
-} from '../../lib/ws';
-import { colorMapPure } from '../../lib/colorMap';
-import { polyfill } from 'mobile-drag-drop';
-import { scrollBehaviourDragImageTranslateOverride } from 'mobile-drag-drop/scroll-behaviour';
+} from "../../lib/ws";
+import { colorMapPure } from "../../lib/colorMap";
+import { polyfill } from "mobile-drag-drop";
+import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 
-import Header from './components/Header/';
-import Menu from './components/Menu/';
-import Over from './components/Over/';
-import TimeOver from './components/TimeOver/';
-import { useLogin } from '@/pages/login/store';
-import { useGrid } from '@/pages/jigsaw/store';
+import Header from "./components/Header/";
+import Menu from "./components/Menu/";
+import Over from "./components/Over/";
+import TimeOver from "./components/TimeOver/";
+import { useLogin } from "@/pages/login/store";
+import { useGrid } from "@/pages/jigsaw/store";
 
 function JigsawPage() {
   const username = useLogin((state) => state.name);
@@ -56,11 +56,11 @@ function JigsawPage() {
   }));
 
   const setScore = (value) => {
-    setValue('score', value);
+    setValue("score", value);
   };
 
   const changeList = (value) => {
-    setValue('jigsawList', value);
+    setValue("jigsawList", value);
   };
 
   const [handleSideMenu, setHandleSideMenu] = useState(false);
@@ -106,10 +106,10 @@ function JigsawPage() {
     //监听离开房间事件
     listenLeave((res) => {
       if (res.status) {
-        history.push('/home');
+        history.push("/home");
       }
     });
-    return () => removeSocket('leave');
+    return () => removeSocket("leave");
   }, []);
 
   const showOver = () => setHandleOver(true);
@@ -155,7 +155,7 @@ function JigsawPage() {
   const ifLeader = () => {
     let result = false;
     membersList.map(
-      (item) => item.identity === 'leader' && item.username === username && (result = true)
+      (item) => item.identity === "leader" && item.username === username && (result = true)
     );
     return result;
   };
@@ -200,17 +200,20 @@ function JigsawPage() {
       });
       setHandleNumber(handleNumber + 1);
     }
-    selectAlready(item)
-      ? setHandleObject({
-          row: null,
-          column: null,
-          value: 0,
-        })
-      : setHandleObject({
-          row: null,
-          column: null,
-          value: item,
-        });
+
+    if (selectAlready(item)) {
+      setHandleObject({
+        row: null,
+        column: null,
+        value: 0,
+      });
+    } else {
+      setHandleObject({
+        row: null,
+        column: null,
+        value: item,
+      });
+    }
   };
 
   const delayShow = (x) => (x + 1) / difficult / 1.3;
@@ -218,10 +221,10 @@ function JigsawPage() {
   useEffect(() => {
     listenCal((res) => {
       setScore(res.score);
-      history.push('/result');
+      history.push("/result");
       console.log(res);
     });
-    return () => removeSocket('broadcastScore');
+    return () => removeSocket("broadcastScore");
   }, []);
 
   const submit = () => {

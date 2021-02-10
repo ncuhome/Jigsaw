@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Back,
-  Header,
-  SortWrapper,
-  Title,
-  EmptyBox,
-  EmptyBoxContainer,
-} from "./style";
+import { Back, Header, SortWrapper, Title, EmptyBox, EmptyBoxContainer } from "./style";
 import YourSort from "./components/YourSort/";
 import AllSort from "./components/AllSort/";
 import Loading from "../common/Loading/index";
-import { sortBy } from 'lodash-es';
+import { sortBy } from "lodash-es";
 
 import { Link } from "react-router-dom";
 import { listenRank, getRank, removeSocket } from "../../lib/ws";
@@ -23,10 +16,7 @@ const sortTextColor = ["#2a2a2a", "#2a2a2a", "#2a2a2a"];
 function SortPage() {
   const [status, setStatus] = useState(0);
   const [handleEmpty, setHandleEmpty] = useState(0);
-  const [list, updateSortList] = useSort((state) => [
-    state.list,
-    state.updateSortList,
-  ]);
+  const [list, updateSortList] = useSort((state) => [state.list, state.updateSortList]);
   const userId = useLogin((state) => state.userId);
 
   const sortList = () => {
@@ -43,9 +33,7 @@ function SortPage() {
   const formatList = () => {
     const temp = sortList();
     temp.forEach((item) => {
-      item.myGroup = item.members.some(
-        (user) => user.userId === parseInt(userId)
-      );
+      item.myGroup = item.members.some((user) => user.userId === parseInt(userId));
       item.members.forEach((user) => {
         user.mine = user.userId === parseInt(userId);
       });
@@ -54,9 +42,7 @@ function SortPage() {
   };
 
   const yourSortList = () => {
-    return formatList().filter((item) =>
-      item.members.some((user) => user.mine)
-    );
+    return formatList().filter((item) => item.members.some((user) => user.mine));
   };
 
   const allSortList = () => {

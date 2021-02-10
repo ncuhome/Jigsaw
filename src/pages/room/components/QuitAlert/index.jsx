@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   AlertWrapper,
   AlertContainer,
@@ -8,28 +8,22 @@ import {
   ButtonContainer,
   RedButton,
   BlueButton,
-  Background
-} from './style'
+  Background,
+} from "./style";
 
-function QuitAlert({back, toQuit, showQuitAlert}) {
+function QuitAlert({ back, toQuit, showQuitAlert }) {
   return (
     <AlertWrapper show={showQuitAlert}>
-      <Background onClick={() => back()}/>
+      <Background onClick={() => back()} />
       <AlertContainer>
         <TitleContainer>
-          <Title>
-            是否确认退出
-          </Title>
-            退出后将跳回主页
+          <Title>是否确认退出</Title>
+          退出后将跳回主页
         </TitleContainer>
-        <DivideLine/>
+        <DivideLine />
         <ButtonContainer>
-          <RedButton onClick={() => toQuit()}>
-            退出
-          </RedButton>
-          <BlueButton onClick={() => back()}>
-            返回
-          </BlueButton>
+          <RedButton onClick={() => toQuit()}>退出</RedButton>
+          <BlueButton onClick={() => back()}>返回</BlueButton>
         </ButtonContainer>
       </AlertContainer>
     </AlertWrapper>
