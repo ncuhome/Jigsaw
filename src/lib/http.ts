@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const post = async (path, postData) => {
+export const post = async (path: string, postData: any):Promise<any> => {
   const baseUrl = "";
   let url = baseUrl.concat(path);
   const data = JSON.stringify(postData);
@@ -15,7 +15,7 @@ export const post = async (path, postData) => {
   return ret;
 };
 
-export const get = async (path, token) => {
+export const get = async (path: string, token: string) => {
   const baseUrl = "";
   let url = baseUrl.concat(path);
   let ret = await new Promise((resolve) => {
@@ -25,11 +25,12 @@ export const get = async (path, token) => {
       headers: { Authorization: `passport ${token}` },
     }).then((res) => resolve(res.data));
   }).then((ret) => ret);
+
   return ret;
 };
 
-export const getUsername = async (token) => {
-  const ret = await get("https://os.ncuos.com/api/user/profile/index", token);
+export const getUsername = async (token: string) => {
+  const ret: any = await get("https://os.ncuos.com/api/user/profile/index", token);
   const name = ret.name || "未获取";
   window.localStorage.setItem("name", name);
   return name;

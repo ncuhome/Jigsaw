@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HelpContainer = styled.div`
+export const HelpContainer = styled.div<{ show: boolean }>`
   position: absolute;
   top: 0;
   right: 0;

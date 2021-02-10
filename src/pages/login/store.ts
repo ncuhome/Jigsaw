@@ -2,6 +2,15 @@ import { stateFactory } from "@/utils/state_factory";
 import { post, getUsername } from "@/lib/http";
 import { sendToken } from "@/lib/ws";
 
+interface LoginData {
+  name: string;
+  token: string;
+  userId: string;
+  password: string;
+  message: string;
+  status: 0 | 1;
+}
+
 export const useLogin = stateFactory(
   {
     name: window.localStorage.getItem("name"),
@@ -12,12 +21,13 @@ export const useLogin = stateFactory(
     status: 0,
   },
   (set) => ({
-    setValue: (key, value) => {
+    setValue: <T extends keyof LoginData>(key: T, value: LoginData[T]) =>
       set((state) => {
         state[key] = value;
-      });
-    },
-    login: async (userId, password) => {
+
+        return state;
+      }),
+    login: async (userId: string, password: string) => {
       const data = {
         username: userId,
         password,
@@ -45,10 +55,13 @@ export const useLogin = stateFactory(
           state.message = message;
           state.name = name;
           state.status = 1;
+
+          return state;
         });
       } else {
         set((state) => {
           state.message = message;
+          return state;
         });
       }
     },
@@ -60,6 +73,8 @@ export const useLogin = stateFactory(
         state.token = null;
         state.name = null;
         state.status = 0;
+
+        return state;
       });
     },
   })

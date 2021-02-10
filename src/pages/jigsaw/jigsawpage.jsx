@@ -39,7 +39,7 @@ function JigsawPage() {
     (state) => ({
       picKind: state.picKind,
       jigsawList: state.jigsawList,
-      membersList: state.membersList,
+      membersList: state.members,
       difficult: state.difficult,
       roomName: state.roomName,
       endTime: state.endTime,

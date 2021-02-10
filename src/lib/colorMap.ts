@@ -1,4 +1,5 @@
-const linerGradient = (start, end) => `linear-gradient(to bottom right, ${start}, ${end})`;
+const linerGradient = (start: string, end: string) =>
+  `linear-gradient(to bottom right, ${start}, ${end})`;
 
 export const colorMapGradient = [
   "rgb(0,0,0)",

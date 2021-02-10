@@ -7,7 +7,7 @@ import { pictures } from "@/lib/pictures";
 export const usePreFetch = () => {
   const setValue = useGrid((state) => state.setValue);
 
-  const getBase64 = async (pic) => {
+  const getBase64 = async (pic: string) => {
     const response = await axios.get(pic, {
       responseType: "arraybuffer",
     });
