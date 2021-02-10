@@ -11,7 +11,7 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { joinRoom, listenAddBroadcast, listenJoin, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
-import { useRoom } from "@/pages/room/store";
+import { useRoom } from "@pages/room/store";
 
 function JoinPage() {
   const [roomName, setRoomName] = useState("");
@@ -19,7 +19,7 @@ function JoinPage() {
 
   const history = useHistory();
   const setMutiValue = useRoom((state) => state.setMutiValue);
-  const username = useLogin((state) => state.username);
+  const username = useLogin((state) => state.name);
 
   const submit = () => {
     joinRoom(
@@ -64,7 +64,7 @@ function JoinPage() {
             onChange={(e) => setRoomName(e.target.value)}
           />
         </InputBox>
-        <Message active={message}>{message}</Message>
+        <Message active={!!message}>{message}</Message>
         <ButtonsContainer>
           <Link to="/home/">
             <Button>取消</Button>

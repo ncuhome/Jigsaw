@@ -1,5 +1,25 @@
 import styled, { keyframes } from "styled-components";
 
+interface SliceType {
+  ifZero: boolean;
+  size: number;
+  bgUrl: string;
+  positionX: number;
+  positionY: number;
+  active: boolean;
+  same: boolean;
+  myColor: string;
+}
+
+interface Pics {
+  active: boolean;
+  bgUrl: string;
+  positionX: number;
+  positionY: number;
+  finish: boolean;
+  size: number;
+}
+
 const Focus = keyframes` 
   0% {
     border: 3px solid #b8b8b8
@@ -72,11 +92,11 @@ export const SliceContainer = styled.div`
   }
 `;
 
-export const Slice = styled.div.attrs(({ ifZero }) => ({
+export const Slice = styled.div.attrs<SliceType>(({ ifZero }) => ({
   style: {
     opacity: ifZero && 0.4,
   },
-}))`
+}))<SliceType>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +116,7 @@ export const Slice = styled.div.attrs(({ ifZero }) => ({
   }
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<{ show: number }>`
   display: flex;
   justify-content: center;
   animation: ${fadeIn} 0.7s ease, ${scale} 0.7s ease;
@@ -111,12 +131,12 @@ export const SelectArea = styled.div`
   padding: 20px 10px;
 `;
 
-export const Pics = styled.div.attrs(({ bgUrl, positionX, positionY, finish }) => ({
+export const Pics = styled.div.attrs<Pics>(({ bgUrl, positionX, positionY, finish }) => ({
   style: {
     background: `url(${bgUrl}) no-repeat -${positionX}px -${positionY}px / 300px`,
     opacity: finish && `.35`,
   },
-}))`
+}))<Pics>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,7 +155,7 @@ export const Pics = styled.div.attrs(({ bgUrl, positionX, positionY, finish }) =
   }
 `;
 
-export const PicsContainer = styled.div`
+export const PicsContainer = styled.div<{ show: number }>`
   animation: ${fadeIn} 0.8s ease, ${scale} 0.8s ease, ${left} 0.7s ease;
   animation-delay: ${(props) => props.show}s;
   animation-fill-mode: backwards;

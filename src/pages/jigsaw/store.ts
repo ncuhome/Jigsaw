@@ -4,6 +4,7 @@ interface Members {
   identity: string;
   username: string;
   id: number;
+  pics: number[]
 }
 
 interface GridData {

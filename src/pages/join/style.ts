@@ -75,7 +75,7 @@ export const InputBox = styled.div`
   animation-fill-mode: backwards;
 `;
 
-export const Message = styled.div`
+export const Message = styled.div<{ active: boolean }>`
   font-size: 13px;
   font-weight: 600;
   color: #b7b7b7;

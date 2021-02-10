@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { fadeIn, showDown, scale, showUp } from "@/style/animate.js";
 
+interface SliceType {
+  ifZero: boolean;
+  size: number;
+  bgUrl: string;
+  positionX: number;
+  positionY: number;
+}
+
 export const ResultWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -34,11 +42,11 @@ export const SliceContainer = styled.div`
   margin: 1.5px;
 `;
 
-export const Slice = styled.div.attrs(({ ifZero }) => ({
+export const Slice = styled.div.attrs<SliceType>(({ ifZero }) => ({
   style: {
-    opacity: ifZero && 0.4,
+    opacity: ifZero ? 0.4 : 1,
   },
-}))`
+}))<SliceType>`
   display: flex;
   justify-content: center;
   align-items: center;

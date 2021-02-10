@@ -1,6 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-export const MemberContentContainer = styled.div`
+export const MemberContentContainer = styled.div<{ myself?: boolean }>`
   width: 100vw;
   height: 72px;
   border-top: 1px solid #3a3a3a;
@@ -89,7 +89,7 @@ export const ClassMessage = styled.div`
   line-height: 20px;
 `;
 
-export const ReadyContainer = styled.div`
+export const ReadyContainer = styled.div<{ ifReady?: boolean }>`
   font-size: 20px;
   letter-spacing: 1.25px;
   font-weight: 500;

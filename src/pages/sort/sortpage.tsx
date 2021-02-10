@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Back, Header, SortWrapper, Title, EmptyBox, EmptyBoxContainer } from "./style";
-import YourSort from "./components/YourSort/";
-import AllSort from "./components/AllSort/";
+import YourSort from "./components/YourSort";
+import AllSort from "./components/AllSort";
 import Loading from "@/components/Loading/";
 import { sortBy } from "lodash-es";
 
@@ -15,7 +15,7 @@ const sortTextColor = ["#2a2a2a", "#2a2a2a", "#2a2a2a"];
 
 function SortPage() {
   const [status, setStatus] = useState(0);
-  const [handleEmpty, setHandleEmpty] = useState(0);
+  const [handleEmpty, setHandleEmpty] = useState(false);
   const [list, updateSortList] = useSort((state) => [state.list, state.updateSortList]);
   const userId = useLogin((state) => state.userId);
 

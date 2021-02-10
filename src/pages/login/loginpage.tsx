@@ -69,7 +69,7 @@ function LoginPage() {
             onChange={(e) => setValue("password", e.target.value)}
           />
         </PwdInputBox>
-        <Prompt active={message}>{message}</Prompt>
+        <Prompt active={!!message}>{message}</Prompt>
         <LoginBtn onClick={submit}>{loading ? "登录中" : "登录"}</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>

@@ -9,7 +9,15 @@ import {
   Button,
 } from "./style";
 
-function CreatePage({ username, difficult, create, roomName, setRoomName, message, back }) {
+interface Props {
+  roomName: string;
+  message?: string;
+  create: (roomName: string) => void;
+  setRoomName: (value: string) => void;
+  back: () => void;
+}
+
+const CreatePage: React.FC<Props> = ({ create, roomName, setRoomName, message, back }) => {
   return (
     <NewPageWrapper>
       <NewPageContainer>
@@ -21,14 +29,14 @@ function CreatePage({ username, difficult, create, roomName, setRoomName, messag
             onChange={(e) => setRoomName(e.target.value)}
           />
         </InputBox>
-        <Message active={message}>{message}</Message>
+        <Message active={!!message}>{message}</Message>
         <ButtonsContainer>
-          <Button onClick={() => back()}>上一步</Button>
-          <Button onClick={() => create(username, roomName, difficult)}>创建</Button>
+          <Button onClick={back}>上一步</Button>
+          <Button onClick={() => create(roomName)}>创建</Button>
         </ButtonsContainer>
       </NewPageContainer>
     </NewPageWrapper>
   );
-}
+};
 
 export default CreatePage;

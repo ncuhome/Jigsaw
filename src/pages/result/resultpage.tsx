@@ -47,7 +47,7 @@ function ResultPage() {
         {jigsawList.map((rowItem, rowIndex) => (
           <Row key={rowIndex}>
             {rowItem.map((item, columnIndex) => (
-              <SliceContainer key={`slice(${rowIndex}, ${columnIndex})`} ifZero={item === 0}>
+              <SliceContainer key={`slice(${rowIndex}, ${columnIndex})`}>
                 <Slice
                   ifZero={item === 0}
                   bgUrl={pictures[picKind]}

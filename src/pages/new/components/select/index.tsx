@@ -11,7 +11,13 @@ import {
 } from "./style";
 import { Link } from "react-router-dom";
 
-function SelectPage({ difficult, setDifficult, next }) {
+interface Props {
+  difficult: number;
+  setDifficult: (value: number) => void;
+  next: () => void;
+}
+
+const SelectPage: React.FC<Props> = ({ difficult, setDifficult, next }) => {
   return (
     <NewPageWrapper>
       <NewPageContainer>
@@ -46,11 +52,11 @@ function SelectPage({ difficult, setDifficult, next }) {
           <Link to={"home"}>
             <Button>取消</Button>
           </Link>
-          <Button onClick={() => next()}>下一步</Button>
+          <Button onClick={next}>下一步</Button>
         </ButtonsContainer>
       </NewPageContainer>
     </NewPageWrapper>
   );
-}
+};
 
 export default SelectPage;

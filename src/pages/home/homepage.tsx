@@ -19,7 +19,7 @@ import {
 import { useLogin } from "@/pages/login/store";
 
 import Modal from "@/components/Modal/";
-import Help from "./components/Help/";
+import Help from "./components/Help";
 import halo from "@/lib/helloText";
 
 function Homepage() {

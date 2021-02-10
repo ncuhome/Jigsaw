@@ -1,7 +1,12 @@
 import React from "react";
 import { HelpContainer, HelpContent, BackGround, Back } from "./style";
 
-function Help({ closeHelp, handleHelp }) {
+interface Props {
+  closeHelp: any;
+  handleHelp: any;
+}
+
+const Help: React.FC<Props> = ({ closeHelp, handleHelp }) => {
   return (
     <HelpContainer show={handleHelp}>
       <BackGround onClick={() => closeHelp()} />
@@ -15,6 +20,6 @@ function Help({ closeHelp, handleHelp }) {
       </HelpContent>
     </HelpContainer>
   );
-}
+};
 
 export default Help;

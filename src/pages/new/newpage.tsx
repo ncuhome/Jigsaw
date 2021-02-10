@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { listenJoin, joinRoom, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
-import { useRoom } from "@/pages/room/store";
+import { useRoom } from "@pages/room/store";
 
 import SelectPage from "./components/select";
 import CreatePage from "./components/create";
@@ -44,7 +44,7 @@ function NewPage() {
     return () => removeSocket("join");
   }, [page]);
 
-  const create = (username, roomName, difficult) => {
+  const create = (roomName: string) => {
     const sendData = JSON.stringify({
       username,
       roomName,
@@ -61,8 +61,6 @@ function NewPage() {
       ) : null}
       {page === 2 ? (
         <CreatePage
-          username={username}
-          difficult={difficult}
           roomName={roomName}
           setRoomName={setRoomName}
           message={message}

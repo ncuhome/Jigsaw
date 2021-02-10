@@ -106,7 +106,7 @@ export const InputName = styled.div`
   margin: 0 14px;
 `;
 
-export const Prompt = styled.div`
+export const Prompt = styled.div<{ active: boolean }>`
   width: 240px;
   height: 40px;
   margin-top: 20px;

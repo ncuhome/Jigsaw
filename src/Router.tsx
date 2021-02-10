@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { useLogin } from "./pages/login/store";
+import { listenToken, removeSocket } from "@/lib/ws";
+
 import Jigsaw from "./pages/jigsaw";
 import Login from "./pages/login";
 import Home from "./pages/home";
@@ -8,10 +11,14 @@ import Room from "./pages/room";
 import Join from "./pages/join";
 import Sort from "./pages/sort";
 import Result from "./pages/result";
-import { useLogin } from "./pages/login/store";
-import { listenToken, removeSocket } from "@/lib/ws";
 
-const RoutesList = [
+type Item = {
+  path: string;
+  auth?: boolean;
+  component: () => JSX.Element;
+};
+
+const RoutesList: Item[] = [
   {
     path: "/",
     component: Home,
@@ -71,7 +78,7 @@ function Routers() {
     return () => removeSocket("token");
   }, []);
 
-  const renderPage = (item, props) => {
+  const renderPage = (item: Item, props: any) => {
     if (item.auth === undefined) {
       item.auth = true;
     }

@@ -27,46 +27,37 @@ export const Title = styled.div`
   animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
 `;
 
-export const InputBox = styled.div`
+export const InputBox = styled.div<{ borderColor: string; textColor: string }>`
   display: flex;
+  justify-content: center;
   align-items: center;
   height: 45px;
-  width: 319px;
+  width: 86px;
   background: #474747;
   border-radius: 8px;
-  border: 1px solid #424242;
-  color: #dedede;
-  font-size: 18px;
+  border: 2px solid ${(props) => props.borderColor};
+  color: ${(props) => props.textColor};
+  font-size: 23px;
+  font-weight: 500;
   margin: 32px 0 16px 0;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
-  input {
-    width: 289px;
-    height: 30px;
-    line-height: 30px;
-    letter-spacing: 0.8px;
-    font-size: 18px;
-    color: #dedede;
-    margin: 0 15px 0 15px;
-    background: #474747;
+  letter-spacing: 1.44px;
+  transition: transform 0.27s ease;
+  &:active {
+    transform: scale(0.9, 0.9);
   }
-  input::-webkit-input-placeholder {
-    height: 30px;
-    color: #bcbcbc;
-  }
-  animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
-  animation-delay: 0.3s;
-  animation-fill-mode: backwards;
 `;
 
 export const Message = styled.div`
   font-size: 13px;
   font-weight: 600;
   color: #b7b7b7;
-  width: 83px;
   height: 18px;
   line-height: 18px;
   letter-spacing: 0.81px;
-  animation: ${(props) => (props.active ? fadeIn : null)} 1s ease;
+  animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
+  animation-delay: 0.65s;
+  animation-fill-mode: backwards;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -75,7 +66,7 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   margin-top: 6px;
   animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
-  animation-delay: 0.85s;
+  animation-delay: 0.95s;
   animation-fill-mode: backwards;
 `;
 
@@ -84,8 +75,15 @@ export const Button = styled.div`
   color: #dedede;
   font-weight: 800;
   letter-spacing: 1.69px;
-  transition: opacity 0.38s;
-  &:active {
-    opacity: 0;
-  }
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 319px;
+  margin-top: 6px;
+  letter-spacing: 1.44px;
+  animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
+  animation-delay: 0.3s;
+  animation-fill-mode: backwards;
 `;
