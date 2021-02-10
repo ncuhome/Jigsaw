@@ -27,6 +27,6 @@ jobs:
        folder: build
        accessKeyId: ${{ secrets.ACCESSKEYID }}
        accessKeySecret: ${{ secrets.ACCESSKEYSECRET }}
-       bucket: ncu-market
+       bucket: jigsaw-fe
        endpoint: oss-cn-shenzhen.aliyuncs.com
        skipSetting: true

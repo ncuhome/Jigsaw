@@ -1,1 +1,0 @@
-export const UPDATE_SORT_LIST = 'UPDATE_SORT_LIST';

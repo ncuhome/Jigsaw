@@ -14,9 +14,6 @@ import {
   MainButton,
 } from "./style";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import Members from "./components/Members/";
-import QuitAlert from "./components/QuitAlert/";
 import {
   listenAddBroadcast,
   listenBroadcastStart,
@@ -27,26 +24,37 @@ import {
   listenStart,
   listenLeaveBroadcast,
 } from "../../lib/ws";
-import { actionCreator as roomActionCreator } from "./store";
-import { actionCreator as jigsawActionCreator } from "../jigsaw/store";
+import { useRoom } from "./store";
+import { useLogin } from "@/pages/login/store";
+import { useGrid } from "@/pages/jigsaw/store";
 
-function RoomPage({
-  roomName,
-  members,
-  difficult,
-  username,
-  message,
-  roomId,
-  updateMembersList,
-  updateRoomMessage,
-  setRoomPageName,
-  setRoomId,
-  setRoomDifficult,
-  setJigsawData,
-}) {
+import Members from "./components/Members/";
+import QuitAlert from "./components/QuitAlert/";
+
+function RoomPage() {
   const [showQuitAlert, setShowQuitAlert] = useState(false);
+  const username = useLogin((state) => state.name);
+  const { setValue, setMutiValue } = useRoom((state) => ({
+    setValue: state.setValue,
+    setMutiValue: state.setMutiValue,
+  }));
+  const { roomName, members, difficult, roomId, message } = useRoom(
+    (state) => ({
+      roomName: state.roomName,
+      members: state.members,
+      difficult: state.difficult,
+      roomId: state.roomId,
+      message: state.message,
+    })
+  );
+  const setJigsawData = useGrid((state) => state.setMutiValue)  
+
   const history = useHistory();
   const long = () => members.length;
+
+  const updateRoomMessage = (str) => {
+    setValue("message", str || "网络错误");
+  };
 
   const myID = () => {
     let result = 0;
@@ -90,7 +98,7 @@ function RoomPage({
     listenLeaveBroadcast((res) => {
       if (res.status) {
         const data = res.data;
-        updateMembersList(data.members);
+        setValue("members", data.members);
       } else {
         updateRoomMessage("网络错误");
       }
@@ -116,14 +124,16 @@ function RoomPage({
     listenAddBroadcast((res) => {
       if (res.status) {
         const data = res.data;
-        updateMembersList(data.members);
-        updateRoomMessage(res.message);
-        setRoomPageName(data.roomName);
-        setRoomId(data.roomId);
-        setRoomDifficult(data.difficult);
+        setMutiValue({
+          members: data.members,
+          roomName: data.roomName,
+          roomId: data.roomId,
+          difficult: data.difficult,
+          message: data.message,
+        });
         console.log(data);
       } else {
-        updateRoomMessage(res.message || "网络错误");
+        updateRoomMessage(res.message);
       }
       console.log(res);
     });
@@ -142,9 +152,9 @@ function RoomPage({
           ...res.data,
           score: 0,
         });
-        history.push('/jigsaw')
+        history.push("/jigsaw");
       } else {
-        updateRoomMessage(res.message || "网络错误");
+        updateRoomMessage(res.message);
       }
       console.log(res);
     });
@@ -207,39 +217,4 @@ function RoomPage({
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    roomName: state.room.roomName,
-    roomId: state.room.roomId,
-    members: state.room.members,
-    difficult: state.room.difficult,
-    username: state.login.username,
-    message: state.room.message,
-    status: state.room.status,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateMembersList(data) {
-      dispatch(roomActionCreator.updateMembersListAction(data));
-    },
-    updateRoomMessage(data) {
-      dispatch(roomActionCreator.updateRoomMessageAction(data));
-    },
-    setRoomPageName(data) {
-      dispatch(roomActionCreator.setRoomNameAction(data));
-    },
-    setRoomId(data) {
-      dispatch(roomActionCreator.setRoomIdAction(data));
-    },
-    setRoomDifficult(data) {
-      dispatch(roomActionCreator.setRoomDifficultAction(data));
-    },
-    setJigsawData(data) {
-      dispatch(jigsawActionCreator.setJigsawDataAction(data));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);
+export default RoomPage;

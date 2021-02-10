@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import {
   JigArea,
   Slice,
@@ -13,7 +12,6 @@ import {
   Drag,
   JigContainer,
 } from "./style";
-import { actionCreator } from "./store";
 import { useHistory } from "react-router-dom";
 import {
   listenList,
@@ -33,19 +31,43 @@ import Menu from "./components/Menu/";
 import Over from "./components/Over/";
 import TimeOver from "./components/TimeOver/";
 import { pictures } from "../../lib/pictures";
+import { useLogin } from "@/pages/login/store";
+import { useGrid } from "@/pages/jigsaw/store";
 
-function JigsawPage(props) {
+function JigsawPage() {
+  const username = useLogin((state) => state.name);
   const {
     picKind,
-    username,
     jigsawList,
     pics,
     membersList,
     difficult,
     roomName,
     endTime,
-    setScore,
-  } = props;
+  } = useGrid((state) => ({
+    picKind: state.picKind,
+    jigsawList: state.jigsawList,
+    membersList: state.membersList,
+    difficult: state.difficult,
+    roomName: state.roomName,
+    endTime: state.endTime,
+    pics: state.pics,
+  }));
+
+  const { setValue, add, move, remove } = useGrid((state) => ({
+    setValue: state.setValue,
+    add: state.add,
+    move: state.move,
+    remove: state.remove,
+  }));
+
+  const setScore = (value) => {
+    setValue("score", value);
+  };
+
+  const changeList = (value) => {
+    setValue("jigsawList", value);
+  };
 
   const [handleSideMenu, setHandleSideMenu] = useState(false);
   const [handleNumber, setHandleNumber] = useState(0);
@@ -85,8 +107,8 @@ function JigsawPage(props) {
   /*监听服务器发送的切片移动*/
   useEffect(() => {
     listenList((res) => {
-      props.changeList(res.jigsawList);
-      console.log(res); //TODO:记得删
+      changeList(res.jigsawList);
+      console.log(res);
     });
   }, []);
 
@@ -160,7 +182,10 @@ function JigsawPage(props) {
   ) => {
     switch (true) {
       case handleValue !== 0 && targetItem === 0 && handleRow === null:
-        props.changeSlicePTJ(rowIndex, columnIndex, handleValue);
+        add({
+          nextPos: [rowIndex, columnIndex],
+          value: [handleValue],
+        });
         setHandleNumber(handleNumber + 1);
         getHandle(rowIndex, columnIndex, 0);
         break;
@@ -168,13 +193,10 @@ function JigsawPage(props) {
         getHandle(rowIndex, columnIndex, targetItem);
         break;
       case handleValue !== 0 && targetItem === 0:
-        props.changeSliceJTJ(
-          rowIndex,
-          columnIndex,
-          handleValue,
-          handleRow,
-          handleColumn
-        );
+        move({
+          nextPos: [rowIndex, columnIndex],
+          prePos: [handleRow, handleColumn],
+        });
         setHandleNumber(handleNumber + 1);
         getHandle(rowIndex, columnIndex, targetItem);
         break;
@@ -192,7 +214,9 @@ function JigsawPage(props) {
 
   const handlePic = (item) => {
     if (handleRow !== null && handleValue !== 0 && handleValue === item) {
-      props.changeSliceJTP(handleRow, handleColumn);
+      remove({
+        prePos: [handleRow, handleColumn],
+      });
       setHandleNumber(handleNumber + 1);
     }
     selectAlready(item)
@@ -295,7 +319,7 @@ function JigsawPage(props) {
         </JigArea>
         <SelectArea>
           {pics.map((item, index) => (
-            <PicsContainer key={`pics(${item})`} show={delayShow(index)}>
+            <PicsContainer key={item} show={delayShow(index)}>
               <Drag
                 draggable={!selectAlready(item)}
                 onDragEnter={(e) => e.preventDefault()}
@@ -334,60 +358,4 @@ function JigsawPage(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    username: state.login.username,
-    token: state.login.token,
-
-    endTime: state.jigsaw.endTime,
-    roomName: state.jigsaw.roomName,
-    roomId: state.jigsaw.roomId,
-    difficult: state.jigsaw.difficult,
-    membersList: state.jigsaw.members,
-    picKind: state.jigsaw.picKind,
-    pics: state.jigsaw.pics,
-    jigsawList: state.jigsaw.jigsawList,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeSlicePTJ(PTJRowIndex, PTJColumnIndex, PTJHandleValue) {
-      dispatch(
-        actionCreator.picToJigAction({
-          PTJRowIndex,
-          PTJColumnIndex,
-          PTJHandleValue,
-        })
-      );
-    },
-    changeSliceJTJ(
-      JTJRowIndex,
-      JTJColumnIndex,
-      JTJHandleValue,
-      JTJHandleRow,
-      JTJHandleColumn
-    ) {
-      dispatch(
-        actionCreator.jigToJigAction({
-          JTJRowIndex,
-          JTJColumnIndex,
-          JTJHandleValue,
-          JTJHandleRow,
-          JTJHandleColumn,
-        })
-      );
-    },
-    changeSliceJTP(JTPRowIndex, JTPColumnIndex) {
-      dispatch(actionCreator.jigToPicAction({ JTPRowIndex, JTPColumnIndex }));
-    },
-    changeList(data) {
-      dispatch(actionCreator.setChangeAction(data));
-    },
-    setScore(data) {
-      dispatch(actionCreator.setScoreAction(data));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(JigsawPage);
+export default JigsawPage;

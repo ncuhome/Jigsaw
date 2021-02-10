@@ -24,7 +24,7 @@ function Header({endTime, showMenu, showOver, setHandleTimeOver, ifLeader}) {
       setHandleTimeOver(true)
     }
     return () => clearTimeout(timer)
-  }, [time]);
+  }, [setHandleTimeOver, time]);
 
   return (
     <HeaderContainer>

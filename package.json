@@ -30,6 +30,7 @@
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
+    "immer": "^8.0.1",
     "is-wsl": "^1.1.0",
     "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
@@ -54,12 +55,9 @@
     "react-draggable-tags": "^0.4.0-beta.2",
     "react-loadable": "^5.5.0",
     "react-lottie": "^1.2.3",
-    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^4.0.0",
     "redis": "^2.8.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -72,7 +70,8 @@
     "webpack": "4.29.6",
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.0.4",
-    "workbox-webpack-plugin": "4.2.0"
+    "workbox-webpack-plugin": "4.2.0",
+    "zustand": "^3.3.1"
   },
   "scripts": {
     "deploy": "node scripts/build.js && node deploy.js",

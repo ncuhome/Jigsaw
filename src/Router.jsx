@@ -8,7 +8,7 @@ import Room from './pages/room'
 import Join from './pages/join'
 import Sort from './pages/sort'
 import Result from './pages/result'
-import { connect } from 'react-redux'
+import { useLogin } from './pages/login/store'
 
 const RoutesList = [
   {
@@ -63,7 +63,9 @@ const RoutesList = [
   }
 ];
 
-function Routers({status}) {
+function Routers() {
+  const status = useLogin(state => state.status)
+  
   return (
     <Router>
       <Switch>
@@ -85,10 +87,4 @@ function Routers({status}) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    status: state.login.status,
-  }
-};
-
-export default connect(mapStateToProps)(Routers)
+export default (Routers)

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from "react";
 import {
   BottomText,
   Content,
@@ -10,29 +10,52 @@ import {
   Prompt,
   Title,
   MainPicture,
-  SecondPicture
-} from './style'
-import {connect} from 'react-redux'
-import {actionCreator} from './store'
-import {Redirect} from 'react-router-dom'
+  SecondPicture,
+} from "./style";
+import { useLogin } from "./store";
+import { Redirect } from "react-router-dom";
 
-function LoginPage({userId, password, message, status, onChangeUserId, onChangePassword, login}) {
-  const [height, setHeight] = useState(document.documentElement.clientHeight);
+const height = document.documentElement.clientHeight;
+
+function LoginPage() {
+  const [loading, setLoading] = React.useState(false);
+  const { userId, password, message, status } = useLogin((state) => ({
+    userId: state.userId,
+    password: state.password,
+    message: state.message,
+    status: state.status,
+  }));
+
+  const { login, setValue } = useLogin((state) => ({
+    login: state.login,
+    setValue: state.setValue,
+  }));
+
+  const submit = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    try {
+      await login(userId, password);
+    } catch (e) {
+      setValue("message", "登录失败，请重试");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <LoginWrapper style={{height: `${height}px`}}>
-      <MainPicture/>
-      <SecondPicture/>
+    <LoginWrapper style={{ height: `${height}px` }}>
+      <MainPicture />
+      <SecondPicture />
       <Content>
-        <Title>
-          许多人可以一起玩的拼图游戏
-        </Title>
+        <Title>许多人可以一起玩的拼图游戏</Title>
         <UserIdInputBox>
           <InputName>学号</InputName>
           <input
             placeholder="请输入您的学号"
             value={userId}
-            onChange={e => onChangeUserId(e)}
+            onChange={(e) => setValue("userId", e.target.value)}
           />
         </UserIdInputBox>
         <PwdInputBox>
@@ -41,39 +64,16 @@ function LoginPage({userId, password, message, status, onChangeUserId, onChangeP
             type="password"
             placeholder="请输入云家园密码"
             value={password}
-            onChange={e => onChangePassword(e)}
+            onChange={(e) => setValue("password", e.target.value)}
           />
         </PwdInputBox>
         <Prompt active={message}>{message}</Prompt>
-        <LoginBtn onClick={() => login(userId, password)}>登录</LoginBtn>
+        <LoginBtn onClick={submit}>{loading ? "登录中" : "登录"}</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
-      {status ? <Redirect to={"/home/"}/> : null}
+      {status ? <Redirect to={"/home/"} /> : null}
     </LoginWrapper>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    userId: state.login.userId,
-    password: state.login.password,
-    message: state.login.message,
-    status: state.login.status,
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangeUserId(e) {
-      dispatch(actionCreator.onUserIdChangeAction(e.target.value))
-    },
-    onChangePassword(e) {
-      dispatch(actionCreator.onPasswordChangeAction(e.target.value))
-    },
-    login(userId, password) {
-      dispatch(actionCreator.loginAsyncAction(userId, password))
-    }
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -6,46 +6,57 @@ import {
   Title,
   Message,
   ButtonsContainer,
-  Button
-} from './style'
-import {connect} from 'react-redux'
-import {Link, useHistory} from 'react-router-dom'
-import {joinRoom, listenAddBroadcast, listenJoin, removeSocket} from '../../lib/ws'
-import {actionCreator as roomActionCreator} from "../room/store";
-import {actionCreator as jigsawActionCreator} from "../jigsaw/store";
+  Button,
+} from "./style";
+import { Link, useHistory } from "react-router-dom";
+import {
+  joinRoom,
+  listenAddBroadcast,
+  listenJoin,
+  removeSocket,
+} from "../../lib/ws";
+import { useLogin } from "@/pages/login/store";
+import { useRoom } from "@/pages/room/store";
 
-function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageName, setRoomId, setRoomDifficult}) {
-  const [roomName, setRoomName] = useState('');
-  const [message, setMessage] = useState('');
-  const history = useHistory()
+function JoinPage() {
+  const [roomName, setRoomName] = useState("");
+  const [message, setMessage] = useState("");
+
+  const history = useHistory();
+  const setMutiValue = useRoom((state) => state.setMutiValue);
+  const username = useLogin((state) => state.username);
 
   const submit = () => {
-    joinRoom(JSON.stringify({
-      roomName,
-      username
-    }));
+    joinRoom(
+      JSON.stringify({
+        roomName,
+        username,
+      })
+    );
   };
 
   useEffect(() => {
-    listenJoin(res => {
-      if(res.status){
-        listenAddBroadcast(addRes => {
+    listenJoin((res) => {
+      if (res.status) {
+        listenAddBroadcast((addRes) => {
           const data = addRes.data;
-          updateMembersList(data.members);
-          updateRoomMessage(addRes.message);
-          setRoomPageName(data.roomName);
-          setRoomId(data.roomId);
-          setRoomDifficult(data.difficult);
-          console.log(addRes)
+          setMutiValue({
+            members: data.members,
+            message: addRes.message,
+            roomName: data.roomName,
+            roomId: data.roomId,
+            difficult: data.difficult,
+          });
+          console.log(addRes);
         });
-      }else{
+      } else {
         setMessage(res.message);
       }
-      history.push('/room')
-      console.log(res)
+      history.push("/room");
+      console.log(res);
     });
-    return () => removeSocket('join')
-  },[]);
+    return () => removeSocket("join");
+  }, []);
 
   return (
     <NewPageWrapper>
@@ -55,7 +66,7 @@ function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageNa
           <input
             placeholder="请输入队伍名称"
             value={roomName}
-            onChange={e => setRoomName(e.target.value)}
+            onChange={(e) => setRoomName(e.target.value)}
           />
         </InputBox>
         <Message active={message}>{message}</Message>
@@ -70,34 +81,4 @@ function JoinPage({username, updateMembersList, updateRoomMessage, setRoomPageNa
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.login.username
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    updateMembersList(data) {
-      dispatch(roomActionCreator.updateMembersListAction(data))
-    },
-    updateRoomMessage(data) {
-      dispatch(roomActionCreator.updateRoomMessageAction(data))
-    },
-    setRoomPageName(data) {
-      dispatch(roomActionCreator.setRoomNameAction(data))
-    },
-    setRoomId(data) {
-      dispatch(roomActionCreator.setRoomIdAction(data))
-    },
-    setRoomDifficult(data) {
-      dispatch(roomActionCreator.setRoomDifficultAction(data))
-    },
-    setJigsawData(data) {
-      dispatch(jigsawActionCreator.setJigsawDataAction(data))
-    },
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(JoinPage);
+export default JoinPage;

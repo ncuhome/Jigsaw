@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ResultWrapper,
   JigContainer,
@@ -10,31 +10,38 @@ import {
   Score,
   Number,
   Text,
-  ToSort
-} from './style'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import { pictures } from "../../lib/pictures"
+  ToSort,
+} from "./style";
+import { Link } from "react-router-dom";
+import { useGrid } from "@/pages/jigsaw/store";
+import { pictures } from "../../lib/pictures";
 
-function ResultPage({jigsawList, picKind, difficult, score, roomName}) {
+function ResultPage() {
+  const { jigsawList, picKind, difficult, score } = useGrid(
+    (state) => ({
+      picKind: state.picKind,
+      jigsawList: state.jigsawList,
+      score: state.score,
+      difficult: state.difficult,
+    })
+  );
+
   const length = () => {
-    return 300 / difficult
+    return 300 / difficult;
   };
 
-  const cutSliceX = index => {
-    return (index - 1) % difficult * length()
+  const cutSliceX = (index) => {
+    return ((index - 1) % difficult) * length();
   };
 
-  const cutSliceY = index => {
-    return Math.floor((index - 1) / difficult) * length()
+  const cutSliceY = (index) => {
+    return Math.floor((index - 1) / difficult) * length();
   };
 
   return (
     <ResultWrapper>
       <ScoreContainer>
-        <ScoreText>
-          分数
-        </ScoreText>
+        <ScoreText>分数</ScoreText>
         <Score>
           <Number>{score}</Number>
           <Text>分</Text>
@@ -61,22 +68,10 @@ function ResultPage({jigsawList, picKind, difficult, score, roomName}) {
         ))}
       </JigContainer>
       <ToSort>
-        <Link to={"/sort/"}>
-          查看排名
-        </Link>
+        <Link to={"/sort/"}>查看排名</Link>
       </ToSort>
     </ResultWrapper>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    roomName: state.jigsaw.roomName,
-    score: state.jigsaw.score,
-    picKind: state.jigsaw.picKind,
-    jigsawList: state.jigsaw.jigsawList,
-    difficult: state.jigsaw.difficult,
-  }
-};
-
-export default connect(mapStateToProps)(ResultPage);
+export default ResultPage;

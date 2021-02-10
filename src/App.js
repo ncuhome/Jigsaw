@@ -1,18 +1,14 @@
-import React, { Fragment } from 'react';
-import Routers from './Router'
-import GlobalReset from './style/reset'
-import { Provider } from 'react-redux'
-import store from './store'
+import React, { Fragment } from "react";
+import Routers from "./Router";
+import GlobalReset from "./style/reset";
 
 function App() {
   return (
     <Fragment>
-      <Provider store={store}>
-        <GlobalReset />
-        <Routers />
-      </Provider>
+      <GlobalReset />
+      <Routers />
     </Fragment>
-  )
+  );
 }
 
-export default App
+export default App;
