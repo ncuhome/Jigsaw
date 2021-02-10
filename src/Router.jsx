@@ -1,25 +1,29 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Jigsaw from './pages/jigsaw'
-import Login from './pages/login'
-import Home from './pages/home'
-import New from './pages/new'
-import Room from './pages/room'
-import Join from './pages/join'
-import Sort from './pages/sort'
-import Result from './pages/result'
-import { useLogin } from './pages/login/store'
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import Jigsaw from "./pages/jigsaw";
+import Login from "./pages/login";
+import Home from "./pages/home";
+import New from "./pages/new";
+import Room from "./pages/room";
+import Join from "./pages/join";
+import Sort from "./pages/sort";
+import Result from "./pages/result";
+import { useLogin } from "./pages/login/store";
+import { listenToken, removeSocket } from "@/lib/ws";
 
 const RoutesList = [
   {
     path: "/",
     component: Home,
-    auth: true,
   },
   {
     path: "/jigsaw/",
     component: Jigsaw,
-    auth: true,
   },
   {
     path: "/login/",
@@ -29,62 +33,82 @@ const RoutesList = [
   {
     path: "/home/",
     component: Home,
-    auth: true,
   },
   {
     path: "/new/",
     component: New,
-    auth: true,
   },
   {
     path: "/room/",
     component: Room,
-    auth: true,
   },
   {
     path: "/join/",
     component: Join,
-    auth: true,
   },
   {
     path: "/sort/",
     component: Sort,
-    auth: true,
   },
   {
     path: "/result/",
     component: Result,
-    auth: true,
   },
   {
     path: "*",
     component: Home,
-    auth: true
-  }
+  },
 ];
 
 function Routers() {
-  const status = useLogin(state => state.status)
-  
+  const [token, setValue] = useLogin((state) => [state.token, state.setValue]);
+  const isLogin = !!token;
+
+  React.useEffect(() => {
+    listenToken((res) => {
+      console.log(res);
+      if (res.status === 1) {
+        setValue("status", 1);
+      } else {
+        setValue("status", 0);
+      }
+    });
+    return () => removeSocket("token");
+  }, []);
+
+  const renderPage = (item, props) => {
+    if (item.auth === undefined) {
+      item.auth = true;
+    }
+
+    if (!item.auth) return <item.component {...props} />;
+
+    if (isLogin) return <item.component {...props} />;
+
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { from: props.location },
+        }}
+      />
+    );
+  };
+
   return (
     <Router>
       <Switch>
-        {
-          RoutesList.map((item, index) => (
-            <Route key={index} exact path={item.path} render={props =>
-              (!item.auth ? (<item.component {...props} />) :
-                (status ? <item.component {...props} /> :
-                    <Redirect to={{
-                      pathname: '/login/',
-                      state: { from: props.location }
-                    }}/>)
-              )
-            }/>
-          ))
-        }
+        {RoutesList.map((item, index) => (
+          <Route
+            key={index}
+            exact
+            path={item.path}
+            render={(props) => renderPage(item, props)}
+          />
+        ))}
       </Switch>
     </Router>
-  )
+  );
 }
 
-export default (Routers)
+export default Routers;

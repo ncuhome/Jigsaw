@@ -30,6 +30,7 @@ export const useGrid = stateFactory(
     add: (event) => {
       const { nextPos, value } = event;
       const [x, y] = nextPos;
+      
       set((state) => {
         state.jigsawList[x][y] = value;
       });

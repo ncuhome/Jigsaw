@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import Loadable from 'react-loadable'
-import Loading from '../common/Loading/index'
+import React, { Suspense } from "react";
+import Loading from "@/pages/common/Loading/index";
 
-const LoadableComponent = Loadable({
-  loader: () => import('./loginpage'),
-  loading: Loading
-})
+const LoadableComponent = React.lazy(() => import("./loginpage"));
 
-class LoginpageLoadable extends Component {
-  render() {
-    return <LoadableComponent />
-  }
+export default () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <LoadableComponent />
+    </Suspense>
+  );
 }
-
-export default LoginpageLoadable

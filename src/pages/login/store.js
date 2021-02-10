@@ -6,10 +6,10 @@ export const useLogin = stateFactory(
   {
     name: window.localStorage.getItem("name"),
     token: window.localStorage.getItem("token"),
-    userId: "",
-    password: "",
+    userId: window.localStorage.getItem("userId"),
+    password: window.localStorage.getItem("password"),
     message: "",
-    status: window.localStorage.getItem("status"),
+    status: 0,
   },
   (set) => ({
     setValue: (key, value) => {
@@ -30,15 +30,18 @@ export const useLogin = stateFactory(
 
       if (status === 1) {
         window.localStorage.setItem("token", token);
-        window.localStorage.setItem("status", status);
+        window.localStorage.setItem("userId", userId);
+        window.localStorage.setItem("password", password);
         const name = await getUsername(token);
 
-        sendToken(
-          JSON.stringify({
-            username: name,
-            token,
-          })
-        );
+        setTimeout(() => {
+          sendToken(
+            JSON.stringify({
+              username: name,
+              token: token,
+            })
+          );
+        }, 1000);
 
         set((state) => {
           state.token = token;
@@ -51,6 +54,16 @@ export const useLogin = stateFactory(
           state.message = message;
         });
       }
+    },
+    logout: async () => {
+      window.localStorage.clear();
+      window.location.reload();
+
+      set((state) => {
+        state.token = null;
+        state.name = null;
+        state.status = 0;
+      });
     },
   })
 );

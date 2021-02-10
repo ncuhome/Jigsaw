@@ -17,17 +17,22 @@ import {
   RankIcon,
 } from "./style";
 import { useLogin } from "@/pages/login/store";
-import { listenToken, removeSocket } from "../../lib/ws";
 
 import Help from "./components/Help/";
 import Leave from "./components/Leave/";
 import halo from "../../lib/helloText";
 
 function Homepage() {
-  const name = useLogin((state) => state.name);
+  const [name, userId, status, password] = useLogin((state) => [
+    state.name,
+    state.userId,
+    state.status,
+    state.password,
+  ]);
+  const [login, logout] = useLogin((state) => [state.login, state.logout]);
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
-  const [haloText, setHaloText] = useState(halo());
+  const [haloText] = useState(halo());
 
   const closeHelp = () => {
     setHandleHelp(false);
@@ -37,20 +42,11 @@ function Homepage() {
     setHandleLeave(false);
   };
 
-  const clearLogin = () => {
-    window.localStorage.removeItem("status");
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("name");
-    window.location.reload();
-  };
-
   useEffect(() => {
-    listenToken((res) => {
-      console.log(res);
-    });
-    setHaloText(halo());
-    return () => removeSocket("token");
-  }, []);
+    if (!status) {
+      login(userId, password);
+    }
+  }, [status]);
 
   return (
     <HomeWarpper>
@@ -86,7 +82,7 @@ function Homepage() {
       <Leave
         handleLeave={handleLeave}
         closeLeave={closeLeave}
-        clearLogin={clearLogin}
+        clearLogin={logout}
       />
     </HomeWarpper>
   );

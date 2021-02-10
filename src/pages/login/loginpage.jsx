@@ -13,17 +13,16 @@ import {
   SecondPicture,
 } from "./style";
 import { useLogin } from "./store";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const height = document.documentElement.clientHeight;
 
 function LoginPage() {
   const [loading, setLoading] = React.useState(false);
-  const { userId, password, message, status } = useLogin((state) => ({
+  const { userId, password, message } = useLogin((state) => ({
     userId: state.userId,
     password: state.password,
     message: state.message,
-    status: state.status,
   }));
 
   const { login, setValue } = useLogin((state) => ({
@@ -31,12 +30,15 @@ function LoginPage() {
     setValue: state.setValue,
   }));
 
+  const history = useHistory();
+
   const submit = async () => {
     if (loading) return;
     setLoading(true);
 
     try {
       await login(userId, password);
+      history.push("/home");
     } catch (e) {
       setValue("message", "登录失败，请重试");
     } finally {
@@ -71,7 +73,6 @@ function LoginPage() {
         <LoginBtn onClick={submit}>{loading ? "登录中" : "登录"}</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>
-      {status ? <Redirect to={"/home/"} /> : null}
     </LoginWrapper>
   );
 }
