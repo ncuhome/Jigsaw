@@ -11,7 +11,7 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { joinRoom, listenAddBroadcast, listenJoin, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
-import { useRoom } from "@pages/room/store";
+import { useRoom } from "@/pages/room/store";
 
 function JoinPage() {
   const [roomName, setRoomName] = useState("");

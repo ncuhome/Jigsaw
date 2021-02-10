@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { listenJoin, joinRoom, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
-import { useRoom } from "@pages/room/store";
+import { useRoom } from "@/pages/room/store";
 
 import SelectPage from "./components/select";
 import CreatePage from "./components/create";
