@@ -2,7 +2,7 @@
 
 ## 项目地址
 
-[屠龙宝刀 点击就送](https://pin.icecee.com/home)
+[部署地址](https://pin.ncuos.com)
 
 [后端项目地址](https://github.com/Jinof/Jigsaw-be/tree/fix/refactor)
 
