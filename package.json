@@ -38,7 +38,6 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
-    "qrcode.react": "^0.9.3",
     "react": "^17.0.1",
     "react-app-polyfill": "^1.0.0",
     "react-clipboard.js": "^2.0.7",
@@ -70,6 +69,11 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -86,5 +90,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "husky": "^5.0.9",
+    "pretty-quick": "^3.1.0"
   }
 }
