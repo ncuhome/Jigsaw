@@ -13,7 +13,7 @@
 + [x] 自动化 CI
 + [x] store 层改造
 + [x] 前端认证模式改造
-+ [ ] 集成 vite
++ [x] 集成 snowpack
 + [ ] socket 引入模式改造为 Context
 + [ ] 优化图片引入（切片移动时有多余的网络请求，考虑 prefetch 后转 base64）
 + [ ] 集成 Typescript
