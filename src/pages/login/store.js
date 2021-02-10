@@ -41,7 +41,7 @@ export const useLogin = stateFactory(
               token: token,
             })
           );
-        }, 1000);
+        }, 500);
 
         set((state) => {
           state.token = token;
