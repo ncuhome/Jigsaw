@@ -10,7 +10,7 @@ import {
 import YourSort from "./components/YourSort/";
 import AllSort from "./components/AllSort/";
 import Loading from "../common/Loading/index";
-import _ from "lodash";
+import { sortBy } from 'lodash-es';
 
 import { Link } from "react-router-dom";
 import { listenRank, getRank, removeSocket } from "../../lib/ws";
@@ -31,7 +31,7 @@ function SortPage() {
 
   const sortList = () => {
     let temp = list;
-    temp = _.sortBy(temp, (item) => -item.score);
+    temp = sortBy(temp, (item) => -item.score);
     temp.forEach((item, index) => {
       item.sort = index + 1;
       item.backgroundColor = sortBackgroundColor[index] || "rgba(0,0,0,0)";
