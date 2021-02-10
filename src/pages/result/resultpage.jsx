@@ -14,7 +14,7 @@ import {
 } from "./style";
 import { Link } from "react-router-dom";
 import { useGrid } from "@/pages/jigsaw/store";
-import { pictures } from "../../lib/pictures";
+import { pictures } from "@/lib/pictures";
 
 function ResultPage() {
   const { jigsawList, picKind, difficult, score } = useGrid((state) => ({
@@ -24,16 +24,14 @@ function ResultPage() {
     difficult: state.difficult,
   }));
 
-  const length = () => {
-    return 300 / difficult;
-  };
+  const length = 300 / difficult;
 
   const cutSliceX = (index) => {
-    return ((index - 1) % difficult) * length();
+    return ((index - 1) % difficult) * length;
   };
 
   const cutSliceY = (index) => {
-    return Math.floor((index - 1) / difficult) * length();
+    return Math.floor((index - 1) / difficult) * length;
   };
 
   return (
@@ -55,7 +53,7 @@ function ResultPage() {
                   bgUrl={pictures[picKind]}
                   positionX={cutSliceX(item)}
                   positionY={cutSliceY(item)}
-                  size={length()}
+                  size={length}
                 />
               </SliceContainer>
             ))}

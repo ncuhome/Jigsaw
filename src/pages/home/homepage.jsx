@@ -18,9 +18,9 @@ import {
 } from "./style";
 import { useLogin } from "@/pages/login/store";
 
+import Modal from "@/components/Modal/";
 import Help from "./components/Help/";
-import Leave from "./components/Leave/";
-import halo from "../../lib/helloText";
+import halo from "@/lib/helloText";
 
 function Homepage() {
   const [name, userId, status, password] = useLogin((state) => [
@@ -79,7 +79,12 @@ function Homepage() {
       <HelpButton onClick={() => setHandleHelp(true)}>帮助</HelpButton>
       <LeaveButton onClick={() => setHandleLeave(true)}>离开</LeaveButton>
       <Help handleHelp={handleHelp} closeHelp={closeHelp} />
-      <Leave handleLeave={handleLeave} closeLeave={closeLeave} clearLogin={logout} />
+      <Modal
+        visible={handleLeave}
+        title={"是否确认退出"}
+        activePress={logout}
+        closePress={closeLeave}
+      />
     </HomeWarpper>
   );
 }

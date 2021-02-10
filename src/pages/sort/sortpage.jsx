@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Back, Header, SortWrapper, Title, EmptyBox, EmptyBoxContainer } from "./style";
 import YourSort from "./components/YourSort/";
 import AllSort from "./components/AllSort/";
-import Loading from "../common/Loading/index";
+import Loading from "@/components/Loading/";
 import { sortBy } from "lodash-es";
 
 import { Link } from "react-router-dom";
-import { listenRank, getRank, removeSocket } from "../../lib/ws";
+import { listenRank, getRank, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
 import { useSort } from "@/pages/sort/store";
 

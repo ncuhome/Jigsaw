@@ -13,6 +13,7 @@
 + [x] 游戏公测
 + [x] 游戏分数数设置 (backEnd)
 + [x] 自动化 CI
++ [x] react-loadable 替换为 Suspense
 + [x] store 层改造
 + [x] 前端认证模式改造
 + [x] 集成 snowpack

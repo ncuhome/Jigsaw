@@ -5,8 +5,7 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "postbuild": "cd scripts && sh clean.sh",
-    "lint": "pretty-quick ./src"
+    "postbuild": "cd scripts && sh clean.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",

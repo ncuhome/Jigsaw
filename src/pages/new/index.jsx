@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Loading from "@/pages/common/Loading/index";
+import Loading from "@/components/Loading/index";
 
 const LoadableComponent = React.lazy(() => import("./newpage"));
 

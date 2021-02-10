@@ -12,7 +12,6 @@ import {
   Drag,
   JigContainer,
 } from "./style";
-import { useHistory } from "react-router-dom";
 import {
   listenList,
   sendListChange,
@@ -21,17 +20,18 @@ import {
   listenLeave,
   removeSocket,
   leaveRoom,
-} from "../../lib/ws";
-import { colorMapPure } from "../../lib/colorMap";
+} from "@/lib/ws";
+import { colorMapPure } from "@/lib/colorMap";
+import { useHistory } from "react-router-dom";
 import { polyfill } from "mobile-drag-drop";
 import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
+import { useLogin } from "@/pages/login/store";
+import { useGrid } from "@/pages/jigsaw/store";
 
 import Header from "./components/Header/";
 import Menu from "./components/Menu/";
 import Over from "./components/Over/";
 import TimeOver from "./components/TimeOver/";
-import { useLogin } from "@/pages/login/store";
-import { useGrid } from "@/pages/jigsaw/store";
 
 function JigsawPage() {
   const username = useLogin((state) => state.name);
@@ -63,18 +63,20 @@ function JigsawPage() {
     setValue("jigsawList", value);
   };
 
+  const history = useHistory();
   const [handleSideMenu, setHandleSideMenu] = useState(false);
   const [handleNumber, setHandleNumber] = useState(0);
+  const [handleOver, setHandleOver] = useState(false);
+  const [handleTimeOver, setHandleTimeOver] = useState(false);
   const [handleObject, setHandleObject] = useState({
     row: null,
     column: null,
     value: 0,
   });
-  const [handleOver, setHandleOver] = useState(false);
-  const [handleTimeOver, setHandleTimeOver] = useState(false);
-  const history = useHistory();
 
   const { row: handleRow, column: handleColumn, value: handleValue } = handleObject;
+
+  const length = 300 / difficult;
 
   /*防止拖拽滚动*/
   useEffect(() => {
@@ -112,19 +114,20 @@ function JigsawPage() {
     return () => removeSocket("leave");
   }, []);
 
-  const showOver = () => setHandleOver(true);
+  useEffect(() => {
+    listenCal((res) => {
+      setScore(res.score);
+      history.push("/result");
+      console.log(res);
+    });
+    return () => removeSocket("broadcastScore");
+  }, []);
 
-  const hiddenOver = () => setHandleOver(false);
+  const delayShow = (x) => (x + 1) / difficult / 1.3;
 
-  const showMenu = () => setHandleSideMenu(true);
+  const cutSliceX = (index) => ((index - 1) % difficult) * length;
 
-  const hiddenMenu = () => setHandleSideMenu(false);
-
-  const length = () => 300 / difficult;
-
-  const cutSliceX = (index) => ((index - 1) % difficult) * length();
-
-  const cutSliceY = (index) => Math.floor((index - 1) / difficult) * length();
+  const cutSliceY = (index) => Math.floor((index - 1) / difficult) * length;
 
   const sameElement = (item) => pics.some((el) => el === item);
 
@@ -216,17 +219,6 @@ function JigsawPage() {
     }
   };
 
-  const delayShow = (x) => (x + 1) / difficult / 1.3;
-
-  useEffect(() => {
-    listenCal((res) => {
-      setScore(res.score);
-      history.push("/result");
-      console.log(res);
-    });
-    return () => removeSocket("broadcastScore");
-  }, []);
-
   const submit = () => {
     sendCal(
       JSON.stringify({
@@ -240,8 +232,8 @@ function JigsawPage() {
     <Wrapper>
       <Header
         endTime={endTime}
-        showMenu={showMenu}
-        showOver={showOver}
+        showMenu={() => setHandleSideMenu(true)}
+        showOver={() => setHandleOver(true)}
         setHandleTimeOver={setHandleTimeOver}
         ifLeader={ifLeader()}
       />
@@ -267,7 +259,7 @@ function JigsawPage() {
                         same={ListHavePics(item)}
                         positionX={cutSliceX(item)}
                         positionY={cutSliceY(item)}
-                        size={length()}
+                        size={length}
                         myColor={myColor()}
                         active={handleValue !== 0 && handleValue === item}
                         onClick={() => handleChangeSlice(rowIndex, columnIndex, handleValue, item)}
@@ -294,7 +286,7 @@ function JigsawPage() {
                   positionX={cutSliceX(item)}
                   positionY={cutSliceY(item)}
                   active={handleValue === item}
-                  size={length()}
+                  size={length}
                   finish={selectAlready(item)}
                   onClick={() => handlePic(item)}
                 />
@@ -305,14 +297,14 @@ function JigsawPage() {
       </Content>
       <Menu
         handleSideMenu={handleSideMenu}
-        hiddenMenu={hiddenMenu}
+        hiddenMenu={() => setHandleSideMenu(false)}
         membersList={membersList}
         difficult={difficult}
         roomName={roomName}
         username={username}
         toQuit={toQuit}
       />
-      <Over handleOver={handleOver} hiddenOver={hiddenOver} submit={submit} />
+      <Over handleOver={handleOver} hiddenOver={() => setHandleOver(false)} submit={submit} />
       {handleTimeOver ? <TimeOver handleTimeOver={handleTimeOver} submit={submit} /> : null}
     </Wrapper>
   );

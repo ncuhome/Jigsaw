@@ -7,7 +7,7 @@ import {
   Identity,
   MemberHead,
 } from "./style";
-import { colorMapGradient } from "../../../../lib/colorMap";
+import { colorMapGradient } from "@/lib/colorMap";
 
 function EmptyMember() {
   return (

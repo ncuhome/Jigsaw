@@ -40,6 +40,13 @@ export const BackGround = styled.div`
   background: rgba(0, 0, 0, 0.7);
 `;
 
+export const Decs = styled.div`
+  pointer-events: auto;
+  font-size: 15px;
+  color: #BABABA;
+  margin-top: 6px;
+`;
+
 export const Quit = styled.div`
   pointer-events: auto;
   font-size: 18px;

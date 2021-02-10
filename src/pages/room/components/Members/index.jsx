@@ -13,7 +13,7 @@ import {
   ReadyContainer,
   Slider,
 } from "./style";
-import { colorMapGradient } from "../../../../lib/colorMap";
+import { colorMapGradient } from "@/lib/colorMap";
 
 function AwaitMember() {
   return (

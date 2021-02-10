@@ -23,13 +23,13 @@ import {
   leaveRoom,
   listenStart,
   listenLeaveBroadcast,
-} from "../../lib/ws";
+} from "@/lib/ws";
 import { useRoom } from "./store";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
 
 import Members from "./components/Members/";
-import QuitAlert from "./components/QuitAlert/";
+import Modal from "@/components/Modal/";
 
 function RoomPage() {
   const [showQuitAlert, setShowQuitAlert] = useState(false);
@@ -197,7 +197,14 @@ function RoomPage() {
         <ExitTitle onClick={() => setShowQuitAlert(true)}>退出</ExitTitle>
         {ifLeader() ? <MainButton onClick={() => start()}>开始</MainButton> : <div />}
       </BottomElements>
-      <QuitAlert back={back} toQuit={toQuit} showQuitAlert={showQuitAlert} />
+      <Modal
+        visible={showQuitAlert}
+        title={"是否退出房间"}
+        decs={"退出后将返回主页"}
+        activePress={toQuit}
+        closePress={back}
+        activeText={"退出"}
+      />
     </RoomWrapper>
   );
 }
