@@ -56,7 +56,7 @@ function LoginPage() {
           <InputName>学号</InputName>
           <input
             placeholder="请输入您的学号"
-            value={userId}
+            value={userId || ""}
             onChange={(e) => setValue("userId", e.target.value)}
           />
         </UserIdInputBox>
@@ -65,7 +65,7 @@ function LoginPage() {
           <input
             type="password"
             placeholder="请输入云家园密码"
-            value={password}
+            value={password || ""}
             onChange={(e) => setValue("password", e.target.value)}
           />
         </PwdInputBox>
