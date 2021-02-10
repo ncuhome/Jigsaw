@@ -2,28 +2,27 @@
 
 ## 项目地址
 
-[屠龙宝刀 点击就送](https://jigsaw.icecee.com/home)
+[屠龙宝刀 点击就送](https://pin.icecee.com/home)
 
 [后端项目地址](https://github.com/Jinof/Jigsaw-be/tree/fix/refactor)
 
 ## 目前进度
 
-+ [x] 基本页面&样式
-+ [x] 拼图逻辑
-+ [x] 登陆状态的储存
-+ [x] 完善 UI Design
-+ [x] add more animation
-+ [x] 前后端联调
-+ [x] 游戏内测
-+ [ ] 游戏分数数设置(backEnd)
-+ [ ] 游戏公测
++ [x] 游戏公测
++ [x] 游戏分数数设置 (backEnd)
++ [x] 自动化 CI
++ [x] store 层改造
++ [x] 前端认证模式改造
++ [ ] 集成 vite
++ [ ] socket 引入模式改造为 Context
++ [ ] 优化图片引入（切片移动时有多余的网络请求，考虑 prefetch 后转 base64）
++ [ ] 集成 Typescript
++ [ ] 增量更新 & 版本控制
++ [ ] 自定义房间列表
++ [ ] 匹配模式
++ [ ] mincu 接入
 
 ## 开发环境调试
-
-虚假的后端服务
-```
-node server.js
-```
 
 前端服务
 ```
@@ -31,25 +30,6 @@ yarn start
 ```
 进入`localhost:3000`进行调试
 
-## 前端服务部署到OSS
-
-目录下新建 `ossMsg.json` 文件
-
-### Example 如下
- ```
-{
-    "Region": "",
-    "Bucket": "",
-    "AccessKeyId": "",
-    "AccessKeySecret": ""
-}
- ```
- 
-然后执行
-
-```
-yarn deploy
-```
 
 ## 基本流程
 
