@@ -1,9 +1,8 @@
-import { io } from 'socket.io-client';
-const socket = io('https://jigsaw.ncuos.com/');
+import io from 'socket.io-client';
 
-console.log(socket)
+const socket = io('jigsaw.ncuos.com');
 
-/*验证token*/
+/*验证 token*/
 export const listenToken = (method) => socket.on('token', method);
 export const sendToken = (data) => socket.emit('token', data);
 

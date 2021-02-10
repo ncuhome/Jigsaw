@@ -3,8 +3,9 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "start": "vite",
-    "build": "vite build"
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "postbuild": "cd scripts && sh clean.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -19,16 +20,17 @@
     "react-lottie": "^1.2.3",
     "react-router-dom": "^5.2.0",
     "react-transition-group": "^4.0.0",
-    "socket.io": "^3.1.1",
-    "socket.io-client": "^3.1.1",
+    "socket.io-client": "2.2.0",
     "styled-components": "^5.2.1",
     "zustand": "^3.3.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react-refresh": "^1.3.0",
     "husky": "^5.0.9",
     "pretty-quick": "^3.1.0",
-    "vite": "^2.0.0-beta.67"
+    "@snowpack/plugin-dotenv": "2.0.4",
+    "@snowpack/plugin-react-refresh": "2.3.7",
+    "@snowpack/plugin-webpack": "2.1.1",
+    "snowpack": "2.17.1"
   },
   "husky": {
     "hooks": {
