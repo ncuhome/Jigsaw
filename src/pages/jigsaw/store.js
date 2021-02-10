@@ -1,8 +1,8 @@
-import { stateFactory } from "@/utils/state_factory";
+import { stateFactory } from '@/utils/state_factory';
 
 export const useGrid = stateFactory(
   {
-    roomName: "",
+    roomName: '',
     score: 0,
     picKind: 2,
     difficult: 3,
@@ -11,6 +11,7 @@ export const useGrid = stateFactory(
     pics: [],
     currentVer: null,
     members: [],
+    images: Array.from({ length: 3 }).fill(''),
   },
   (set) => ({
     setValue: (key, value) => {
@@ -30,7 +31,7 @@ export const useGrid = stateFactory(
     add: (event) => {
       const { nextPos, value } = event;
       const [x, y] = nextPos;
-      
+
       set((state) => {
         state.jigsawList[x][y] = value;
       });
