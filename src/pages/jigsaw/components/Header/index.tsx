@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { HeaderContainer, HeaderTitle, Menu, Over, Text } from "./style";
 import { useGrid } from "@/pages/jigsaw/store";
-import { useLogin } from "@pages/login/store";
+import { useLogin } from "@/pages/login/store";
 
 const timeShow = (end: number) => {
   const start = dayjs().unix();

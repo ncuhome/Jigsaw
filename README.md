@@ -309,7 +309,7 @@ leader开始游戏时
   roomId: 13321452314,
   members: [
     {
-      username: "胡昊江",
+      username: "孙翔宇",
       userId: 123,
       identity: "leader",
       class: "物理学类 183班",
@@ -333,7 +333,7 @@ leader开始游戏时
       id: 3
     }
   ],
-  message: "胡昊江加入本房间",
+  message: "孙翔宇加入本房间",
   difficult: 4,
 };
 ```

@@ -10,7 +10,7 @@ import {
 import { colorMapGradient } from "@/lib/colorMap";
 import type { GameMember } from "@/pages/jigsaw/store";
 import { useGrid } from "@/pages/jigsaw/store";
-import { useLogin } from "@pages/login/store";
+import { useLogin } from "@/pages/login/store";
 
 interface Props {
   membersList: GameMember[];
