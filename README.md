@@ -18,8 +18,8 @@
 + [x] 前端认证模式改造
 + [x] 集成 snowpack
 + [x] 优化图片引入（切片移动时有多余的网络请求，考虑 prefetch 后转 base64）
++ [x] 集成 Typescript
 + [ ] socket 引入模式改造为 Context
-+ [ ] 集成 Typescript
 + [ ] mincu 接入
 
 

@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { fadeIn, showDown, breath } from "@/style/animate.js";
+import { fadeIn, showDown } from "@/style/animate.js";
 
-export const AllSortContainer = styled.div`
+export const YourSortContainer = styled.div`
+  margin-top: 102px;
   width: 90vw;
   display: flex;
   flex-direction: column;
-  margin-top: 53px;
   animation: ${fadeIn} 1s ease, ${showDown} 0.7s ease;
-  animation-delay: 0.7s;
+  animation-delay: 0.3s;
   animation-fill-mode: backwards;
 `;
 
@@ -31,7 +31,7 @@ export const Item = styled.div`
   margin: 12px 0;
 `;
 
-export const Number = styled.div`
+export const Number = styled.div<{ textColor: string; bg: string }>`
   width: 42px;
   height: 42px;
   border-radius: 12px;
@@ -50,7 +50,6 @@ export const Card = styled.div`
   background: #393939;
   border-radius: 14px;
   border: 2px solid #404040;
-  animation: ${(props) => props.myGroup && breath} 2.6s ease infinite;
   box-shadow: 0 17px 21px 0 rgba(0, 0, 0, 0.17);
   padding: 11px 15px;
 `;
@@ -76,7 +75,7 @@ export const MembersContainer = styled.div`
   line-height: 19px;
 `;
 
-export const Member = styled.div`
+export const Member = styled.div<{ mine: boolean }>`
   margin-right: 14px;
   font-size: 15px;
   color: ${(props) => (props.mine ? "#BABABA" : "#7C7C7C")};

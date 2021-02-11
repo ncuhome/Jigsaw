@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 interface SliceType {
-  ifZero: boolean;
+  isZero?: boolean;
   size: number;
   bgUrl: string;
   positionX: number;
@@ -92,9 +92,9 @@ export const SliceContainer = styled.div`
   }
 `;
 
-export const Slice = styled.div.attrs<SliceType>(({ ifZero }) => ({
+export const Slice = styled.div.attrs<SliceType>(({ isZero }) => ({
   style: {
-    opacity: ifZero && 0.4,
+    opacity: isZero && 0.4,
   },
 }))<SliceType>`
   display: flex;

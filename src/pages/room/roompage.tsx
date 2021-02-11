@@ -28,7 +28,7 @@ import { useRoom } from "./store";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
 
-import Members from "./components/Members/";
+import Members from "./components/Members";
 import Modal from "@/components/Modal/";
 
 function RoomPage() {
@@ -50,7 +50,7 @@ function RoomPage() {
   const history = useHistory();
   const long = () => members.length;
 
-  const updateRoomMessage = (str) => {
+  const updateRoomMessage = (str: string) => {
     setValue("message", str || "网络错误");
   };
 

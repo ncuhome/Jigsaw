@@ -1,15 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import menu from "../../img/menu.svg";
 import over from "../../img/over.svg";
-
-const fadeIn = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
+import { fadeIn } from "@/style/animate";
 
 export const HeaderContainer = styled.div`
   position: relative;

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  AllSortContainer,
+  YourSortContainer,
   Title,
   Item,
   Number,
@@ -13,17 +13,22 @@ import {
   Score,
   CardHead,
 } from "./style";
+import type { List } from "@/pages/sort/store";
 
-function AllSort({ list }) {
+interface Props {
+  list: List;
+}
+
+const YourSort: React.FC<Props> = ({ list }) => {
   return (
-    <AllSortContainer>
-      <Title>所有排名</Title>
+    <YourSortContainer>
+      <Title>你的排名</Title>
       {list.map((item) => (
         <Item key={item.roomName}>
           <Number bg={item.backgroundColor} textColor={item.textColor}>
             {item.sort}
           </Number>
-          <Card myGroup={item.myGroup}>
+          <Card>
             <CardHead>
               <Name>{item.roomName}</Name>
               <Score>
@@ -41,8 +46,8 @@ function AllSort({ list }) {
           </Card>
         </Item>
       ))}
-    </AllSortContainer>
+    </YourSortContainer>
   );
-}
+};
 
-export default AllSort;
+export default YourSort;

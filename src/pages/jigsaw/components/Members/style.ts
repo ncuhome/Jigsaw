@@ -7,13 +7,13 @@ export const MembersContainer = styled.div`
   margin-top: -1px;
 `;
 
-export const MemberContent = styled.div`
+export const MemberContent = styled.div<{ isMine?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 69px;
   padding: 0 15px;
-  background: ${(props) => (props.ifMine ? "#393939" : null)};
+  background: ${(props) => (props.isMine ? "#393939" : null)};
   transition: transform 0.18s ease;
   &:active {
     transform: scale(0.94);

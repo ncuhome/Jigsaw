@@ -1,6 +1,6 @@
 import { stateFactory } from "@/utils/state_factory";
 
-interface Members {
+export interface GameMember {
   identity: string;
   username: string;
   id: number;
@@ -8,6 +8,7 @@ interface Members {
 }
 
 interface GridData {
+  [key: string]: any;
   roomName: string;
   score: number;
   picKind: number;
@@ -15,7 +16,7 @@ interface GridData {
   endTime: number;
   jigsawList: number[][];
   pics: number[];
-  members: Members[];
+  members: GameMember[];
   images: string[];
 }
 
@@ -44,7 +45,7 @@ export const useGrid = stateFactory(
     pics: [],
     members: [],
     images: Array.from({ length: 3 }).fill(""),
-  },
+  } as GridData,
   (set) => ({
     setValue: <T extends keyof GridData>(key: T, value: GridData[T]) => {
       set((state) => {

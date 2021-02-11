@@ -1,15 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { fadeIn } from "@/style/animate";
 
-const fadeIn = keyframes` 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-export const HelpContainer = styled.div`
+export const HelpContainer = styled.div<{ show: boolean }>`
   position: absolute;
   top: 0;
   right: 0;

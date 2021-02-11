@@ -15,7 +15,7 @@ export const MenuWrapper = styled.div`
   transition: transform 0.35s ease;
 `;
 
-export const BackArea = styled.div`
+export const BackArea = styled.div<{ show: boolean }>`
   position: absolute;
   top: 0;
   left: 0;

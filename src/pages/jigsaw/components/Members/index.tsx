@@ -8,19 +8,18 @@ import {
   MemberHead,
 } from "./style";
 import { colorMapGradient } from "@/lib/colorMap";
+import type { GameMember } from "@/pages/jigsaw/store";
+import { useGrid } from "@/pages/jigsaw/store";
+import { useLogin } from "@pages/login/store";
 
-function EmptyMember() {
-  return (
-    <MemberContent>
-      <MemberHead>
-        <MemberAvatar color={"#6c6c6c"}>空</MemberAvatar>
-        <MemberName style={{ color: "#707070" }}>待加入...</MemberName>
-      </MemberHead>
-    </MemberContent>
-  );
+interface Props {
+  membersList: GameMember[];
 }
 
-function Members({ membersList, difficult, username }) {
+const Members: React.FC<Props> = ({ membersList }) => {
+  const difficult = useGrid((state) => state.difficult);
+  const username = useLogin((state) => state.name);
+  
   const emptyMember = () => {
     let arr = [];
     for (let i = membersList.length + 1; i <= difficult; i++) {
@@ -31,8 +30,8 @@ function Members({ membersList, difficult, username }) {
 
   return (
     <MembersContainer>
-      {membersList.map((item, index) => (
-        <MemberContent key={index} ifMine={username === item.username}>
+      {membersList.map((item) => (
+        <MemberContent key={item.id} isMine={username === item.username}>
           <MemberHead>
             <MemberAvatar color={colorMapGradient[item.id]}>
               {item.username.split("").reverse().join("")[0]}
@@ -47,6 +46,17 @@ function Members({ membersList, difficult, username }) {
       ))}
     </MembersContainer>
   );
-}
+};
+
+const EmptyMember = () => {
+  return (
+    <MemberContent>
+      <MemberHead>
+        <MemberAvatar color={"#6c6c6c"}>空</MemberAvatar>
+        <MemberName style={{ color: "#707070" }}>待加入...</MemberName>
+      </MemberHead>
+    </MemberContent>
+  );
+};
 
 export default Members;

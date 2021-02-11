@@ -28,10 +28,10 @@ import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scro
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
 
-import Header from "./components/Header/";
-import Menu from "./components/Menu/";
-import Over from "./components/Over/";
-import TimeOver from "./components/TimeOver/";
+import Modal from "@/components/Modal/";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import TimeOver from "./components/TimeOver";
 
 function JigsawPage() {
   const username = useLogin((state) => state.name);
@@ -164,12 +164,17 @@ function JigsawPage() {
   };
 
   /*移动切片后的事件处理*/
-  const handleChangeSlice = (rowIndex, columnIndex, handleValue, targetItem) => {
+  const handleChangeSlice = (
+    rowIndex: number,
+    columnIndex: number,
+    handleValue: number,
+    targetItem
+  ) => {
     switch (true) {
       case handleValue !== 0 && targetItem === 0 && handleRow === null:
         add({
           nextPos: [rowIndex, columnIndex],
-          value: [handleValue],
+          value: handleValue,
         });
         setHandleNumber(handleNumber + 1);
         getHandle(rowIndex, columnIndex, 0);
@@ -186,9 +191,10 @@ function JigsawPage() {
         getHandle(rowIndex, columnIndex, targetItem);
         break;
       default:
-        setHandleObject({
+        setHandleObject((state) => ({
+          ...state,
           value: 0,
-        });
+        }));
     }
   };
 
@@ -231,11 +237,9 @@ function JigsawPage() {
   return (
     <Wrapper>
       <Header
-        endTime={endTime}
         showMenu={() => setHandleSideMenu(true)}
         showOver={() => setHandleOver(true)}
         setHandleTimeOver={setHandleTimeOver}
-        ifLeader={ifLeader()}
       />
       <Content>
         <JigArea>
@@ -243,7 +247,7 @@ function JigsawPage() {
             {jigsawList.map((rowItem, rowIndex) => (
               <Row key={rowIndex} show={delayShow(rowIndex)}>
                 {rowItem.map((item, columnIndex) => (
-                  <SliceContainer key={`slice(${rowIndex},${columnIndex})`} ifZero={item === 0}>
+                  <SliceContainer key={`slice(${rowIndex},${columnIndex})`}>
                     <Drag
                       draggable={ListHavePics(item)}
                       onDragEnter={(e) => e.preventDefault()}
@@ -254,7 +258,7 @@ function JigsawPage() {
                       }
                     >
                       <Slice
-                        ifZero={item === 0}
+                        isZero={item === 0}
                         bgUrl={images[picKind]}
                         same={ListHavePics(item)}
                         positionX={cutSliceX(item)}
@@ -296,16 +300,19 @@ function JigsawPage() {
         </SelectArea>
       </Content>
       <Menu
-        handleSideMenu={handleSideMenu}
-        hiddenMenu={() => setHandleSideMenu(false)}
+        visible={handleSideMenu}
+        close={() => setHandleSideMenu(false)}
         membersList={membersList}
-        difficult={difficult}
-        roomName={roomName}
-        username={username}
         toQuit={toQuit}
       />
-      <Over handleOver={handleOver} hiddenOver={() => setHandleOver(false)} submit={submit} />
-      {handleTimeOver ? <TimeOver handleTimeOver={handleTimeOver} submit={submit} /> : null}
+      <Modal
+        visible={handleOver}
+        title={"是否完成拼图"}
+        activeText={"完成了"}
+        activePress={submit}
+        closePress={() => setHandleOver(false)}
+      />
+      {handleTimeOver ? <TimeOver visible={handleTimeOver} submit={submit} /> : null}
     </Wrapper>
   );
 }

@@ -2,11 +2,13 @@ import { stateFactory } from "@/utils/state_factory";
 
 type User = {
   userId: string | number;
-  mine: boolean
-}
+  mine: boolean;
+  username: string;
+};
 
-type List = {
+export type List = {
   members: User[];
+  roomName: string;
   score: number;
   sort: number;
   backgroundColor: string;
