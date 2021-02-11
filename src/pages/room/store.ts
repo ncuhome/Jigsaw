@@ -6,7 +6,8 @@ export interface RoomMember {
   identity: string;
 }
 
-interface Room {
+interface RoomData {
+  [key: string]: any;
   roomName: string;
   roomId: number;
   members: RoomMember[];
@@ -21,15 +22,15 @@ export const useRoom = stateFactory(
     members: [],
     message: "",
     difficult: null,
-  },
+  } as RoomData,
   (set) => ({
-    setValue: <T extends keyof Room>(key: T, value: Room[T]) => {
+    setValue: <T extends keyof RoomData>(key: T, value: RoomData[T]) => {
       set((state) => {
         state[key] = value;
         return state;
       });
     },
-    setMutiValue: (data: { [P in keyof Room]?: Room[P] }) => {
+    setMutiValue: (data: { [P in keyof RoomData]?: RoomData[P] }) => {
       set((state) => {
         Object.keys(data).forEach((i) => {
           if (state[i] !== undefined) {

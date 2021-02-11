@@ -3,6 +3,7 @@ import { post, getUsername } from "@/lib/http";
 import { sendToken } from "@/lib/ws";
 
 interface LoginData {
+  [key: string]: any;
   name: string;
   token: string;
   userId: string;
@@ -19,7 +20,7 @@ export const useLogin = stateFactory(
     password: window.localStorage.getItem("password"),
     message: "",
     status: 0,
-  },
+  } as LoginData,
   (set) => ({
     setValue: <T extends keyof LoginData>(key: T, value: LoginData[T]) =>
       set((state) => {
