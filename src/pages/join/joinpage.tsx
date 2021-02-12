@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   NewPageWrapper,
   NewPageContainer,
@@ -9,9 +9,9 @@ import {
   Button,
 } from "./style";
 import { Link, useHistory } from "react-router-dom";
-import { joinRoom, listenAddBroadcast, listenJoin, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
 import { useRoom } from "@/pages/room/store";
+import { useListener, useEmit } from "@/lib/websocket/hooks";
 
 function JoinPage() {
   const [roomName, setRoomName] = useState("");
@@ -20,38 +20,32 @@ function JoinPage() {
   const history = useHistory();
   const setMutiValue = useRoom((state) => state.setMutiValue);
   const username = useLogin((state) => state.name);
+  const joinRoom = useEmit("roomJoin");
 
   const submit = () => {
-    joinRoom(
-      JSON.stringify({
-        roomName,
-        username,
-      })
-    );
+    joinRoom({
+      roomName,
+      username,
+    });
   };
 
-  useEffect(() => {
-    listenJoin((res) => {
-      if (res.status) {
-        listenAddBroadcast((addRes) => {
-          const data = addRes.data;
-          setMutiValue({
-            members: data.members,
-            message: addRes.message,
-            roomName: data.roomName,
-            roomId: data.roomId,
-            difficult: data.difficult,
-          });
-          console.log(addRes);
-        });
-      } else {
-        setMessage(res.message);
-      }
+  useListener("join", (res) => {
+    if (res.status) {
       history.push("/room");
-      console.log(res);
+      setMessage(res.message);
+    }
+  });
+
+  useListener("broadcastRoomJoin", (res) => {
+    const data = res.data;
+    setMutiValue({
+      members: data.members,
+      message: res.message,
+      roomName: data.roomName,
+      roomId: data.roomId,
+      difficult: data.difficult,
     });
-    return () => removeSocket("join");
-  }, []);
+  });
 
   return (
     <NewPageWrapper>
@@ -69,7 +63,7 @@ function JoinPage() {
           <Link to="/home/">
             <Button>取消</Button>
           </Link>
-          <Button onClick={() => submit()}>加入</Button>
+          <Button onClick={submit}>加入</Button>
         </ButtonsContainer>
       </NewPageContainer>
     </NewPageWrapper>

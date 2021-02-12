@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Back, Header, SortWrapper, Title, EmptyBox, EmptyBoxContainer } from "./style";
+import { sortBy } from "lodash-es";
+import { Link } from "react-router-dom";
+import { useLogin } from "@/pages/login/store";
+import { useSort } from "@/pages/sort/store";
+import { useListener, useEmit } from "@/lib/websocket/hooks";
+
 import YourSort from "./components/YourSort";
 import AllSort from "./components/AllSort";
 import Loading from "@/components/Loading/";
-import { sortBy } from "lodash-es";
-
-import { Link } from "react-router-dom";
-import { listenRank, getRank, removeSocket } from "@/lib/ws";
-import { useLogin } from "@/pages/login/store";
-import { useSort } from "@/pages/sort/store";
 
 const sortBackgroundColor = ["#3FBEFF", "#FD6060", "#7D7D7D"];
 const sortTextColor = ["#2a2a2a", "#2a2a2a", "#2a2a2a"];
@@ -18,6 +18,7 @@ function SortPage() {
   const [handleEmpty, setHandleEmpty] = useState(false);
   const [list, updateSortList] = useSort((state) => [state.list, state.updateSortList]);
   const userId = useLogin((state) => state.userId);
+  const getRank = useEmit("rankList");
 
   const sortList = () => {
     let temp = list;
@@ -45,28 +46,20 @@ function SortPage() {
     return formatList().filter((item) => item.members.some((user) => user.mine));
   };
 
-  const allSortList = () => {
-    return formatList();
-  };
-
   useEffect(() => {
     getRank("");
   }, []);
 
-  useEffect(() => {
-    listenRank((res) => {
-      if (res.status) {
-        const rankList = res.data.rank;
-        setHandleEmpty(!rankList.length);
-        updateSortList(rankList);
-        setStatus(res.status);
-        console.log(rankList);
-      } else {
-        console.log("网络错误");
-      }
-    });
-    return () => removeSocket("rank");
-  }, []);
+  useListener("rank", (res) => {
+    if (res.status) {
+      const rankList = res.data.rank;
+      setHandleEmpty(!rankList.length);
+      updateSortList(rankList);
+      setStatus(res.status);
+    } else {
+      console.log("网络错误");
+    }
+  });
 
   return (
     <SortWrapper>
@@ -85,7 +78,7 @@ function SortPage() {
         ) : (
           <div>
             <YourSort list={yourSortList()} />
-            <AllSort list={allSortList()} />
+            <AllSort list={formatList()} />
           </div>
         )
       ) : (

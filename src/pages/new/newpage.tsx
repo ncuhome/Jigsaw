@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { listenJoin, joinRoom, removeSocket } from "@/lib/ws";
 import { useLogin } from "@/pages/login/store";
 import { useRoom } from "@/pages/room/store";
+import { useListener, useEmit } from "@/lib/websocket/hooks";
 
 import SelectPage from "./components/select";
 import CreatePage from "./components/create";
@@ -13,6 +13,7 @@ function NewPage() {
   const [difficult, setDifficult] = useState(3);
   const [message, setMessage] = useState("");
   const [page, setPage] = useState(1);
+  const joinRoom = useEmit("roomJoin");
 
   const setMutiValue = useRoom((state) => state.setMutiValue);
   const history = useHistory();
@@ -25,33 +26,27 @@ function NewPage() {
     setPage(2);
   };
 
-  useEffect(() => {
-    listenJoin((res) => {
-      if (res.status) {
-        setMutiValue({
-          members: res.data.members,
-          message: res.message,
-          roomName: res.data.roomName,
-          roomId: res.data.roomId,
-          difficult,
-        });
-      } else {
-        setMessage(res.message);
-      }
+  useListener("join", (res) => {
+    if (res.status) {
+      setMutiValue({
+        members: res.data.members,
+        message: res.message,
+        roomName: res.data.roomName,
+        roomId: res.data.roomId,
+        difficult,
+      });
       history.push("/room");
-      console.log(res);
-    });
-    return () => removeSocket("join");
-  }, [page]);
+    } else {
+      setMessage(res.message);
+    }
+  });
 
   const create = (roomName: string) => {
-    const sendData = JSON.stringify({
+    joinRoom({
       username,
       roomName,
       difficult,
     });
-    joinRoom(sendData);
-    console.log("send:" + sendData);
   };
 
   return (

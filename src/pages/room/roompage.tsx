@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   RoomWrapper,
   TitleContainer,
@@ -14,19 +14,10 @@ import {
   MainButton,
 } from "./style";
 import { useHistory } from "react-router-dom";
-import {
-  listenAddBroadcast,
-  listenBroadcastStart,
-  gameStart,
-  removeSocket,
-  listenLeave,
-  leaveRoom,
-  listenStart,
-  listenLeaveBroadcast,
-} from "@/lib/ws";
 import { useRoom } from "./store";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
+import { useListener, useEmit } from "@/lib/websocket/hooks";
 
 import Members from "./components/Members";
 import Modal from "@/components/Modal/";
@@ -46,6 +37,8 @@ function RoomPage() {
     message: state.message,
   }));
   const setJigsawData = useGrid((state) => state.setMutiValue);
+  const leaveRoom = useEmit("roomLeave");
+  const gameStart = useEmit("gameStart");
 
   const history = useHistory();
   const long = () => members.length;
@@ -68,14 +61,11 @@ function RoomPage() {
   };
 
   const toQuit = () => {
-    leaveRoom(
-      JSON.stringify({
-        username,
-        roomName,
-        id: myID(),
-      })
-    );
-    console.log(`send Leave: ${username}, ${roomName}`);
+    leaveRoom({
+      username,
+      roomName,
+      id: myID(),
+    });
   };
 
   const array = (n) => {
@@ -89,91 +79,65 @@ function RoomPage() {
     return myArr;
   };
 
-  useEffect(() => {
-    //监听某人离开房间事件
-    listenLeaveBroadcast((res) => {
-      if (res.status) {
-        const data = res.data;
-        setValue("members", data.members);
-      } else {
-        updateRoomMessage("网络错误");
-      }
-      console.log(res);
-    });
-    return () => removeSocket("broadcastRoomLeave");
-  }, []);
+  useListener("broadcastRoomLeave", (res) => {
+    // 监听某人离开房间事件
+    if (res.status) {
+      const data = res.data;
+      setValue("members", data.members);
+    } else {
+      updateRoomMessage("网络错误");
+    }
+  });
 
-  useEffect(() => {
-    //监听自己离开房间事件
-    listenLeave((res) => {
-      if (res.status) {
-        history.push("/home");
-      }
-      console.log(res);
-    });
+  useListener("leave", (res) => {
+    // 监听自己离开房间事件
+    if (res.status) {
+      history.push("/home");
+    }
+  });
 
-    return () => removeSocket("leave");
-  }, []);
-
-  useEffect(() => {
-    //监听其他人加入房间
-    listenAddBroadcast((res) => {
-      if (res.status) {
-        const data = res.data;
-        setMutiValue({
-          members: data.members,
-          roomName: data.roomName,
-          roomId: data.roomId,
-          difficult: data.difficult,
-          message: data.message,
-        });
-        console.log(data);
-      } else {
-        updateRoomMessage(res.message);
-      }
-      console.log(res);
-    });
-    return () => removeSocket("broadcastRoomJoin");
-  }, []);
-
-  useEffect(() => {
-    listenBroadcastStart((res) => {
-      if (res.status) {
-        let pics = [];
-        res.data.members.map((item) => item.username === username && (pics = item.pics));
-        setJigsawData({
-          pics,
-          ...res.data,
-          score: 0,
-        });
-        history.push("/jigsaw");
-      } else {
-        updateRoomMessage(res.message);
-      }
-      console.log(res);
-    });
-    return () => removeSocket("broadcastGameStart");
-  }, []);
-
-  useEffect(() => {
-    listenStart((res) => {
+  useListener("broadcastRoomJoin", (res) => {
+    if (res.status) {
+      const data = res.data;
+      setMutiValue({
+        members: data.members,
+        roomName: data.roomName,
+        roomId: data.roomId,
+        difficult: data.difficult,
+        message: data.message,
+      });
+    } else {
       updateRoomMessage(res.message);
-      console.log(res);
-    });
+    }
+  });
 
-    return () => removeSocket("start");
-  }, []);
+  useListener("broadcastGameStart", (res) => {
+    if (res.status) {
+      let pics = [];
+      res.data.members.map((item) => item.username === username && (pics = item.pics));
+      setJigsawData({
+        pics,
+        ...res.data,
+        score: 0,
+      });
+      history.push("/jigsaw");
+    } else {
+      updateRoomMessage(res.message);
+    }
+  });
+
+  useListener("start", (res) => {
+    updateRoomMessage(res.message);
+  });
 
   const start = () => {
     //开始游戏
     console.log("start");
-    gameStart(
-      JSON.stringify({
-        roomName,
-        picKind: difficult - 3,
-        jigsawList: array(difficult),
-      })
-    );
+    gameStart({
+      roomName,
+      picKind: difficult - 3,
+      jigsawList: array(difficult),
+    });
   };
 
   return (

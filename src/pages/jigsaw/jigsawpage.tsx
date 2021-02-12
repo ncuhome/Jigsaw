@@ -12,21 +12,13 @@ import {
   Drag,
   JigContainer,
 } from "./style";
-import {
-  listenList,
-  sendListChange,
-  listenCal,
-  sendCal,
-  listenLeave,
-  removeSocket,
-  leaveRoom,
-} from "@/lib/ws";
 import { colorMapPure } from "@/lib/colorMap";
 import { useHistory } from "react-router-dom";
 import { polyfill } from "mobile-drag-drop";
 import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
+import { useListener, useEmit } from "@/lib/websocket/hooks";
 
 import Modal from "@/components/Modal/";
 import Header from "./components/Header";
@@ -47,6 +39,9 @@ function JigsawPage() {
       images: state.images,
     })
   );
+  const sendCal = useEmit("gameCal");
+  const leaveRoom = useEmit("roomLeave");
+  const sendListChange = useEmit("gameMove");
 
   const { setValue, add, move, remove } = useGrid((state) => ({
     setValue: state.setValue,
@@ -87,41 +82,28 @@ function JigsawPage() {
 
   /*发送移动切片事件*/
   useEffect(() => {
-    handleNumber === 0 ||
-      sendListChange(
-        JSON.stringify({
-          roomName,
-          jigsawList,
-        })
-      );
+    if (handleNumber) {
+      sendListChange({
+        roomName,
+        jigsawList,
+      });
+    }
   }, [handleNumber]);
 
-  /*监听服务器发送的切片移动*/
-  useEffect(() => {
-    listenList((res) => {
-      changeList(res.jigsawList);
-      console.log(res);
-    });
-  }, []);
+  useListener("broadcastMove", (res) => {
+    changeList(res.jigsawList);
+  });
 
-  useEffect(() => {
-    //监听离开房间事件
-    listenLeave((res) => {
-      if (res.status) {
-        history.push("/home");
-      }
-    });
-    return () => removeSocket("leave");
-  }, []);
+  useListener("leave", (res) => {
+    if (res.status) {
+      history.push("/home");
+    }
+  });
 
-  useEffect(() => {
-    listenCal((res) => {
-      setScore(res.score);
-      history.push("/result");
-      console.log(res);
-    });
-    return () => removeSocket("broadcastScore");
-  }, []);
+  useListener("broadcastScore", (res) => {
+    setScore(res.score);
+    history.push("/result");
+  });
 
   const delayShow = (x) => (x + 1) / difficult / 1.3;
 
@@ -132,12 +114,7 @@ function JigsawPage() {
   const sameElement = (item) => pics.some((el) => el === item);
 
   const toQuit = () => {
-    leaveRoom(
-      JSON.stringify({
-        username,
-        roomName,
-      })
-    );
+    leaveRoom({ username, roomName });
   };
 
   /*选择切片时获取坐标与数值*/
@@ -226,11 +203,7 @@ function JigsawPage() {
   };
 
   const submit = () => {
-    sendCal(
-      JSON.stringify({
-        roomName,
-      })
-    );
+    sendCal({ roomName });
     console.log(roomName);
   };
 

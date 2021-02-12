@@ -1,16 +1,17 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Routers from "./Router";
 import GlobalReset from "./style/reset";
 import { usePreFetch } from "@/lib/hooks/usePreFetch";
+import { Provider } from "@/lib/websocket/Provider";
 
 function App() {
   usePreFetch();
 
   return (
-    <Fragment>
+    <Provider url={"jigsaw.ncuos.com"}>
       <GlobalReset />
       <Routers />
-    </Fragment>
+    </Provider>
   );
 }
 

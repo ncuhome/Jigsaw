@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { useLogin } from "./pages/login/store";
-import { listenToken, removeSocket } from "@/lib/ws";
+import { useListener } from "@/lib/websocket/hooks";
 
 import Jigsaw from "./pages/jigsaw";
 import Login from "./pages/login";
@@ -66,17 +66,13 @@ function Routers() {
   const [token, setValue] = useLogin((state) => [state.token, state.setValue]);
   const isLogin = !!token;
 
-  React.useEffect(() => {
-    listenToken((res) => {
-      console.log(res);
-      if (res.status === 1) {
-        setValue("status", 1);
-      } else {
-        setValue("status", 0);
-      }
-    });
-    return () => removeSocket("token");
-  }, []);
+  useListener("token", (res) => {
+    if (res.status === 1) {
+      setValue("status", 1);
+    } else {
+      setValue("status", 0);
+    }
+  });
 
   const renderPage = (item: Item, props: any) => {
     if (item.auth === undefined) {

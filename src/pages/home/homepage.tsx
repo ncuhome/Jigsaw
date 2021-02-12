@@ -17,22 +17,25 @@ import {
   RankIcon,
 } from "./style";
 import { useLogin } from "@/pages/login/store";
+import { useEmit } from "@/lib/websocket/hooks";
 
 import Modal from "@/components/Modal/";
 import Help from "./components/Help";
 import halo from "@/lib/helloText";
 
 function Homepage() {
-  const [name, userId, status, password] = useLogin((state) => [
+  const [name, userId, status, password, token] = useLogin((state) => [
     state.name,
     state.userId,
     state.status,
     state.password,
+    state.token,
   ]);
   const [login, logout] = useLogin((state) => [state.login, state.logout]);
   const [handleHelp, setHandleHelp] = useState(false);
   const [handleLeave, setHandleLeave] = useState(false);
   const [haloText] = useState(halo());
+  const sendToken = useEmit("token");
 
   const closeHelp = () => {
     setHandleHelp(false);
@@ -42,9 +45,20 @@ function Homepage() {
     setHandleLeave(false);
   };
 
+  const refreshToken = async () => {
+    await login(userId, password);
+    
+    setTimeout(() => {
+      sendToken({
+        username: name,
+        token,
+      });
+    }, 500);
+  };
+
   useEffect(() => {
     if (!status) {
-      login(userId, password);
+      refreshToken();
     }
   }, [status]);
 

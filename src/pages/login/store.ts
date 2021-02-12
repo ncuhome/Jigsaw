@@ -1,6 +1,5 @@
 import { stateFactory } from "@/utils/state_factory";
 import { post, getUsername } from "@/lib/http";
-import { sendToken } from "@/lib/ws";
 
 interface LoginData {
   [key: string]: any;
@@ -41,15 +40,6 @@ export const useLogin = stateFactory(
         window.localStorage.setItem("userId", userId);
         window.localStorage.setItem("password", password);
         const name = await getUsername(token);
-
-        setTimeout(() => {
-          sendToken(
-            JSON.stringify({
-              username: name,
-              token: token,
-            })
-          );
-        }, 500);
 
         set((state) => {
           state.token = token;

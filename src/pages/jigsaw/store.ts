@@ -7,7 +7,7 @@ export interface GameMember {
   pics: number[]
 }
 
-interface GridData {
+export interface GridData {
   [key: string]: any;
   roomName: string;
   score: number;
@@ -88,7 +88,7 @@ export const useGrid = stateFactory(
       const [i, j] = prePos;
 
       set((state) => {
-        state.jigsawList[i][j] = null;
+        state.jigsawList[i][j] = 0;
         return state;
       });
     },

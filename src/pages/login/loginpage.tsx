@@ -14,21 +14,26 @@ import {
 } from "./style";
 import { useLogin } from "./store";
 import { useHistory } from "react-router-dom";
+import { useEmit } from "@/lib/websocket/hooks";
 
 const height = document.documentElement.clientHeight;
 
 function LoginPage() {
   const [loading, setLoading] = React.useState(false);
-  const { userId, password, message } = useLogin((state) => ({
+  const { userId, password, message, token, name } = useLogin((state) => ({
     userId: state.userId,
     password: state.password,
     message: state.message,
+    token: state.token,
+    name: state.name,
   }));
 
   const { login, setValue } = useLogin((state) => ({
     login: state.login,
     setValue: state.setValue,
   }));
+
+  const sendToken = useEmit("token");
 
   const history = useHistory();
 
@@ -38,6 +43,10 @@ function LoginPage() {
 
     try {
       await login(userId, password);
+      sendToken({
+        username: name,
+        token: token,
+      });
       history.push("/home");
     } catch (e) {
       setValue("message", "登录失败，请重试");
