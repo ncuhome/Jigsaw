@@ -3,6 +3,7 @@ import io, { Socket } from "socket.io-client";
 
 interface Props {
   url: string;
+  opts?: any;
 }
 
 type SocketIO = typeof Socket | null;
@@ -10,11 +11,11 @@ const initalInstance = null as SocketIO;
 
 export const SocketContext = React.createContext(initalInstance);
 
-export const Provider: React.FC<Props> = ({ url, children }) => {
+export const Provider: React.FC<Props> = ({ url, opts = {}, children }) => {
   const [socketInstance, setSocketInstance] = React.useState(initalInstance);
 
   React.useEffect(() => {
-    const socket = io(url);
+    const socket = io(url, opts);
     setSocketInstance(socket);
 
     return () => {
@@ -26,8 +27,8 @@ export const Provider: React.FC<Props> = ({ url, children }) => {
   React.useEffect(() => {
     if (socketInstance) {
       socketInstance.on("connect", () => {
-        console.log('已成功建立 websocket 连接')
-      })
+        console.log("已成功建立 websocket 连接");
+      });
     }
   }, [socketInstance]);
 

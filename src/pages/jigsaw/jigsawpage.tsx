@@ -50,11 +50,11 @@ function JigsawPage() {
     remove: state.remove,
   }));
 
-  const setScore = (value) => {
+  const setScore = (value: number) => {
     setValue("score", value);
   };
 
-  const changeList = (value) => {
+  const changeList = (value: number[][]) => {
     setValue("jigsawList", value);
   };
 
@@ -105,20 +105,20 @@ function JigsawPage() {
     history.push("/result");
   });
 
-  const delayShow = (x) => (x + 1) / difficult / 1.3;
+  const delayShow = (x: number) => (x + 1) / difficult / 1.3;
 
-  const cutSliceX = (index) => ((index - 1) % difficult) * length;
+  const cutSliceX = (index: number) => ((index - 1) % difficult) * length;
 
-  const cutSliceY = (index) => Math.floor((index - 1) / difficult) * length;
+  const cutSliceY = (index: number) => Math.floor((index - 1) / difficult) * length;
 
-  const sameElement = (item) => pics.some((el) => el === item);
+  const sameElement = (item: number) => pics.some((el) => el === item);
 
   const toQuit = () => {
     leaveRoom({ username, roomName });
   };
 
   /*选择切片时获取坐标与数值*/
-  const getHandle = (rowIndex, columnIndex, targetItem) => {
+  const getHandle = (rowIndex: number, columnIndex: number, targetItem: number) => {
     setHandleObject({
       row: rowIndex,
       column: columnIndex,
@@ -127,17 +127,8 @@ function JigsawPage() {
   };
 
   const myColor = () => {
-    let id;
-    membersList.map((item) => item.username === username && (id = item.id));
-    return colorMapPure[id];
-  };
-
-  const ifLeader = () => {
-    let result = false;
-    membersList.map(
-      (item) => item.identity === "leader" && item.username === username && (result = true)
-    );
-    return result;
+    const item = membersList.find((item) => item.username === username);
+    return colorMapPure[item.id];
   };
 
   /*移动切片后的事件处理*/
@@ -145,7 +136,7 @@ function JigsawPage() {
     rowIndex: number,
     columnIndex: number,
     handleValue: number,
-    targetItem
+    targetItem: number
   ) => {
     switch (true) {
       case handleValue !== 0 && targetItem === 0 && handleRow === null:
@@ -175,11 +166,11 @@ function JigsawPage() {
     }
   };
 
-  const selectAlready = (item) => jigsawList.some((row) => row.some((el) => el === item));
+  const selectAlready = (item: number) => jigsawList.some((row) => row.some((el) => el === item));
 
-  const ListHavePics = (item) => pics.some((el) => el === item);
+  const ListHavePics = (item: number) => pics.some((el) => el === item);
 
-  const handlePic = (item) => {
+  const handlePic = (item: number) => {
     if (handleRow !== null && handleValue !== 0 && handleValue === item) {
       remove({
         prePos: [handleRow, handleColumn],
