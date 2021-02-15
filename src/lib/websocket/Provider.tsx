@@ -1,36 +1,50 @@
-import React from "react";
-import io, { Socket } from "socket.io-client";
+import React, { useEffect } from "react";
+import { useConnect } from "@/lib/websocket/hooks";
+import { useSocketStore } from "@/lib/websocket/store";
 
 interface Props {
   url: string;
   opts?: any;
+  lazy?: boolean;
 }
 
-type SocketIO = typeof Socket | null;
-const initalInstance = null as SocketIO;
+export const Provider: React.FC<Props> = ({ url, opts, lazy = false, children }) => {
+  const { socketInstance, setMutiValue, socketURL, socketOpts } = useSocketStore((state) => ({
+    socketInstance: state.socket,
+    socketURL: state.url,
+    socketOpts: state.opts,
+    setMutiValue: state.setMutiValue,
+  }));
+  const { connect, disconnect } = useConnect();
 
-export const SocketContext = React.createContext(initalInstance);
-
-export const Provider: React.FC<Props> = ({ url, opts = {}, children }) => {
-  const [socketInstance, setSocketInstance] = React.useState(initalInstance);
-
-  React.useEffect(() => {
-    const socket = io(url, opts);
-    setSocketInstance(socket);
-
-    return () => {
-      console.log("断开连接");
-      socket.disconnect();
-    };
+  useEffect(() => {
+    setMutiValue({ url, opts });
   }, []);
 
-  React.useEffect(() => {
-    if (socketInstance) {
-      socketInstance.on("connect", () => {
-        console.log("已成功建立 websocket 连接");
-      });
-    }
+  useEffect(() => {
+    if (lazy) return;
+
+    connect();
+    return disconnect;
+  }, [socketURL, socketOpts, lazy]);
+
+  useEffect(() => {
+    if (!socketInstance) return;
+
+    socketInstance.on("connect", () => {
+      setMutiValue({ isConnect: true });
+      console.log("已成功建立 websocket 连接");
+    });
+    socketInstance.on("disconnect", () => {
+      setMutiValue({ isConnect: false });
+      console.log("已断开连接");
+    });
+
+    return () => {
+      socketInstance.off("connect", () => {});
+      socketInstance.off("disconnect", () => {});
+    };
   }, [socketInstance]);
 
-  return <SocketContext.Provider value={socketInstance}>{children}</SocketContext.Provider>;
+  return <>{children}</>;
 };

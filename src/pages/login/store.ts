@@ -50,10 +50,7 @@ export const useLogin = stateFactory(
           return state;
         });
       } else {
-        set((state) => {
-          state.message = message;
-          return state;
-        });
+        throw Error(message)
       }
     },
     logout: async () => {

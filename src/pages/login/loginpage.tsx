@@ -49,7 +49,7 @@ function LoginPage() {
       });
       history.push("/home");
     } catch (e) {
-      setValue("message", "登录失败，请重试");
+      setValue("message", e.message);
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ function LoginPage() {
             onChange={(e) => setValue("password", e.target.value)}
           />
         </PwdInputBox>
-        <Prompt active={!!message}>{message}</Prompt>
+        <Prompt>{message}</Prompt>
         <LoginBtn onClick={submit}>{loading ? "登录中" : "登录"}</LoginBtn>
       </Content>
       <BottomText>南昌大学家园工作室</BottomText>

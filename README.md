@@ -19,8 +19,8 @@
 + [x] 集成 snowpack
 + [x] 优化图片引入（切片移动时有多余的网络请求，考虑 prefetch 后转 base64）
 + [x] 集成 Typescript
-+ [x] socket 引入模式改造为 Context & hooks
-+ [ ] socket 层懒加载能力
++ [x] socket 引入模式改造为 hooks
++ [x] socket 层懒加载能力
 + [ ] 分化高可复用性组件
 + [ ] mincu 接入
 

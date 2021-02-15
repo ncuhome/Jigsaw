@@ -1,12 +1,15 @@
 import type { RoomMember } from "@/pages/room/store";
 import type { GridData } from "@/pages/jigsaw/store";
 import type { List } from "@/pages/sort/store";
+import type { Socket } from "socket.io-client";
 
 type Res<T extends unknown> = {
   status: 0 | 1;
   message: string;
   data?: T;
 };
+
+export type SocketIO = typeof Socket | null;
 
 export interface Listener {
   token: Res<{}>;

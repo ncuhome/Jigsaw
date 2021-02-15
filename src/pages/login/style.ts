@@ -106,7 +106,7 @@ export const InputName = styled.div`
   margin: 0 14px;
 `;
 
-export const Prompt = styled.div<{ active: boolean }>`
+export const Prompt = styled.div`
   width: 240px;
   height: 40px;
   margin-top: 20px;
@@ -117,7 +117,6 @@ export const Prompt = styled.div<{ active: boolean }>`
   letter-spacing: 1.2px;
   font-weight: 500;
   filter: drop-shadow(0 0 10px rgba(58, 58, 58, 0.2));
-  animation: ${(props) => (props.active ? fadeIn : null)} 1s ease;
 `;
 
 export const LoginBtn = styled.div`
