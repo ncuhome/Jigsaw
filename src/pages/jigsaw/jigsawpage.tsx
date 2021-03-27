@@ -14,8 +14,6 @@ import {
 } from "./style";
 import { colorMapPure } from "@/lib/colorMap";
 import { useHistory } from "react-router-dom";
-import { polyfill } from "mobile-drag-drop";
-import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
 import { useListener, useEmit } from "@/lib/websocket/hooks";
@@ -73,13 +71,6 @@ function JigsawPage() {
 
   const length = 300 / difficult;
 
-  /*防止拖拽滚动*/
-  useEffect(() => {
-    polyfill({
-      dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride,
-    });
-  });
-
   /*发送移动切片事件*/
   useEffect(() => {
     if (handleNumber) {
@@ -128,7 +119,7 @@ function JigsawPage() {
 
   const myColor = () => {
     const item = membersList.find((item) => item.username === username);
-    return colorMapPure[item.id];
+    return colorMapPure[item?.id] ?? "#00bfff";
   };
 
   /*移动切片后的事件处理*/

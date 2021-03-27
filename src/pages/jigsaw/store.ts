@@ -4,7 +4,7 @@ export interface GameMember {
   identity: string;
   username: string;
   id: number;
-  pics: number[]
+  pics: number[];
 }
 
 export interface GridData {
@@ -40,6 +40,30 @@ export const useGrid = stateFactory(
     score: 0,
     picKind: 2,
     difficult: 3,
+    // endTime: 10000000000,
+    // jigsawList: [
+    //   [0, 0, 0],
+    //   [1, 0, 0],
+    //   [0, 2, 0],
+    // ],
+    // pics: [3, 4, 5],
+    // members: [
+    //   {
+    //     id: 1,
+    //     username: "sxy",
+    //     identity: "leader",
+    //   },
+    //   {
+    //     id: 2,
+    //     username: "bbb",
+    //     identity: "member",
+    //   },
+    //   {
+    //     id: 3,
+    //     username: "ccc",
+    //     identity: "member",
+    //   },
+    // ],
     endTime: null,
     jigsawList: [],
     pics: [],
@@ -79,7 +103,9 @@ export const useGrid = stateFactory(
       const [x, y] = nextPos;
 
       set((state) => {
+        let temp = state.jigsawList[x][y];
         state.jigsawList[x][y] = state.jigsawList[i][j];
+        state.jigsawList[i][j] = temp;
         return state;
       });
     },

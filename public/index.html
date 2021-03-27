@@ -13,16 +13,24 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
+      gtag("js", new Date());
 
-      gtag('config', 'UA-144857642-1');
+      gtag("config", "UA-144857642-1");
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/scroll-behaviour.min.js"></script>
     <script type="application/javascript">
-      document.addEventListener('gesturestart', function (event) {
+      document.addEventListener("dragenter", function (event) {
         event.preventDefault();
       });
-      window.addEventListener('touchmove', function () {});
+      window.addEventListener("touchmove", function () {});
+      MobileDragDrop.polyfill({
+        // use this to make use of the scroll behaviour
+        dragImageTranslateOverride: MobileDragDrop.scrollBehaviourDragImageTranslateOverride,
+      });
     </script>
+
     <title>Let's Pin</title>
     <style>
       * {

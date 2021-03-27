@@ -26,11 +26,11 @@ function ResultPage() {
 
   const length = 300 / difficult;
 
-  const cutSliceX = (index) => {
+  const cutSliceX = (index: number) => {
     return ((index - 1) % difficult) * length;
   };
 
-  const cutSliceY = (index) => {
+  const cutSliceY = (index: number) => {
     return Math.floor((index - 1) / difficult) * length;
   };
 

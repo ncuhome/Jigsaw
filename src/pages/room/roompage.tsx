@@ -18,6 +18,7 @@ import { useRoom } from "./store";
 import { useLogin } from "@/pages/login/store";
 import { useGrid } from "@/pages/jigsaw/store";
 import { useListener, useEmit } from "@/lib/websocket/hooks";
+import { genMtx } from "@/utils/util";
 
 import Members from "./components/Members";
 import Modal from "@/components/Modal/";
@@ -48,9 +49,8 @@ function RoomPage() {
   };
 
   const myID = () => {
-    let result = 0;
-    members.map((item) => item.username === username && (result = item.id));
-    return result;
+    const member = members.find((item) => item.username === username);
+    return member.id;
   };
 
   const ifLeader = () =>
@@ -66,17 +66,6 @@ function RoomPage() {
       roomName,
       id: myID(),
     });
-  };
-
-  const array = (n) => {
-    let myArr = [];
-    for (let i = 0; i < n; i++) {
-      myArr[i] = [];
-      for (let j = 0; j < n; j++) {
-        myArr[i][j] = 0;
-      }
-    }
-    return myArr;
   };
 
   useListener("broadcastRoomLeave", (res) => {
@@ -136,7 +125,7 @@ function RoomPage() {
     gameStart({
       roomName,
       picKind: difficult - 3,
-      jigsawList: array(difficult),
+      jigsawList: genMtx(difficult),
     });
   };
 
